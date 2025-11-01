@@ -1,0 +1,22 @@
+# Prompt Template (LINE Sticker / Character Consistency)
+
+BASE:
+a cute chibi [boy/girl] character with [hair color/style], [skin tone], pastel colors, [default expression], kawaii illustration style, flat lighting, for LINE sticker, white background, upper body, centered, facing forward, {VARIATION}
+
+VARIATIONS:
+- waving hand, happy expression
+- hands together in front, gentle smile
+- wink, peace sign, cheerful pose
+- blushing, shy glance, small smile
+- surprised, open mouth, small sweat drop
+- angry expression, puffed cheeks, crossed arms
+- crying, teary eyes, pouting face
+- tired but smiling, waving hand softly
+- sleeping, eyes closed, cozy pose
+- sweating, hands up slightly, flustered expression
+- fist pump, encouraging smile
+- jumping happily, hands up, joyful expression
+- sleepy eyes, yawning, relaxed pose
+- delighted, hands on cheeks, saying 'Yummy!'
+- confused, tilted head, saying 'Eh?'
+- thumbs up, big smile, saying 'Nice!'

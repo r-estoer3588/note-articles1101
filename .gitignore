@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# node / python caches (念のため)
+node_modules/
+*.pyc
+__pycache__/
+
+# images
+*.psd
+*.ai
+*.xcf
+
+# misc
+*.tmp
