@@ -1,0 +1,67 @@
+{
+  "title": "知らないと損！イラスト描けない私が週末2日でLINEスタンプ16種を完成させたAI活用術【2025年最新】",
+  "slug": "line-stamp-ai",
+  "created_date": "2025-11-01",
+  "published_date": null,
+  "updated_date": null,
+  "status": "ready",
+  "category": "AI活用・副業",
+  "tags": [
+    "AIスタンプ制作",
+    "週末クリエイター",
+    "LeonardoAI",
+    "PixAi",
+    "NanoBanana",
+    "LINEスタンプ",
+    "生成AI",
+    "キャラ制作",
+    "DAIY",
+    "副業"
+  ],
+  "note_url": null,
+  "has_paid_section": true,
+  "paid_section_price": null,
+  "estimated_read_time": "8分",
+  "target_audience": "20代後半〜30代前半、副業・創作活動に興味がある会社員・フリーランス志向者",
+  "key_points": [
+    "イラスト未経験でもAIツール3つでLINEスタンプが作れる",
+    "週末2日で16種類のスタンプを完成",
+    "Leonardo.ai（ベース）→ PixAi（仕上げ）→ Nano Banana（バリエーション）の役割分担",
+    "実際に使ったプロンプト16種類を全公開"
+  ],
+  "stats": {
+    "views": null,
+    "likes": null,
+    "comments": null,
+    "paid_purchases": null
+  },
+  "seo": {
+    "meta_description": "イラストが描けなくてもOK！週末2日でLINEスタンプ16種を作った全工程とAIツール3つの使い分けを完全解説。実際のプロンプト全公開。",
+    "keywords": "LINEスタンプ 作り方, AI イラスト, 副業 初心者, Leonardo.ai 使い方, PixAi, Nano Banana, 生成AI 活用"
+  },
+  "tools_used": [
+    {
+      "name": "Leonardo.ai",
+      "purpose": "キャラクターベース作成・固定シード機能",
+      "url": "https://leonardo.ai"
+    },
+    {
+      "name": "PixAi",
+      "purpose": "可愛いテイスト仕上げ・デフォルメ",
+      "url": "https://pixai.art"
+    },
+    {
+      "name": "Nano Banana (Gemini 2.5 Flash Image)",
+      "purpose": "表情・ポーズのバリエーション展開",
+      "url": "https://aistudio.google.com"
+    }
+  ],
+  "revision_history": [
+    {
+      "date": "2025-11-01",
+      "version": "1.0",
+      "changes": "初稿完成"
+    }
+  ],
+  "notes": "有料パート：16種類のプロンプト全文＋感情表現の使い分け＋構図一覧"
+}

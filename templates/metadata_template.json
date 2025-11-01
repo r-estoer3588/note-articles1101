@@ -1,0 +1,49 @@
+{
+  "title": "[記事タイトル]",
+  "slug": "[URL用スラッグ]",
+  "created_date": "YYYY-MM-DD",
+  "published_date": null,
+  "updated_date": null,
+  "status": "draft",
+  "category": "[カテゴリ]",
+  "tags": [
+    "タグ1",
+    "タグ2",
+    "タグ3"
+  ],
+  "note_url": null,
+  "has_paid_section": false,
+  "paid_section_price": null,
+  "estimated_read_time": "○分",
+  "target_audience": "[ターゲット読者の詳細]",
+  "key_points": [
+    "ポイント1",
+    "ポイント2",
+    "ポイント3"
+  ],
+  "stats": {
+    "views": null,
+    "likes": null,
+    "comments": null,
+    "paid_purchases": null
+  },
+  "seo": {
+    "meta_description": "[SEO用の説明文 120-160文字]",
+    "keywords": "[キーワード1, キーワード2, キーワード3]"
+  },
+  "tools_used": [
+    {
+      "name": "[ツール名]",
+      "purpose": "[使用目的]",
+      "url": "[URL]"
+    }
+  ],
+  "revision_history": [
+    {
+      "date": "YYYY-MM-DD",
+      "version": "1.0",
+      "changes": "[変更内容]"
+    }
+  ],
+  "notes": "[その他メモ]"
+}

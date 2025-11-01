@@ -1,0 +1,138 @@
+# 共通ベースプロンプト
+
+a cute chibi girl character with medium brown straight hair, fair skin, pastel colors, soft small smile, kawaii illustration style, flat lighting, for LINE sticker, white background, upper body, centered, facing forward, {追加句}
+
+---
+
+## 16種類の追加句（感情別）
+
+### ① おはよう ☀️
+waving hand, happy expression
+
+### ② ありがとう 💗
+hands together in front, gentle smile
+
+### ③ 了解！✌️
+wink, peace sign, cheerful pose
+
+### ④ 照れ☺️
+blushing, shy glance, small smile
+
+### ⑤ びっくり😳
+surprised, open mouth, small sweat drop
+
+### ⑥ 怒り💢
+angry expression, puffed cheeks, crossed arms
+
+### ⑦ 泣き😭
+crying, teary eyes, pouting face
+
+### ⑧ おつかれ〜🌙
+tired but smiling, waving hand softly
+
+### ⑨ おやすみ💤
+sleeping, eyes closed, cozy pose
+
+### ⑩ あせあせ💦
+sweating, hands up slightly, flustered expression
+
+### ⑪ がんばれ！🔥
+fist pump, encouraging smile
+
+### ⑫ うれしい🎉
+jumping happily, hands up, joyful expression
+
+### ⑬ ねむい😴
+sleepy eyes, yawning, relaxed pose
+
+### ⑭ おいしい🍰
+delighted, hands on cheeks, saying 'Yummy!'
+
+### ⑮ えー？🤔
+confused, tilted head, saying 'Eh?'
+
+### ⑯ いいね！👍
+thumbs up, big smile, saying 'Nice!'
+
+---
+
+## 使い方のコツ
+
+### Leonardo.ai での使用
+- 固定シード（Fixed Seed）をオン
+- シード値：12345（または任意の数字）
+- ベースプロンプトのみで3パターン生成
+- 気に入った1枚を選択
+
+### PixAi での使用
+- モデル：Kawaii / Chibi 系を選択
+- ベースプロンプト＋「white background」を強調
+- Leonardo.aiの画像をImage-to-Imageで調整
+
+### Nano Banana (Google AI Studio) での使用
+- 確定したベース画像をアップロード
+- ベースプロンプト＋各感情の追加句を入力
+- Top P: 0.7〜0.9 で微調整
+- 各感情ごとに1枚ずつ生成
+
+---
+
+## パラメータ設定メモ
+
+### Leonardo.ai
+- Model: Leonardo Diffusion XL
+- Image Dimensions: 512x512
+- Guidance Scale: 7
+- Step Count: 30
+- Fixed Seed: ON (12345)
+
+### PixAi
+- Model: [使用したモデル名をここに記録]
+- Sampling Steps: 20-30
+- CFG Scale: 7-9
+- Image Size: 512x512
+
+### Nano Banana
+- Temperature: 1.0（デフォルト）
+- Top P: 0.7-0.9（表情の多様性に応じて調整）
+- Max Output Tokens: デフォルト
+
+---
+
+## 失敗例と改善策
+
+### 失敗①：表情がかぶった
+- 原因：「照れ」と「困り」の追加句が似ていた
+- 改善：動き・小物を追加（「shy glance」「tilted head」等）
+
+### 失敗②：キャラがブレた
+- 原因：Leonardo.aiで固定シードを使わなかった
+- 改善：必ず固定シードをオン
+
+### 失敗③：背景が複雑になった
+- 原因：「white background」の指定が弱かった
+- 改善：プロンプトの最後に強調して配置
+
+---
+
+## 応用アイデア
+
+### 季節イベント用
+- {追加句} + "with santa hat" (クリスマス)
+- {追加句} + "holding heart-shaped chocolate" (バレンタイン)
+- {追加句} + "surrounded by cherry blossoms" (春)
+
+### 動物耳バージョン
+- {追加句} + "with cat ears"
+- {追加句} + "with bunny ears"
+
+### 背景バリエーション
+- 白背景：white background
+- パステル背景：soft pastel pink background
+- グラデーション：gradient background, pink to blue
+
+---
+
+**記録日**: 2025-11-01
+**実制作時間**: 土曜3時間 + 日曜4時間 = 計7時間
+**生成枚数**: 約50枚（最終選定：16枚）
