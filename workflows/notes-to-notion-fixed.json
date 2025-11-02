@@ -1,0 +1,426 @@
+{
+  "name": "Notes to Notion Auto Organizer",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerOn": "folderChange",
+        "options": {}
+      },
+      "id": "f58356ad-72ab-4b17-a771-32337e736016",
+      "name": "Watch Notes Folder",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.path }}"
+      },
+      "id": "fa6ef58d-aeec-4ffd-af9e-6877a703936a",
+      "name": "Read Note File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "name": "fileName",
+              "value": "={{ $json.fileName || $json.path.split('\\\\').pop() }}",
+              "type": "string"
+            },
+            {
+              "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+              "name": "fileContent",
+              "value": "={{ $binary.data ? $binary.data.toString('utf8') : $json.data }}",
+              "type": "string"
+            },
+            {
+              "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+              "name": "filePath",
+              "value": "={{ $json.path }}",
+              "type": "string"
+            },
+            {
+              "id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+              "name": "createdDate",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96bbe0cd-b27b-43a2-a137-3afbbb456e8c",
+      "name": "Set Note Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse OpenAI JSON response\n// n8n-nodes-base.openAi with jsonOutput: true returns parsed JSON directly\nconst aiResponse = $input.item.json;\n\n// If the response is already an object with category and tags, use it directly\nlet parsed = {};\nif (aiResponse.category && aiResponse.tags) {\n  parsed = aiResponse;\n} else if (typeof aiResponse === 'string') {\n  // Fallback: if it's a string, try to parse it\n  try {\n    parsed = JSON.parse(aiResponse);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else if (aiResponse.message?.content) {\n  // Another fallback for different response format\n  try {\n    parsed = JSON.parse(aiResponse.message.content);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else {\n  parsed = { category: '未分類', tags: [] };\n}\n\n// Get original data from previous node\nconst prevItem = $input.first();\n\nreturn {\n  fileName: prevItem.json.fileName,\n  fileContent: prevItem.json.fileContent,\n  filePath: prevItem.json.filePath,\n  createdDate: prevItem.json.createdDate,\n  category: parsed.category || '未分類',\n  tags: Array.isArray(parsed.tags) ? parsed.tags : []\n};"
+      },
+      "id": "d7d181f3-2389-4276-8b88-79fbf67b6ed4",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+              "name": "title",
+              "value": "={{ $json.fileName.replace('.txt', '').replace('.md', '') }}",
+              "type": "string"
+            },
+            {
+              "id": "f6a7b8c9-d0e1-2345-f123-456789012345",
+              "name": "content",
+              "value": "={{ $json.fileContent }}",
+              "type": "string"
+            },
+            {
+              "id": "a7b8c9d0-e1f2-3456-1234-567890123456",
+              "name": "category",
+              "value": "={{ $json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "b8c9d0e1-f2a3-4567-2345-678901234567",
+              "name": "tags",
+              "value": "={{ $json.tags }}",
+              "type": "array"
+            },
+            {
+              "id": "c9d0e1f2-a3b4-5678-3456-789012345678",
+              "name": "processed",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "d0e1f2a3-b4c5-6789-4567-890123456789",
+              "name": "createdDate",
+              "value": "={{ $json.createdDate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "866eff2f-f3b4-4c06-b493-2017f8420ddb",
+      "name": "Format for Notion",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "title": "={{ $json.title }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Category",
+              "textContent": "={{ $json.category }}"
+            },
+            {
+              "key": "Tags",
+              "multiSelectValue": "={{ $json.tags }}"
+            },
+            {
+              "key": "Processed",
+              "checkboxValue": "={{ $json.processed }}"
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "richText": "={{ $json.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0337d441-06f9-40a0-9eb6-314d4186bc37",
+      "name": "Notion Create Item",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        576,
+        144
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "KQOYayZrx6kzGmwc",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "f1234567-890a-bcde-f123-4567890abcde",
+              "leftValue": "={{ $now.minus({ days: 30 }).toMillis() }}",
+              "rightValue": "={{ new Date($json.createdDate).getTime() }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9f8e7c6d-7355-49d2-9c58-e37a5924fbc8",
+      "name": "Old File Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=Remove-Item -Path \"{{ $json.filePath }}\" -Force"
+      },
+      "id": "bc6afad6-dfba-4393-a927-81cfb2bd673e",
+      "name": "Delete Old File",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        176,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "15111419-f84e-4237-a0e7-0a1f72383037",
+      "name": "Daily Reminder Cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -624,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": "29e1972f485180c89c68d77f1b82e39f",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "4c8926b9-f696-4ef4-82e2-04a7f0189f10",
+      "name": "Get All Notes from Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        544
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "KQOYayZrx6kzGmwc",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick random note for reminder\nconst items = $input.all();\nconst randomIndex = Math.floor(Math.random() * items.length);\nconst randomNote = items[randomIndex].json;\n\nreturn {\n  title: randomNote.properties?.Title?.title?.[0]?.plain_text || 'No title',\n  url: randomNote.url,\n  category: randomNote.properties?.Category?.rich_text?.[0]?.plain_text || '未分類'\n};"
+      },
+      "id": "39e49cec-8cae-43b0-8a29-1aa506d1c768",
+      "name": "Random Reminder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Use OpenAI via HTTP with API key from n8n credentials\nconst apiKey = $env.OPENAI_API_KEY;\n\nif (!apiKey) {\n  throw new Error('OPENAI_API_KEY not configured. Please set it in n8n environment variables.');\n}\n\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${$json.fileName}\n内容: ${$json.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [\n      { role: 'user', content: prompt }\n    ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, {\n    headers: {\n      'Authorization': `Bearer ${apiKey}`,\n      'Content-Type': 'application/json'\n    }\n  });\n\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n\n  return {\n    category: parsed.category || '未分類',\n    tags: Array.isArray(parsed.tags) ? parsed.tags : []\n  };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return {\n    category: '未分類',\n    tags: ['エラー']\n  };\n}"
+      },
+      "id": "6ba7f70b-76e0-4670-ad8b-cb57637f1daf",
+      "name": "OpenAI Category Tagging",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        144
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Watch Notes Folder": {
+      "main": [
+        [
+          {
+            "node": "Read Note File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Note File": {
+      "main": [
+        [
+          {
+            "node": "Set Note Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Note Metadata": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Category Tagging",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Old File Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Category Tagging": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "Format for Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Notion": {
+      "main": [
+        [
+          {
+            "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Old File Check": {
+      "main": [
+        [
+          {
+            "node": "Delete Old File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Old File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Reminder Cron": {
+      "main": [
+        [
+          {
+            "node": "Get All Notes from Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Notes from Notion": {
+      "main": [
+        [
+          {
+            "node": "Random Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3e331c5d-5329-493a-b3a2-7f288929995e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c66144ee16d45af7e6eada54f34f7e34ca645b50a24113b20037dc875b6abf27"
+  },
+  "id": "3D3cefHi9r2b2aNh",
+  "tags": []
+}
