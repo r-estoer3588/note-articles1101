@@ -4,6 +4,8 @@
     {
       "parameters": {
         "triggerOn": "folderChange",
+        "path": "C:\\Users\\stair\\OneDrive\\Documents\\Notes",
+        "event": "add",
         "options": {}
       },
       "id": "f58356ad-72ab-4b17-a771-32337e736016",
