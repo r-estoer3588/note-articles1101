@@ -37,7 +37,7 @@
     {
       "parameters": {
         "fieldToSplitOut": "stdout",
-        "include": "selectedOtherFields"
+        "include": "noOtherFields"
       },
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -215,6 +215,65 @@
           "name": "Notion account"
         }
       }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "e88b9a26-df31-44f8-bea6-cd1dbc84537f",
+      "name": "Daily Reminder Cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "b2e95c42-733b-4de9-97fa-ae1b6dd5c244",
+      "name": "Get All Notes from Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -48,
+        400
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "nsXTOjwR6MmTqoxn",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick random note for reminder\nconst items = $input.all();\nconst randomIndex = Math.floor(Math.random() * items.length);\nconst randomNote = items[randomIndex].json;\n\nreturn {\n  title: randomNote.properties?.Title?.title?.[0]?.plain_text || 'No title',\n  url: randomNote.url,\n  category: randomNote.properties?.Category?.rich_text?.[0]?.plain_text || '未分類'\n};"
+      },
+      "id": "a2b94228-99d1-457a-8778-5cd683db56d1",
+      "name": "Random Reminder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        400
+      ]
     }
   ],
   "pinData": {},
@@ -312,6 +371,28 @@
         [
           {
             "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Reminder Cron": {
+      "main": [
+        [
+          {
+            "node": "Get All Notes from Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Notes from Notion": {
+      "main": [
+        [
+          {
+            "node": "Random Reminder",
             "type": "main",
             "index": 0
           }
