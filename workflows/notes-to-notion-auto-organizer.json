@@ -3,31 +3,33 @@
   "nodes": [
     {
       "parameters": {
-        "triggerOn": "folderChange",
-        "path": "C:\\Notes",
-        "event": "add",
+        "triggerOn": "folder",
+        "path": "/notes",
+        "events": [
+          "add"
+        ],
         "options": {}
       },
-      "id": "f58356ad-72ab-4b17-a771-32337e736016",
+      "id": "1427e35b-a37b-43d5-8aed-68f51300990d",
       "name": "Watch Notes Folder",
       "type": "n8n-nodes-base.localFileTrigger",
       "typeVersion": 1,
       "position": [
-        -624,
-        144
+        -752,
+        -128
       ]
     },
     {
       "parameters": {
         "filePath": "={{ $json.path }}"
       },
-      "id": "fa6ef58d-aeec-4ffd-af9e-6877a703936a",
+      "id": "687a481c-2c75-4fca-bc62-1f276a5affb3",
       "name": "Read Note File",
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
       "position": [
-        -432,
-        144
+        -560,
+        -128
       ]
     },
     {
@@ -62,26 +64,26 @@
         },
         "options": {}
       },
-      "id": "96bbe0cd-b27b-43a2-a137-3afbbb456e8c",
+      "id": "3f8fc3c8-78bf-4c2e-ad61-e12d166e2fb4",
       "name": "Set Note Metadata",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -224,
-        144
+        -352,
+        -128
       ]
     },
     {
       "parameters": {
         "jsCode": "// Parse OpenAI JSON response\n// n8n-nodes-base.openAi with jsonOutput: true returns parsed JSON directly\nconst aiResponse = $input.item.json;\n\n// If the response is already an object with category and tags, use it directly\nlet parsed = {};\nif (aiResponse.category && aiResponse.tags) {\n  parsed = aiResponse;\n} else if (typeof aiResponse === 'string') {\n  // Fallback: if it's a string, try to parse it\n  try {\n    parsed = JSON.parse(aiResponse);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else if (aiResponse.message?.content) {\n  // Another fallback for different response format\n  try {\n    parsed = JSON.parse(aiResponse.message.content);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else {\n  parsed = { category: '未分類', tags: [] };\n}\n\n// Get original data from previous node\nconst prevItem = $input.first();\n\nreturn {\n  fileName: prevItem.json.fileName,\n  fileContent: prevItem.json.fileContent,\n  filePath: prevItem.json.filePath,\n  createdDate: prevItem.json.createdDate,\n  category: parsed.category || '未分類',\n  tags: Array.isArray(parsed.tags) ? parsed.tags : []\n};"
       },
-      "id": "d7d181f3-2389-4276-8b88-79fbf67b6ed4",
+      "id": "eb0cfaca-ef38-4473-ac19-0e356d7c227d",
       "name": "Parse AI Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        176,
-        144
+        64,
+        -128
       ]
     },
     {
@@ -128,13 +130,13 @@
         },
         "options": {}
       },
-      "id": "866eff2f-f3b4-4c06-b493-2017f8420ddb",
+      "id": "c27002e0-0b9b-4867-85fb-40dc6c13cfff",
       "name": "Format for Notion",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        384,
-        144
+        272,
+        -128
       ]
     },
     {
@@ -171,13 +173,13 @@
         },
         "options": {}
       },
-      "id": "0337d441-06f9-40a0-9eb6-314d4186bc37",
+      "id": "8cddebc3-43f2-4582-945d-c431f0bc0521",
       "name": "Notion Create Item",
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        576,
-        144
+        464,
+        -128
       ],
       "credentials": {
         "notionApi": {
@@ -209,26 +211,26 @@
         },
         "options": {}
       },
-      "id": "9f8e7c6d-7355-49d2-9c58-e37a5924fbc8",
+      "id": "5b676005-118a-4ebd-9445-e5284ab9c824",
       "name": "Old File Check",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -16,
-        352
+        -144,
+        80
       ]
     },
     {
       "parameters": {
         "command": "=Remove-Item -Path \"{{ $json.filePath }}\" -Force"
       },
-      "id": "bc6afad6-dfba-4393-a927-81cfb2bd673e",
+      "id": "8bcdb043-1b75-435c-9ad2-959339c6877d",
       "name": "Delete Old File",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        176,
-        352
+        64,
+        80
       ]
     },
     {
@@ -241,13 +243,13 @@
           ]
         }
       },
-      "id": "15111419-f84e-4237-a0e7-0a1f72383037",
+      "id": "a555d4b6-e081-4407-acfe-e811e070e63f",
       "name": "Daily Reminder Cron",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -624,
-        544
+        -752,
+        272
       ]
     },
     {
@@ -258,13 +260,13 @@
         "returnAll": true,
         "options": {}
       },
-      "id": "4c8926b9-f696-4ef4-82e2-04a7f0189f10",
+      "id": "50ce48e6-cf72-4249-863b-3c7cf4dfa543",
       "name": "Get All Notes from Notion",
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        -432,
-        544
+        -560,
+        272
       ],
       "credentials": {
         "notionApi": {
@@ -277,26 +279,26 @@
       "parameters": {
         "jsCode": "// Pick random note for reminder\nconst items = $input.all();\nconst randomIndex = Math.floor(Math.random() * items.length);\nconst randomNote = items[randomIndex].json;\n\nreturn {\n  title: randomNote.properties?.Title?.title?.[0]?.plain_text || 'No title',\n  url: randomNote.url,\n  category: randomNote.properties?.Category?.rich_text?.[0]?.plain_text || '未分類'\n};"
       },
-      "id": "39e49cec-8cae-43b0-8a29-1aa506d1c768",
+      "id": "3ad9ffa1-ef16-4fa3-9fd9-9f4b1361c243",
       "name": "Random Reminder",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -224,
-        544
+        -352,
+        272
       ]
     },
     {
       "parameters": {
         "jsCode": "// Use OpenAI via HTTP with API key from n8n credentials\nconst apiKey = $env.OPENAI_API_KEY;\n\nif (!apiKey) {\n  throw new Error('OPENAI_API_KEY not configured. Please set it in n8n environment variables.');\n}\n\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${$json.fileName}\n内容: ${$json.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [\n      { role: 'user', content: prompt }\n    ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, {\n    headers: {\n      'Authorization': `Bearer ${apiKey}`,\n      'Content-Type': 'application/json'\n    }\n  });\n\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n\n  return {\n    category: parsed.category || '未分類',\n    tags: Array.isArray(parsed.tags) ? parsed.tags : []\n  };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return {\n    category: '未分類',\n    tags: ['エラー']\n  };\n}"
       },
-      "id": "6ba7f70b-76e0-4670-ad8b-cb57637f1daf",
+      "id": "abdba613-0caa-442f-85eb-bfc63cdffada",
       "name": "OpenAI Category Tagging",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -16,
-        144
+        -144,
+        -128
       ]
     }
   ],
@@ -414,11 +416,15 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false,
+    "timezone": "Asia/Tokyo"
   },
-  "versionId": "3e331c5d-5329-493a-b3a2-7f288929995e",
+  "versionId": "4282424a-f820-4865-8301-3b9ca7f6e0d3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "c66144ee16d45af7e6eada54f34f7e34ca645b50a24113b20037dc875b6abf27"
