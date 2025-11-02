@@ -1,0 +1,440 @@
+{
+  "name": "Notes to Notion Auto Organizer (Improved)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "value": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Scan Notes Folder (Every 5 min)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -750,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "command": "find /notes -type f \\( -name '*.txt' -o -name '*.md' \\) -newer /tmp/last_scan 2>/dev/null | head -10"
+      },
+      "id": "scan-files-node",
+      "name": "Find New Files",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -550,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse file list from command output\nconst output = $json.stdout || '';\nconst files = output\n  .split('\\n')\n  .map(f => f.trim())\n  .filter(f => f.length > 0);\n\nif (files.length === 0) {\n  return null;  // スキップ\n}\n\n// 最初のファイルを処理\nreturn {\n  filePath: files[0],\n  fileName: files[0].split('/').pop()\n};"
+      },
+      "id": "parse-file-list",
+      "name": "Parse File Path",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -350,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.filePath }}"
+      },
+      "id": "read-file-node",
+      "name": "Read Note File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -150,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "meta-1",
+              "name": "fileName",
+              "value": "={{ $json.fileName }}",
+              "type": "string"
+            },
+            {
+              "id": "meta-2",
+              "name": "fileContent",
+              "value": "={{ $binary.data ? $binary.data.toString('utf8') : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "meta-3",
+              "name": "filePath",
+              "value": "={{ $json.filePath }}",
+              "type": "string"
+            },
+            {
+              "id": "meta-4",
+              "name": "createdDate",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-metadata",
+      "name": "Set Note Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        50,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// OpenAI API を HTTP経由で呼び出す\nconst apiKey = $env.OPENAI_API_KEY;\n\nif (!apiKey) {\n  return {\n    category: '未分類',\n    tags: ['エラー:API_KEY未設定']\n  };\n}\n\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n- その他\n\n【出力形式】\nJSON形式で以下のようにリターンしてください（必ずこのフォーマット）:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\", \"タグ2\"]}\n\nファイル名: ${$json.fileName}\n\n【内容】\n${$json.fileContent.substring(0, 1000)}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [\n      {\n        role: 'system',\n        content: 'You are a note categorization expert. Respond ONLY with valid JSON.'\n      },\n      {\n        role: 'user',\n        content: prompt\n      }\n    ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, {\n    headers: {\n      'Authorization': `Bearer ${apiKey}`,\n      'Content-Type': 'application/json'\n    }\n  });\n\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n\n  return {\n    category: parsed.category || '未分類',\n    tags: Array.isArray(parsed.tags) ? parsed.tags : []\n  };\n} catch (error) {\n  console.error('OpenAI Error:', error.message);\n  return {\n    category: '未分類',\n    tags: ['処理エラー']\n  };\n}"
+      },
+      "id": "openai-tagging",
+      "name": "OpenAI Category Tagging",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        250,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse OpenAI response\nconst aiData = $input.all()[1].json;  // AI ノードの結果\nconst prevData = $input.all()[0].json;  // メタデータノードの結果\n\nreturn {\n  fileName: prevData.fileName,\n  fileContent: prevData.fileContent,\n  filePath: prevData.filePath,\n  createdDate: prevData.createdDate,\n  category: aiData.category || '未分類',\n  tags: aiData.tags || []\n};"
+      },
+      "id": "format-for-notion",
+      "name": "Format for Notion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "title": "={{ $json.fileName.replace(/\\.(txt|md)$/i, '') }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Content",
+              "richTextContent": "={{ $json.fileContent }}"
+            },
+            {
+              "key": "Category",
+              "textContent": "={{ $json.category }}"
+            },
+            {
+              "key": "Tags",
+              "multiSelectValue": "={{ $json.tags }}"
+            },
+            {
+              "key": "Processed",
+              "checkboxValue": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "notion-create-item",
+      "name": "Notion Create Item",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        650,
+        -100
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "KQOYayZrx6kzGmwc",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {}
+      },
+      "id": "manual-test-trigger",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -750,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "test-1",
+              "name": "fileName",
+              "value": "test_note.txt",
+              "type": "string"
+            },
+            {
+              "id": "test-2",
+              "name": "fileContent",
+              "value": "これはテストノートです。\\n\\n## 内容\\n- Python の機械学習について学んでいます\\n- scikit-learn と pandas を使用しています\\n- データ分析が主な用途",
+              "type": "string"
+            },
+            {
+              "id": "test-3",
+              "name": "filePath",
+              "value": "/notes/test_note.txt",
+              "type": "string"
+            },
+            {
+              "id": "test-4",
+              "name": "createdDate",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "manual-test-data",
+      "name": "Manual Test Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -550,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const testData = $input.all()[0].json;\n\nreturn {\n  category: '技術メモ',\n  tags: ['Python', '機械学習', 'データ分析']\n};"
+      },
+      "id": "manual-test-ai",
+      "name": "Mock AI Response (Test)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -350,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const testMetadata = $input.all()[0].json;\nconst aiResponse = $input.all()[1].json;\n\nreturn {\n  fileName: testMetadata.fileName,\n  fileContent: testMetadata.fileContent,\n  filePath: testMetadata.filePath,\n  createdDate: testMetadata.createdDate,\n  category: aiResponse.category,\n  tags: aiResponse.tags\n};"
+      },
+      "id": "manual-format-notion",
+      "name": "Format for Notion (Test)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -150,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "title": "={{ $json.fileName.replace(/\\.(txt|md)$/i, '') }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Content",
+              "richTextContent": "={{ $json.fileContent }}"
+            },
+            {
+              "key": "Category",
+              "textContent": "={{ $json.category }}"
+            },
+            {
+              "key": "Tags",
+              "multiSelectValue": "={{ $json.tags }}"
+            },
+            {
+              "key": "Processed",
+              "checkboxValue": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "notion-create-item-test",
+      "name": "Notion Create Item (Test)",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        50,
+        150
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "KQOYayZrx6kzGmwc",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Scan Notes Folder (Every 5 min)": {
+      "main": [
+        [
+          {
+            "node": "Find New Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find New Files": {
+      "main": [
+        [
+          {
+            "node": "Parse File Path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse File Path": {
+      "main": [
+        [
+          {
+            "node": "Read Note File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Note File": {
+      "main": [
+        [
+          {
+            "node": "Set Note Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Note Metadata": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Category Tagging",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Category Tagging": {
+      "main": [
+        [
+          {
+            "node": "Format for Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Notion": {
+      "main": [
+        [
+          {
+            "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Test Trigger": {
+      "main": [
+        [
+          {
+            "node": "Manual Test Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Test Data": {
+      "main": [
+        [
+          {
+            "node": "Mock AI Response (Test)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mock AI Response (Test)": {
+      "main": [
+        [
+          {
+            "node": "Format for Notion (Test)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Notion (Test)": {
+      "main": [
+        [
+          {
+            "node": "Notion Create Item (Test)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false,
+    "timezone": "Asia/Tokyo"
+  },
+  "versionId": "improved-version-001",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

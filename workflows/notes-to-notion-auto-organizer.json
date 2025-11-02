@@ -222,7 +222,7 @@
     },
     {
       "parameters": {
-        "command": "=Remove-Item -Path \"{{ $json.filePath }}\" -Force"
+        "command": "=rm -f \"{{ $json.filePath }}\""
       },
       "id": "8bcdb043-1b75-435c-9ad2-959339c6877d",
       "name": "Delete Old File",
