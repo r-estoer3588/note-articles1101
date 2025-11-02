@@ -50,7 +50,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Parse each line as a file path\nconst stdout = $input.item.json.stdout;\n\nif (!stdout || stdout.trim() === '') {\n  return null; // Skip empty lines\n}\n\nconst lines = stdout.trim().split('\\n').filter(line => line.trim() !== '');\nconst results = [];\n\nfor (const line of lines) {\n  const trimmedLine = line.trim();\n  if (trimmedLine) {\n    results.push({\n      path: trimmedLine,\n      fileName: trimmedLine.split('/').pop()\n    });\n  }\n}\n\nreturn results;"
+        "jsCode": "// Parse file path from Split Out\nconst item = $input.item.json;\n\n// Split Out gives us each line as a separate item\nconst filePath = item.stdout;\n\nif (!filePath || filePath.trim() === '') {\n  return null; // Skip empty items\n}\n\nconst trimmedPath = filePath.trim();\n\nreturn {\n  path: trimmedPath,\n  fileName: trimmedPath.split('/').pop()\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
