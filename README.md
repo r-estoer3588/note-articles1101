@@ -1,6 +1,6 @@
-# note記事アーカイブ
+# note 記事アーカイブ
 
-このリポジトリは、noteで公開する記事のソース管理・テンプレート保管・執筆支援ツールを統合したコンテンツ制作基地です。
+このリポジトリは、note で公開する記事のソース管理・テンプレート保管・執筆支援ツールを統合したコンテンツ制作基地です。
 
 ## 📁 ディレクトリ構成
 
@@ -34,26 +34,26 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 
 1. `article.md`を完成させる
 2. `metadata.json`に公開情報を記入
-3. noteにコピペして公開
-4. `metadata.json`に公開URLを追記
+3. note にコピペして公開
+4. `metadata.json`に公開 URL を追記
 5. コミット＆プッシュ
 
 ## 📝 記事一覧
 
-| 日付 | タイトル | ステータス | note URL |
-|------|---------|-----------|----------|
-| 2025-11-01 | 週末D'AI'Y：AIでつくる！ユイのLINEスタンプ奮闘記 | ✅ 完成 | （公開後追記） |
+| 日付       | タイトル                                             | ステータス | note URL       |
+| ---------- | ---------------------------------------------------- | ---------- | -------------- |
+| 2025-11-01 | 週末 D'AI'Y：AI でつくる！ユイの LINE スタンプ奮闘記 | ✅ 完成    | （公開後追記） |
 
 ## 🛠️ ツール
 
-- `tools/publish_to_note.py` - note APIへの自動投稿（将来実装予定）
+- `tools/publish_to_note.py` - note API への自動投稿（将来実装予定）
 - `tools/image_optimizer.py` - 画像サイズ最適化
 - `tools/metadata_generator.py` - メタデータ自動生成
 
 ## 📖 テンプレート
 
 - `templates/article_template.md` - 基本記事構成
-- `templates/prompt_template.txt` - AIプロンプト記録用
+- `templates/prompt_template.txt` - AI プロンプト記録用
 - `templates/metadata_template.json` - メタデータひな形
 
 ## 🎨 執筆ガイドライン
@@ -64,14 +64,14 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 [損失] + [具体的数字] + [解決策] + [社会的証明] + [希少性]
 ```
 
-例：「知らないと損！イラスト描けない私が週末2日でLINEスタンプ16種を完成させたAI活用術【2025年最新】」
+例：「知らないと損！イラスト描けない私が週末 2 日で LINE スタンプ 16 種を完成させた AI 活用術【2025 年最新】」
 
 ### 構成の基本
 
-1. **導入**（約250文字）：シーン描写で共感を生む
-2. **本論1**：問題の可視化
-3. **本論2**：具体的な解決策
-4. **本論3**：成果と実例
+1. **導入**（約 250 文字）：シーン描写で共感を生む
+2. **本論 1**：問題の可視化
+3. **本論 2**：具体的な解決策
+4. **本論 3**：成果と実例
 5. **結論**：変化のビジョン＋行動喚起
 
 ### 心理導線
@@ -82,9 +82,9 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 
 ## 🔗 関連リンク
 
-- [note公式](https://note.com)
-- [noteヘルプセンター](https://help.note.com)
-- [Markdown記法](https://help.note.com/hc/ja/articles/360000114182)
+- [note 公式](https://note.com)
+- [note ヘルプセンター](https://help.note.com)
+- [Markdown 記法](https://help.note.com/hc/ja/articles/360000114182)
 
 ## 📊 パフォーマンス追跡
 
@@ -98,8 +98,8 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 
 ## 🌟 今後の展開
 
-- [ ] note API連携で自動投稿
-- [ ] 画像生成AIとの統合ワークフロー
+- [ ] note API 連携で自動投稿
+- [ ] 画像生成 AI との統合ワークフロー
 - [ ] 記事パフォーマンス分析ダッシュボード
 - [ ] タグ別・カテゴリ別アーカイブ
 
