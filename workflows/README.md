@@ -2,19 +2,43 @@
 
 ローカルフォルダに置いたノートファイルを自動で読み込み、OpenAI で分類して Notion に登録する n8n ワークフローです。
 
-## 📂 ファイル一覧
+---
 
+## � **今すぐ始める → [`HOW_TO_USE.md`](HOW_TO_USE.md)**
+
+**一度設定すれば、二度と設定不要!**
+
+---
+
+## �📂 ファイル一覧
+
+### ⭐ 推奨ドキュメント
+- **HOW_TO_USE.md** - 🔥**最も簡単な使い方ガイド(まずこれを読む!)**
+- **docker-compose.yml** - n8n環境の永続化設定
+- **PERSISTENT_SETUP.md** - 詳細な永続化セットアップガイド
+- **start-n8n.ps1** - n8n起動スクリプト(設定は自動保存)
+- **stop-n8n.ps1** - n8n停止スクリプト
+
+### ワークフローファイル
 - **notes-to-notion-auto-organizer.json** - n8n ワークフロー本体(インポート用)
-- **README.md** - このファイル(概要とセットアップ)
-- **QUICKSTART.md** - 5分で始めるクイックスタートガイド
-- **SETUP_GUIDE.md** - 詳細なセットアップ手順と接続方法
 - **CUSTOMIZATION.md** - OpenAI プロンプトとフロー拡張のカスタマイズガイド
+
+### 従来のドキュメント(非推奨)
+- ~~**QUICKSTART.md** - 従来の5分クイックスタート(毎回設定が必要)~~
+- ~~**SETUP_GUIDE.md** - 従来の詳細セットアップ(毎回設定が必要)~~
+
+---
 
 ## 🎯 どのファイルを読めばいい?
 
-1. **初めての方** → `QUICKSTART.md` を読んでインポート
-2. **接続で詰まった方** → `SETUP_GUIDE.md` の「接続方法」を参照
-3. **カスタマイズしたい方** → `CUSTOMIZATION.md` でプロンプト例を確認
+| 状況 | 読むべきファイル |
+|------|------------------|
+| 🔰 **初めて使う** | **[`HOW_TO_USE.md`](HOW_TO_USE.md)** ← まずこれ! |
+| 🔧 永続化の詳細を知りたい | [`PERSISTENT_SETUP.md`](PERSISTENT_SETUP.md) |
+| 🎨 AIプロンプトをカスタマイズ | [`CUSTOMIZATION.md`](CUSTOMIZATION.md) |
+| 🐛 トラブルが発生した | [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) |
+
+---
 
 ## 📋 機能
 
@@ -31,6 +55,31 @@
 ---
 
 ## 🚀 セットアップ手順
+
+### ⭐ 推奨: 永久保存方式
+
+**`PERSISTENT_SETUP.md` を参照してください**
+
+一度セットアップすれば、以降は何もする必要がありません:
+- ✅ Docker起動だけでOK
+- ✅ 設定は全部保存される
+- ✅ 再起動しても消えない
+- ✅ APIキーを毎回入れ直す必要なし
+
+```powershell
+# workflows/ ディレクトリで実行
+docker-compose up -d
+
+# ブラウザで http://localhost:5678 を開く
+# (初回のみワークフローをインポート)
+```
+
+---
+
+### 従来の方式(非推奨 - 毎回セットアップが必要)
+
+<details>
+<summary>クリックして展開</summary>
 
 ### 1. n8n にワークフローをインポート
 
@@ -75,6 +124,8 @@ Notion データベースに以下のプロパティが必要です:
 ### 5. ワークフローを有効化
 
 n8n UI でワークフローを「Active」に変更すれば、自動で動作します。
+
+</details>
 
 ---
 

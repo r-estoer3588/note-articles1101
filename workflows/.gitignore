@@ -1,0 +1,12 @@
+# n8nの一時ファイル
+.n8n/
+
+# Dockerボリュームのバックアップ
+n8n_backup.tar.gz
+
+# 環境変数ファイル(APIキーなど)
+.env
+.env.local
+
+# ログファイル
+*.log
