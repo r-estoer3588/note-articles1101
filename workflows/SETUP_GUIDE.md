@@ -351,6 +351,89 @@ Random Reminder の後に Discord ノードを追加:
 
 ---
 
+## 🔄 最新の状況（2025年11月2日 21:15更新）
+
+### 実施済み対応
+
+1. **Docker 環境でのセットアップ完了**
+   - コンテナ名: `n8n-notes-organizer`
+   - ポート: `5678`
+   - ボリュームマウント: `C:\Notes` → `/notes`
+   - データ永続化: `n8n_data:/root/.n8n`
+
+2. **環境変数の設定**
+   - `OPENAI_API_KEY`: 最新キー `sk-proj-ZIoSx1K4lJBq...` で更新済み（2025/11/02 21:15）
+   - コンテナ再起動で環境変数を反映
+
+3. **認証情報の再登録**
+   - Notion API: `Notion account` 再登録完了
+   - OpenAI API: 環境変数で設定済み
+
+4. **Notion データベース設定**
+   - データベースID: `29e1972f485180c89c68d77f1b82e39f`
+   - プロパティ構成:
+     - Title (タイトル)
+     - Content (リッチテキスト)
+     - Processed (チェックボックス)
+     - **Category (リッチテキスト)** ← Rich text で運用（Select ではない）
+     - **Tags (マルチセレクト)**
+   - n8n の接続権限を追加済み
+
+5. **ワークフロー修正内容**
+   - Watch Notes Folder: パスを `/notes` に変更（Docker コンテナ内のパス）
+   - Delete Old File: コマンドを `rm -f` に変更（Linux 対応）
+   - OpenAI Category Tagging: Code ノードで直接 API 呼び出し（n8n-nodes-base.openAi が使用不可のため）
+
+### 現在の課題
+
+1. **localFileTrigger の制限**
+   - Docker 環境では `inotify` が正しく動作せず、Watch Notes Folder がファイル追加を検知できない
+   - ログ確認: `docker logs n8n-notes-organizer` で「User attempted to access a workflow without permissions」が多発
+   - 実行履歴で上段フロー（Watch → Read → ... → Notion）が起動していない
+
+2. **代替案の検討が必要**
+   - **案A**: スケジュール実行（Schedule Trigger）でフォルダをスキャンし、未処理ファイルを検出
+   - **案B**: n8n Cloud で同じワークフローを作成して動作確認
+   - **案C**: Webhook や Manual Trigger で手動実行し、ロジック部分を先に完成させる
+
+3. **次のステップ**
+   - [ ] 手動テスト（Execute workflow）で Notion Create Item まで正常に通るか確認
+   - [ ] ファイル監視を Schedule Trigger + フォルダスキャンに変更
+   - [ ] 実運用前に全フロー（OpenAI 分類 → Notion 登録）の動作確認を完了
+
+### 環境情報
+
+```bash
+# Docker コンテナ起動コマンド（最新版）
+docker run -d \
+  --name n8n-notes-organizer \
+  -p 5678:5678 \
+  -e OPENAI_API_KEY="sk-proj-ZIoSx1K4lJBq..." \
+  -v n8n_data:/root/.n8n \
+  -v C:\Notes:/notes \
+  n8nio/n8n:latest
+
+# コンテナ内のファイル確認
+docker exec n8n-notes-organizer ls -la /notes
+
+# ログ確認
+docker logs n8n-notes-organizer --tail 50
+```
+
+### トラブルシューティング
+
+**問題**: Watch Notes Folder が反応しない  
+**原因**: Docker マウントでは localFileTrigger の inotify が動作しづらい  
+**解決**: Schedule Trigger に切り替えるか、n8n Cloud で検証
+
+**問題**: "Node does not have any credentials set for 'notionApi'"  
+**状態**: Notion 認証情報を再登録して解消済み
+
+**問題**: OpenAI Category Tagging で「Install this node to use it」エラー  
+**解決**: Code ノードで OpenAI API を直接呼び出すように変更済み
+
+---
+
 **🎉 これで完成です!**
 
 監視フォルダにファイルを追加するだけで、自動的に AI が分類して Notion に登録してくれます。
