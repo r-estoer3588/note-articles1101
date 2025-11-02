@@ -1,0 +1,413 @@
+{
+  "name": "Notes to Notion Auto Organizer",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "C:\\Users\\stair\\OneDrive\\Documents\\Notes",
+        "options": {}
+      },
+      "name": "Watch Notes Folder",
+      "type": "n8n-nodes-base.watchFiles",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "id": "61b98b83-1c10-4c70-a18b-7b3e9803d303"
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.path }}"
+      },
+      "name": "Read Note File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "id": "d5ebceb5-6dc3-44ee-ad88-25dea8c026ed"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "filename",
+              "value": "={{ $json.fileName }}"
+            },
+            {
+              "name": "content",
+              "value": "={{ $binary.data.toString('utf8') }}"
+            },
+            {
+              "name": "filePath",
+              "value": "={{ $json.path }}"
+            },
+            {
+              "name": "createdAt",
+              "value": "={{ $json.mtimeMs }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Note Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ],
+      "id": "48dca923-a02b-4b85-8f73-67886775a9e8"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a helpful assistant that categorizes notes. Analyze the note content and output ONLY a valid JSON object with these exact fields: {\\\"category\\\": \\\"string\\\", \\\"tags\\\": [\\\"string\\\"]}. Category should be a single descriptive category. Tags should be 2-5 relevant keywords.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze this note and suggest category and tags:\\n\\n{{ $json.content }}\"\n    }\n  ],\n  \"temperature\": 0.3\n}",
+        "options": {}
+      },
+      "name": "OpenAI Category Tagging",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        300
+      ],
+      "id": "ai-category-tagger-001",
+      "credentials": {
+        "openAiApi": {
+          "id": "LH7QbsEMB3R638C6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// OpenAI レスポンスから category と tags を抽出\nconst responseContent = $input.item.json.choices[0].message.content;\nconst aiResult = JSON.parse(responseContent);\n\n// 元のメタデータと AI 結果をマージ\nreturn {\n  filename: $('Set Note Metadata').item.json.filename,\n  content: $('Set Note Metadata').item.json.content,\n  filePath: $('Set Note Metadata').item.json.filePath,\n  createdAt: $('Set Note Metadata').item.json.createdAt,\n  category: aiResult.category,\n  tags: aiResult.tags\n};"
+      },
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "id": "parse-ai-response-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Notion 用のフォーマットに整形\nreturn {\n  Title: $json.filename,\n  Content: $json.content,\n  Processed: true,\n  Category: $json.category,\n  Tags: $json.tags.map(tag => ({ name: tag }))\n};"
+      },
+      "name": "Format for Notion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        300
+      ],
+      "id": "0e126123-a914-40bc-a34d-5dc175ddddca"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "title": "={{ $json.Title }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Category",
+              "textValue": "={{ $json.Category }}"
+            },
+            {
+              "key": "Tags",
+              "multiSelectValue": "={{ $json.Tags }}"
+            },
+            {
+              "key": "Processed",
+              "checkboxValue": true
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "type": "paragraph",
+              "richText": true,
+              "textContent": "={{ $json.Content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Notion Create Item",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        300
+      ],
+      "id": "9b1b24c9-6b2d-4839-99e0-b7536e9b3b5e",
+      "credentials": {
+        "notionApi": {
+          "id": "gSF7MeWTgomzvBzA",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.createdAt }}",
+              "operation": "smaller",
+              "value2": "={{ $now.minus({ days: 30 }).toMillis() }}"
+            }
+          ]
+        }
+      },
+      "name": "Old File Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        900,
+        500
+      ],
+      "id": "b08fb190-74b3-4ed7-bab2-7ad1e6847bbe"
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.filePath }}"
+      },
+      "name": "Delete Old File",
+      "type": "n8n-nodes-base.fs",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        500
+      ],
+      "id": "61a34fe3-39a6-4c2c-9991-e7f12a461a39",
+      "credentials": {
+        "fs": {
+          "id": "fs-credential-id",
+          "name": "File System"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "name": "Daily Reminder Cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        700
+      ],
+      "id": "cac5789f-474b-46cd-8118-d9f575d0656c"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "name": "Get All Notes from Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        460,
+        700
+      ],
+      "id": "get-all-notes-001",
+      "credentials": {
+        "notionApi": {
+          "id": "gSF7MeWTgomzvBzA",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Notion から取得した全ノートからランダムに1件選択\nconst items = $input.all();\nif (items.length === 0) {\n  return [];\n}\n\nconst randomIndex = Math.floor(Math.random() * items.length);\nconst selectedNote = items[randomIndex].json;\n\nreturn {\n  title: selectedNote.properties?.Title?.title?.[0]?.plain_text || 'Untitled',\n  url: selectedNote.url,\n  category: selectedNote.properties?.Category?.rich_text?.[0]?.plain_text || 'Uncategorized'\n};"
+      },
+      "name": "Random Reminder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        700
+      ],
+      "id": "bbc61b87-4860-4278-942d-6c3e2baca221"
+    },
+    {
+      "parameters": {
+        "content": "## 📝 Notes to Notion Auto Organizer\n\n### メインフロー（上段）\n1. **Watch Notes Folder**: ローカルフォルダを監視\n2. **Read Note File**: ファイル内容を読み込み\n3. **Set Note Metadata**: 基本情報を設定\n4. **OpenAI Category Tagging**: AI でカテゴリ・タグを自動生成\n5. **Parse AI Response**: AI の回答を解析\n6. **Format for Notion**: Notion 用に整形\n7. **Notion Create Item**: Notion に登録\n\n### 古いファイル削除（中段）\n- **Set Note Metadata** から分岐\n- **Old File Check**: 30日以上前のファイルをチェック\n- **Delete Old File**: 該当ファイルを削除\n\n### 定期リマインド（下段）\n- **Daily Reminder Cron**: 毎日9時に起動\n- **Get All Notes from Notion**: 全ノートを取得\n- **Random Reminder**: ランダムに1件選択\n- （ここから Slack/Discord/Email ノードに接続可能）\n\n### 必要な設定\n1. OpenAI API キー（OpenAI Category Tagging ノード）\n2. Notion API キー + データベース ID\n3. ファイルシステム認証（Delete Old File ノード）\n4. 監視フォルダパス（Watch Notes Folder ノード）",
+        "height": 464.2857142857143,
+        "width": 428.57142857142856,
+        "color": 4
+      },
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        140,
+        60
+      ],
+      "id": "sticky-note-001"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Watch Notes Folder": {
+      "main": [
+        [
+          {
+            "node": "Read Note File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Note File": {
+      "main": [
+        [
+          {
+            "node": "Set Note Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Note Metadata": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Category Tagging",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Old File Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Category Tagging": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "Format for Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Notion": {
+      "main": [
+        [
+          {
+            "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Old File Check": {
+      "main": [
+        [
+          {
+            "node": "Delete Old File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Reminder Cron": {
+      "main": [
+        [
+          {
+            "node": "Get All Notes from Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Notes from Notion": {
+      "main": [
+        [
+          {
+            "node": "Random Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bf012cf3-0807-46e3-a6bd-162455f674d6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2540e56e49eb088925e01910351788944bfe79648cfc8674ed90d1d41fe01fc2"
+  },
+  "id": "p9KFTcPBLLaDB7ko",
+  "tags": []
+}
