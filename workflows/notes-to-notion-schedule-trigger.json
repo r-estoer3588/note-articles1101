@@ -163,7 +163,7 @@
             {
               "id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
               "name": "title",
-              "value": "={{ $json.fileName.replace('.txt', '').replace('.md', '') }}",
+              "value": "={{ ($json.fileName || $json.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, '') }}",
               "type": "string"
             },
             {
