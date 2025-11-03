@@ -145,7 +145,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Parse OpenAI JSON response\nconst aiResponse = $input.item.json;\n\nlet parsed = {};\nif (aiResponse.category && aiResponse.tags) {\n  parsed = aiResponse;\n} else if (typeof aiResponse === 'string') {\n  try {\n    parsed = JSON.parse(aiResponse);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else if (aiResponse.message?.content) {\n  try {\n    parsed = JSON.parse(aiResponse.message.content);\n  } catch (e) {\n    parsed = { category: '未分類', tags: [] };\n  }\n} else {\n  parsed = { category: '未分類', tags: [] };\n}\n\nconst prevItem = $input.first();\n\nreturn {\n  fileName: prevItem.json.fileName,\n  fileContent: prevItem.json.fileContent,\n  filePath: prevItem.json.filePath,\n  createdDate: prevItem.json.createdDate,\n  category: parsed.category || '未分類',\n  tags: Array.isArray(parsed.tags) ? parsed.tags : []\n};"
+        "jsCode": "// Simply pass through the data from OpenAI Category Tagging\n// which already contains all necessary fields\nconst data = $input.item.json;\n\n// Ensure all required fields are present\nreturn {\n  fileName: data.fileName || 'Untitled',\n  fileContent: data.fileContent || '',\n  filePath: data.filePath || '',\n  createdDate: data.createdDate || new Date().toISOString(),\n  category: data.category || '未分類',\n  tags: Array.isArray(data.tags) ? data.tags : []\n};"
       },
       "id": "b3f9ae35-e913-4721-b395-67a23d672719",
       "name": "Parse AI Response",
