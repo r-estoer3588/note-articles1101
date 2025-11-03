@@ -49,7 +49,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Filter out already processed files\nconst allFilesOutput = $input.first().json.stdout;\nconst processedListOutput = $input.last().json.stdout;\n\nif (!allFilesOutput || allFilesOutput.trim() === '') {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput.trim().split('\\n').filter(line => line.trim() !== '');\nconst processedFiles = processedListOutput ? processedListOutput.trim().split('\\n').filter(line => line.trim() !== '') : [];\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedFiles.length);\n\n// Filter unprocessed files\nconst unprocessedFiles = allFiles.filter(file => !processedFiles.includes(file.trim()));\n\nconsole.log('Unprocessed files:', unprocessedFiles.length);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\n// Return array of items with json wrapper\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file.trim(),\n    fileName: file.trim().split('/').pop()\n  }\n}));"
+        "jsCode": "// Filter out already processed files\nconst inputs = $input.all();\n\nif (inputs.length < 2) {\n  console.log('Error: Expected 2 inputs, got', inputs.length);\n  return [];\n}\n\nconst allFilesOutput = inputs[0].json.stdout;\nconst processedListOutput = inputs[1].json.stdout;\n\nconsole.log('All files output:', allFilesOutput);\nconsole.log('Processed list output:', processedListOutput);\n\nif (!allFilesOutput || allFilesOutput.trim() === '') {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput.trim().split('\\n').filter(line => line.trim() !== '');\nconst processedFiles = processedListOutput ? processedListOutput.trim().split('\\n').filter(line => line.trim() !== '') : [];\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedFiles.length);\n\n// Filter unprocessed files\nconst unprocessedFiles = allFiles.filter(file => !processedFiles.includes(file.trim()));\n\nconsole.log('Unprocessed files:', unprocessedFiles.length);\nconsole.log('Unprocessed list:', unprocessedFiles);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\n// Return array of items with json wrapper\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file.trim(),\n    fileName: file.trim().split('/').pop()\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -174,6 +174,13 @@
               "name": "processed",
               "value": true,
               "type": "boolean"
+            }
+            ,
+            {
+              "id": "e0f1a2b3-c4d5-6789-9012-abcdefabcdef",
+              "name": "filePath",
+              "value": "={{ $json.filePath }}",
+              "type": "string"
             }
           ]
         },
@@ -369,7 +376,7 @@
           {
             "node": "Filter Unprocessed Files",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
