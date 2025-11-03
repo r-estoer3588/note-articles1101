@@ -76,7 +76,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Extract text content from binary file\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = item.json.fileName || path.split('/').pop();\n\n// Get file content from binary data\nlet fileContent = '';\nif (item.binary && item.binary.data) {\n  // Convert Buffer to string\n  const buffer = item.binary.data;\n  if (Buffer.isBuffer(buffer)) {\n    fileContent = buffer.toString('utf8');\n  } else if (buffer.data) {\n    fileContent = Buffer.from(buffer.data).toString('utf8');\n  }\n}\n\nreturn {\n  fileName: fileName,\n  fileContent: fileContent,\n  filePath: path,\n  createdDate: new Date().toISOString()\n};"
+          "jsCode": "// Extract UTF-8 text content from binary produced by Read Binary File\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = (item.json.fileName || (path ? path.split('/').pop() : 'Untitled'));\n\nlet fileContent = '';\n// n8n binary shapes vary. Try common shapes and decode base64 -> utf8\nif (item.binary) {\n  let base64Str = '';\n  // 1) item.binary.data is an object with { data: 'base64' } or a string\n  if (typeof item.binary.data === 'string') {\n    base64Str = item.binary.data;\n  } else if (item.binary.data && typeof item.binary.data.data === 'string') {\n    base64Str = item.binary.data.data;\n  } else {\n    // 2) first binary entry\n    const firstKey = Object.keys(item.binary)[0];\n    const entry = item.binary[firstKey];\n    if (entry && typeof entry.data === 'string') {\n      base64Str = entry.data;\n    } else if (entry && entry.data && typeof entry.data.data === 'string') {\n      base64Str = entry.data.data;\n    }\n  }\n  if (base64Str) {\n    try {\n      fileContent = Buffer.from(base64Str, 'base64').toString('utf8');\n    } catch (e) {\n      // Fallback: keep raw string\n      fileContent = base64Str;\n    }\n  }\n}\n\nreturn {\n  fileName,\n  fileContent,\n  filePath: path,\n  createdDate: new Date().toISOString()\n};"
       },
       "id": "dbeb2ab1-f113-4217-b19f-fdaa9b23c080",
       "name": "Set Note Metadata",
@@ -98,7 +98,7 @@
       "position": [
         944,
         0
-      ]
+              "jsCode": "// Use OpenAI via HTTP with API key from n8n credentials\nconst apiKey = $env.OPENAI_API_KEY;\n\nif (!apiKey) {\n  throw new Error('OPENAI_API_KEY not configured. Please set it in n8n environment variables.');\n}\n\nconst inputData = $input.item.json;\n\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${inputData.fileName}\n内容: ${inputData.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [\n      { role: 'user', content: prompt }\n    ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, {\n    headers: {\n      'Authorization': `Bearer ${apiKey}`,\n      'Content-Type': 'application/json'\n    }\n  });\n\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n\n  return {\n    ...inputData,\n    category: parsed.category || '未分類',\n    tags: Array.isArray(parsed.tags) ? parsed.tags : []\n  };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return {\n    ...inputData,\n    category: '未分類',\n    tags: []\n  };\n}"
     },
     {
       "parameters": {
