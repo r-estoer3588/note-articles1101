@@ -76,40 +76,12 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-              "name": "fileName",
-              "value": "={{ $json.fileName || $json.path.split('/').pop() }}",
-              "type": "string"
-            },
-            {
-              "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-              "name": "fileContent",
-              "value": "={{ $binary.data ? $binary.data.toString('utf8') : $json.data }}",
-              "type": "string"
-            },
-            {
-              "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
-              "name": "filePath",
-              "value": "={{ $json.path }}",
-              "type": "string"
-            },
-            {
-              "id": "d4e5f6a7-b8c9-0123-def1-234567890123",
-              "name": "createdDate",
-              "value": "={{ $now.toISO() }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
+        "jsCode": "// Extract text content from binary file\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = item.json.fileName || path.split('/').pop();\n\n// Get file content from binary data\nlet fileContent = '';\nif (item.binary && item.binary.data) {\n  // Convert Buffer to string\n  const buffer = item.binary.data;\n  if (Buffer.isBuffer(buffer)) {\n    fileContent = buffer.toString('utf8');\n  } else if (buffer.data) {\n    fileContent = Buffer.from(buffer.data).toString('utf8');\n  }\n}\n\nreturn {\n  fileName: fileName,\n  fileContent: fileContent,\n  filePath: path,\n  createdDate: new Date().toISOString()\n};"
       },
       "id": "dbeb2ab1-f113-4217-b19f-fdaa9b23c080",
       "name": "Set Note Metadata",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         736,
         0
