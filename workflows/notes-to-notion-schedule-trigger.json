@@ -49,12 +49,27 @@
     },
     {
       "parameters": {
-        "jsCode": "// Filter out already processed files\nconst inputs = $input.all();\n\n// Expect two inputs: [0] from List All Files, [1] from Get Processed List\nif (inputs.length < 2) {\n  console.log('Error: Expected 2 inputs, got', inputs.length);\n  return [];\n}\n\nconst allFilesOutput = inputs[0]?.json?.stdout ?? '';\nconst processedListOutput = inputs[1]?.json?.stdout ?? '';\n\nif (!allFilesOutput.trim()) {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(Boolean);\n\nconst processedFiles = processedListOutput\n  ? processedListOutput\n      .split('\\n')\n      .map(line => line.trim())\n      .filter(Boolean)\n  : [];\n\nconst processedSet = new Set(processedFiles);\nconst unprocessedFiles = allFiles.filter(file => !processedSet.has(file));\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedSet.size);\nconsole.log('Unprocessed files:', unprocessedFiles.length);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file,\n    fileName: file.split('/').pop()\n  }\n}));"
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        144,
+        0
+      ],
+      "id": "merge-inputs-001",
+      "name": "Merge Inputs"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter out already processed files\nconst item = $input.item.json;\n\nconst allFilesOutput = item.stdout_0 ?? item.stdout ?? '';\nconst processedListOutput = item.stdout_1 ?? '';\n\nif (!allFilesOutput.trim()) {\n  return [];\n}\n\nconst allFiles = allFilesOutput\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(Boolean);\n\nconst processedFiles = processedListOutput\n  ? processedListOutput\n      .split('\\n')\n      .map(line => line.trim())\n      .filter(Boolean)\n  : [];\n\nconst processedSet = new Set(processedFiles);\nconst unprocessedFiles = allFiles.filter(file => !processedSet.has(file));\n\nif (unprocessedFiles.length === 0) {\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file,\n    fileName: file.split('/').pop()\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        144,
+        336,
         0
       ],
       "id": "parse-file-list-001",
@@ -384,7 +399,7 @@
       "main": [
         [
           {
-            "node": "Filter Unprocessed Files",
+            "node": "Merge Inputs",
             "type": "main",
             "index": 0
           }
@@ -395,9 +410,20 @@
       "main": [
         [
           {
-            "node": "Filter Unprocessed Files",
+            "node": "Merge Inputs",
             "type": "main",
             "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Inputs": {
+      "main": [
+        [
+          {
+            "node": "Filter Unprocessed Files",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
