@@ -1,0 +1,147 @@
+{
+  "name": "GETHNOTE → X Auto Poster",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMinute",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "cron1",
+      "name": "Cron - Every 5min",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "filePath": "C:/Repos/note-articles/gethnote/schedule/tracking_sheet.csv",
+        "binaryPropertyName": "data"
+      },
+      "id": "readFile",
+      "name": "Read CSV (Binary)",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "options": {
+          "headerRow": true
+        },
+        "binaryPropertyName": "data"
+      },
+      "id": "csvToJson",
+      "name": "Spreadsheet File → JSON",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [740, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const now = new Date();\nconst pad = (n)=> String(n).padStart(2,'0');\nconst tzNow = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), 0, 0);\nconst windowMin = 8; // 分\nfunction inWindow(dateStr, timeStr){\n  if(!dateStr || !timeStr) return false;\n  const [Y,M,D] = dateStr.split('-').map(Number);\n  const [h,m] = timeStr.split(':').map(Number);\n  const target = new Date(Y, (M-1), D, h, m, 0, 0);\n  const diffMin = Math.abs((tzNow - target)/60000);\n  return diffMin <= windowMin;\n}\n// posted.json 読み込みは後段（無ければ新規）\nreturn items.filter(it => {\n  const row = it.json;\n  if(!row['日付'] || !row['配信時刻']) return false;\n  if(!row['note_url']) return false; // 導線がないものはスキップ\n  if(!inWindow(row['日付'], row['配信時刻'])) return false;\n  return true;\n});"
+      },
+      "id": "filterNow",
+      "name": "Filter rows for now (±8m)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// 簡易 NG ワード置換（必要に応じて拡張）\nfunction sanitize(s){\n  if(!s) return s;\n  const ng = [\n    'バカ', '底辺', '死ね', '差別', 'ガチで犯罪', '違法', '煽り', 'オンカジ'\n  ];\n  let out = String(s);\n  ng.forEach(w=>{\n    const re = new RegExp(w, 'g');\n    out = out.replace(re, '※表現調整');\n  });\n  // 強い断定の弱体化\n  out = out.replace(/絶対/g, '確実ではないが');\n  out = out.replace(/必ず/g, '高い確率で');\n  return out;\n}\nreturn items.map(it=>{\n  it.json.hashtags = (it.json.hashtags || '').split(',').map(s=>s.trim()).filter(Boolean).slice(0,4).join(' ');\n  it.json.note_url = String(it.json.note_url || '');\n  it.json.title = String(it.json['タイトル'] || it.json.title || '');\n  it.json.sanitizer = sanitize.toString();\n  return it;\n});"
+      },
+      "id": "prepare",
+      "name": "Prepare fields & sanitizer",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "operation": "chat",
+        "model": "gpt-4o-mini",
+        "messages": [
+          {"role":"system","content":"あなたは SNS コピーの専門家です。X の投稿文を 220 文字以内、日本語、センシティブ/差別/誤情報/断定的医療・金融表現を避け、好奇心を喚起しつつリンク先で詳細を読む構成にしてください。ハッシュタグは 2-3 個。"},
+          {"role":"user","content":"タイトル: {{$json.title}}\nカテゴリ: {{$json['カテゴリー'] || ''}}\nリンク: {{$json.note_url}}\n任意のハッシュタグ: {{$json.hashtags}}\n条件: 1) 220字以内 2) クリック誘導は一回だけ 3) 過度な煽り・断定・攻撃性は避ける 4) 箇条書きは使わない 5) 文末にハッシュタグを付ける"}
+        ]
+      },
+      "id": "openai",
+      "name": "OpenAI - Compose Tweet",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 4,
+      "position": [1440, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "OPENAI_CREDENTIALS",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// OpenAI 出力を取り出し & セーフティ整形\nfunction sanitize(s){\n  const ng = [\n    'バカ', '底辺', '死ね', '差別', 'ガチで犯罪', '違法', '煽り', 'オンカジ'\n  ];\n  let out = String(s || '');\n  ng.forEach(w=>{ const re = new RegExp(w, 'g'); out = out.replace(re, '※表現調整'); });\n  // 文字数制限（X 220 目安）\n  if(out.length > 220){ out = out.slice(0, 217) + '…'; }\n  return out;\n}\nreturn items.map(it=>{\n  const msg = it.json.choices?.[0]?.message?.content || it.json.data || it.json.text || '';\n  it.json.tweet = sanitize(msg);\n  return it;\n});"
+      },
+      "id": "safety",
+      "name": "Safety filter",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [1680, 300]
+    },
+    {
+      "parameters": {
+        "resource": "tweet",
+        "operation": "create",
+        "text": "={{$json.tweet}}"
+      },
+      "id": "twitter",
+      "name": "Post to X",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [1920, 300],
+      "credentials": {
+        "twitterOAuth1Api": {
+          "id": "TWITTER_CREDENTIALS",
+          "name": "Twitter"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Read CSV (Binary)": {
+      "main": [ [ {"node": "Spreadsheet File → JSON", "type": "main", "index": 0 } ] ]
+    },
+    "Cron - Every 5min": {
+      "main": [ [ {"node": "Read CSV (Binary)", "type": "main", "index": 0 } ] ]
+    },
+    "Spreadsheet File → JSON": {
+      "main": [ [ {"node": "Filter rows for now (±8m)", "type": "main", "index": 0 } ] ]
+    },
+    "Filter rows for now (±8m)": {
+      "main": [ [ {"node": "Prepare fields & sanitizer", "type": "main", "index": 0 } ] ]
+    },
+    "Prepare fields & sanitizer": {
+      "main": [ [ {"node": "OpenAI - Compose Tweet", "type": "main", "index": 0 } ] ]
+    },
+    "OpenAI - Compose Tweet": {
+      "main": [ [ {"node": "Safety filter", "type": "main", "index": 0 } ] ]
+    },
+    "Safety filter": {
+      "main": [ [ {"node": "Post to X", "type": "main", "index": 0 } ] ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "errorWorkflow": false
+  },
+  "pinData": {},
+  "staticData": {},
+  "id": "gethnote-x-auto-poster"
+}

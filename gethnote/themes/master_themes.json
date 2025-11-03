@@ -1,0 +1,170 @@
+{
+  "project": "GETHNOTE月50万円プロジェクト",
+  "concept": "HARMフレームワーク × 損回避心理 × 秘密情報",
+  "pricing": {
+    "per_article": 300,
+    "target_articles": 100,
+    "potential_revenue": "3万円〜30万円"
+  },
+  "article_specs": {
+    "word_count": "500-700字",
+    "framework": "HARM (Harm → Attention → Reward → Motivation)",
+    "tone": "損回避・秘密情報・優越感"
+  },
+  "categories": {
+    "A_money_finance": {
+      "name": "お金・投資・金融系",
+      "count": 20,
+      "themes": [
+        {"id": 1, "title": "銀行口座で絶対にやってはいけないこと", "category": "money_finance"},
+        {"id": 2, "title": "クレジットカードで損する使い方", "category": "money_finance"},
+        {"id": 3, "title": "投資信託で絶対避けたい銘柄選び", "category": "money_finance"},
+        {"id": 4, "title": "ポイント還元で損するパターン", "category": "money_finance"},
+        {"id": 5, "title": "年金で知らないと損する裏技", "category": "money_finance"},
+        {"id": 6, "title": "保険で絶対入ってはいけないプラン", "category": "money_finance"},
+        {"id": 7, "title": "税金で損する確定申告のミス", "category": "money_finance"},
+        {"id": 8, "title": "FXで絶対やってはいけないこと", "category": "money_finance"},
+        {"id": 9, "title": "暗号資産で失敗する初心者の罠", "category": "money_finance"},
+        {"id": 10, "title": "不動産投資で絶対避けたい物件", "category": "money_finance"},
+        {"id": 11, "title": "住宅ローンで損する契約内容", "category": "money_finance"},
+        {"id": 12, "title": "NISAで知らないと損する落とし穴", "category": "money_finance"},
+        {"id": 13, "title": "iDeCoで絶対失敗する運用法", "category": "money_finance"},
+        {"id": 14, "title": "副業の確定申告で絶対やってはいけないこと", "category": "money_finance"},
+        {"id": 15, "title": "節税で逆に損する方法", "category": "money_finance"},
+        {"id": 16, "title": "相続で絶対やってはいけないこと", "category": "money_finance"},
+        {"id": 17, "title": "生命保険で損する見直しパターン", "category": "money_finance"},
+        {"id": 18, "title": "電子マネーで知らないと損する裏技", "category": "money_finance"},
+        {"id": 19, "title": "ふるさと納税で損する選び方", "category": "money_finance"},
+        {"id": 20, "title": "金融詐欺で絶対引っかかる人の特徴", "category": "money_finance"}
+      ]
+    },
+    "B_business_career": {
+      "name": "ビジネス・キャリア・転職系",
+      "count": 15,
+      "themes": [
+        {"id": 21, "title": "転職で絶対に失敗する面接回答", "category": "business_career"},
+        {"id": 22, "title": "履歴書・職務経歴書で損する書き方", "category": "business_career"},
+        {"id": 23, "title": "年収交渉で絶対やってはいけないこと", "category": "business_career"},
+        {"id": 24, "title": "退職で損する辞め方", "category": "business_career"},
+        {"id": 25, "title": "副業で絶対選んではいけない案件", "category": "business_career"},
+        {"id": 26, "title": "起業で失敗する初心者の罠", "category": "business_career"},
+        {"id": 27, "title": "フリーランスで損する契約書の穴", "category": "business_career"},
+        {"id": 28, "title": "資格取得で絶対無駄になる選び方", "category": "business_career"},
+        {"id": 29, "title": "昇進で損する働き方", "category": "business_career"},
+        {"id": 30, "title": "職場の人間関係で絶対やってはいけないこと", "category": "business_career"},
+        {"id": 31, "title": "テレワークで損する働き方", "category": "business_career"},
+        {"id": 32, "title": "会議で絶対失敗する発言パターン", "category": "business_career"},
+        {"id": 33, "title": "上司への報告で損するタイミング", "category": "business_career"},
+        {"id": 34, "title": "ビジネスメールで絶対やってはいけないこと", "category": "business_career"},
+        {"id": 35, "title": "営業で絶対売れないNG行動", "category": "business_career"}
+      ]
+    },
+    "C_health_beauty": {
+      "name": "健康・美容・ダイエット系",
+      "count": 15,
+      "themes": [
+        {"id": 36, "title": "ダイエットで絶対失敗する食事法", "category": "health_beauty"},
+        {"id": 37, "title": "筋トレで逆効果になる間違い", "category": "health_beauty"},
+        {"id": 38, "title": "サプリで損する選び方", "category": "health_beauty"},
+        {"id": 39, "title": "スキンケアで逆に肌が荒れるNG習慣", "category": "health_beauty"},
+        {"id": 40, "title": "睡眠で絶対やってはいけないこと", "category": "health_beauty"},
+        {"id": 41, "title": "プロテインで損する飲み方", "category": "health_beauty"},
+        {"id": 42, "title": "ランニングで絶対やってはいけないフォーム", "category": "health_beauty"},
+        {"id": 43, "title": "美容医療で失敗するクリニック選び", "category": "health_beauty"},
+        {"id": 44, "title": "ヘアケアで逆に髪が傷む習慣", "category": "health_beauty"},
+        {"id": 45, "title": "コスメ選びで損する成分の罠", "category": "health_beauty"},
+        {"id": 46, "title": "腸活で逆効果になる食べ方", "category": "health_beauty"},
+        {"id": 47, "title": "メンタルヘルスで絶対やってはいけないこと", "category": "health_beauty"},
+        {"id": 48, "title": "歯のケアで損する習慣", "category": "health_beauty"},
+        {"id": 49, "title": "ストレス解消で逆効果な方法", "category": "health_beauty"},
+        {"id": 50, "title": "アンチエイジングで損する習慣", "category": "health_beauty"}
+      ]
+    },
+    "D_relationship_communication": {
+      "name": "恋愛・人間関係・コミュニケーション系",
+      "count": 15,
+      "themes": [
+        {"id": 51, "title": "マッチングアプリで絶対モテないプロフィール", "category": "relationship_communication"},
+        {"id": 52, "title": "デートで絶対失敗する会話術", "category": "relationship_communication"},
+        {"id": 53, "title": "告白で絶対振られるタイミング", "category": "relationship_communication"},
+        {"id": 54, "title": "結婚で損する相手の見極め方", "category": "relationship_communication"},
+        {"id": 55, "title": "別れ話で絶対やってはいけないこと", "category": "relationship_communication"},
+        {"id": 56, "title": "友達関係で損する距離感", "category": "relationship_communication"},
+        {"id": 57, "title": "LINE・SNSで嫌われるメッセージ", "category": "relationship_communication"},
+        {"id": 58, "title": "飲み会で絶対嫌われる行動", "category": "relationship_communication"},
+        {"id": 59, "title": "謝罪で逆に怒られるパターン", "category": "relationship_communication"},
+        {"id": 60, "title": "プレゼント選びで絶対失敗する基準", "category": "relationship_communication"},
+        {"id": 61, "title": "家族関係で絶対やってはいけないこと", "category": "relationship_communication"},
+        {"id": 62, "title": "ママ友・パパ友で損する付き合い方", "category": "relationship_communication"},
+        {"id": 63, "title": "嫌いな人への対処で損する方法", "category": "relationship_communication"},
+        {"id": 64, "title": "ご近所トラブルで絶対やってはいけないこと", "category": "relationship_communication"},
+        {"id": 65, "title": "会話で絶対嫌われる話し方", "category": "relationship_communication"}
+      ]
+    },
+    "E_life_hobby_gossip": {
+      "name": "生活・趣味・小ネタ・ゲス系",
+      "count": 35,
+      "sub_categories": {
+        "life_home": {
+          "name": "生活・家庭系",
+          "count": 10,
+          "themes": [
+            {"id": 66, "title": "家事で絶対にやってはいけない時短テク", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 67, "title": "子どものお小遣いで損しない渡し方", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 68, "title": "掃除で逆に汚くなるNG習慣", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 69, "title": "光熱費で損する契約の落とし穴", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 70, "title": "家計管理で絶対やってはいけないこと", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 71, "title": "知らないと損する買い物の裏ワザ", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 72, "title": "料理で絶対失敗するパターン", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 73, "title": "家庭内トラブルを避ける心理テク", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 74, "title": "収納で逆に散らかる落とし穴", "category": "life_hobby_gossip", "sub_category": "life_home"},
+            {"id": 75, "title": "時短家事でやりがちな損パターン", "category": "life_hobby_gossip", "sub_category": "life_home"}
+          ]
+        },
+        "hobby_entertainment": {
+          "name": "趣味・遊び系",
+          "count": 10,
+          "themes": [
+            {"id": 76, "title": "ゲーム課金で絶対に損する罠", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 77, "title": "映画・漫画で知らないと損する裏設定", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 78, "title": "音楽ストリーミングで損しない聴き方", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 79, "title": "スポーツ観戦で得する裏テク", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 80, "title": "旅行で絶対避けたい予約ミス", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 81, "title": "カフェや飲食で知らないと損する裏ワザ", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 82, "title": "DIYで絶対やってはいけない失敗例", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 83, "title": "写真撮影で絶対失敗する構図", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 84, "title": "ペット飼育で知らないと損する習慣", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"},
+            {"id": 85, "title": "趣味グッズ購入で損しないチェックリスト", "category": "life_hobby_gossip", "sub_category": "hobby_entertainment"}
+          ]
+        },
+        "social_internet": {
+          "name": "社会・ネット裏事情系",
+          "count": 15,
+          "themes": [
+            {"id": 86, "title": "政治ニュースで絶対騙される落とし穴", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 87, "title": "詐欺メール・SMSの見抜き方", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 88, "title": "ネット広告で損するクリックパターン", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 89, "title": "アプリ課金で知らないと損する裏仕様", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 90, "title": "クラウドサービスで絶対避ける落とし穴", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 91, "title": "ネット上の人間関係で損しない心理テク", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 92, "title": "SNS炎上で絶対やってはいけない返信", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 93, "title": "知らないと損する交通トラブルの裏ルール", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 94, "title": "ショッピングサイトの隠れ割引の罠", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 95, "title": "レビューに騙されない裏ワザ", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 96, "title": "ネット副業で絶対やってはいけない案件", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 97, "title": "知らないと損する公共サービスの裏技", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 98, "title": "メルカリ・ラクマで損しない売買テク", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 99, "title": "誰も教えてくれないポイント活用法", "category": "life_hobby_gossip", "sub_category": "social_internet"},
+            {"id": 100, "title": "ネット詐欺で絶対引っかからない防衛法", "category": "life_hobby_gossip", "sub_category": "social_internet"}
+          ]
+        }
+      }
+    }
+  },
+  "metadata": {
+    "created": "2025-11-03",
+    "version": "1.0",
+    "total_themes": 100,
+    "status": "ready_for_production"
+  }
+}
