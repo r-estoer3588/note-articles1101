@@ -23,7 +23,7 @@
     },
     {
       "parameters": {
-        "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) -mmin -10"
+        "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\)"
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -32,11 +32,24 @@
         0
       ],
       "id": "list-files-node-001",
-      "name": "List Recent Files"
+      "name": "List All Files"
     },
     {
       "parameters": {
-        "jsCode": "// Parse find command output into file paths\nconst output = $input.item.json.stdout;\n\nif (!output || output.trim() === '') {\n  // Return empty to skip this execution\n  return [];\n}\n\nconst lines = output.trim().split('\\n').filter(line => line.trim() !== '');\n\n// Return array of items - n8n will process each as separate item\nreturn lines.map(line => ({\n  json: {\n    path: line.trim(),\n    fileName: line.trim().split('/').pop()\n  }\n}));"
+        "command": "touch /notes/.processed_files.txt && cat /notes/.processed_files.txt"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        120
+      ],
+      "id": "get-processed-list-001",
+      "name": "Get Processed List"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter out already processed files\nconst allFilesOutput = $input.first().json.stdout;\nconst processedListOutput = $input.last().json.stdout;\n\nif (!allFilesOutput || allFilesOutput.trim() === '') {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput.trim().split('\\n').filter(line => line.trim() !== '');\nconst processedFiles = processedListOutput ? processedListOutput.trim().split('\\n').filter(line => line.trim() !== '') : [];\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedFiles.length);\n\n// Filter unprocessed files\nconst unprocessedFiles = allFiles.filter(file => !processedFiles.includes(file.trim()));\n\nconsole.log('Unprocessed files:', unprocessedFiles.length);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\n// Return array of items with json wrapper\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file.trim(),\n    fileName: file.trim().split('/').pop()\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -45,7 +58,7 @@
         0
       ],
       "id": "parse-file-list-001",
-      "name": "Parse File List"
+      "name": "Filter Unprocessed Files"
     },
     {
       "parameters": {
@@ -250,6 +263,19 @@
     },
     {
       "parameters": {
+        "command": "=echo \"{{ $json.filePath }}\" >> /notes/.processed_files.txt"
+      },
+      "id": "mark-as-processed-001",
+      "name": "Mark As Processed",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        0
+      ]
+    },
+    {
+      "parameters": {
         "rule": {
           "interval": [
             {
@@ -314,25 +340,41 @@
       "main": [
         [
           {
-            "node": "List Recent Files",
+            "node": "List All Files",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Processed List",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "List Recent Files": {
+    "List All Files": {
       "main": [
         [
           {
-            "node": "Parse File List",
+            "node": "Filter Unprocessed Files",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Parse File List": {
+    "Get Processed List": {
+      "main": [
+        [
+          {
+            "node": "Filter Unprocessed Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Unprocessed Files": {
       "main": [
         [
           {
@@ -397,6 +439,17 @@
         [
           {
             "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion Create Item": {
+      "main": [
+        [
+          {
+            "node": "Mark As Processed",
             "type": "main",
             "index": 0
           }
