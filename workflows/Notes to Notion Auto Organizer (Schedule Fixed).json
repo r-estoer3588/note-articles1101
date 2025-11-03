@@ -1,0 +1,509 @@
+{
+  "name": "Notes to Notion Auto Organizer (Schedule Fixed)",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "f1234567-890a-bcde-f123-4567890abcde",
+              "leftValue": "={{ $now.minus({ days: 30 }).toMillis() }}",
+              "rightValue": "={{ new Date($json.createdDate).getTime() }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ae4c08cc-84f4-4343-974f-a6065d98f894",
+      "name": "Old File Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -736,
+        -336
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=rm -f \"{{ $json.filePath }}\""
+      },
+      "id": "c083adc7-5345-4b39-a407-c43f69fe2066",
+      "name": "Delete Old File",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        -352
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "f668417f-4ddc-432b-915f-2ad6f8f5bef0",
+      "name": "Daily Reminder Cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1920,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29e1972f485180c89c68d77f1b82e39f",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "76478e0e-3ab4-4249-9748-fd6a594f6d76",
+      "name": "Get All Notes from Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -1728,
+        -128
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "nsXTOjwR6MmTqoxn",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick random note for reminder\nconst items = $input.all();\nconst randomIndex = Math.floor(Math.random() * items.length);\nconst randomNote = items[randomIndex].json;\n\nreturn {\n  title: randomNote.properties?.Title?.title?.[0]?.plain_text || 'No title',\n  url: randomNote.url,\n  category: randomNote.properties?.Category?.rich_text?.[0]?.plain_text || '未分類'\n};"
+      },
+      "id": "00734a7a-b999-4b8d-b242-ca30fdb17eac",
+      "name": "Random Reminder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "ab7a5330-e706-49a3-a3c3-f3cee5c69731",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1920,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) ! -name \".processed_files.txt\""
+      },
+      "id": "674e88fa-f8a7-4a25-8bd9-1718b4afa2d8",
+      "name": "List All Files1",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "command": "touch /notes/.processed_files.txt && cat /notes/.processed_files.txt"
+      },
+      "id": "1a9d5c56-61dd-4fb4-9e6c-db4c3a580474",
+      "name": "Get Processed List1",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter out already processed files\n// This node receives data from BOTH List All Files and Get Processed List\nconst allInputs = $input.all();\n\nlet allFilesOutput = '';\nlet processedListOutput = '';\n\n// Identify inputs by heuristic\nfor (const item of allInputs) {\n  const stdout = item.json?.stdout || '';\n  if (stdout.includes('/notes/')) {\n    if (stdout.split('\\n').filter(Boolean).length > 1 || !processedListOutput) {\n      allFilesOutput = stdout;\n    } else if (!allFilesOutput) {\n      processedListOutput = stdout;\n    }\n  } else if (!processedListOutput) {\n    processedListOutput = stdout;\n  }\n}\n\nif (!allFilesOutput.trim()) {\n  return [];\n}\n\nconst allFiles = allFilesOutput.split('\\n').map(s => s.trim()).filter(Boolean);\nconst processedFiles = processedListOutput\n  ? processedListOutput.split('\\n').map(s => s.trim()).filter(Boolean)\n  : [];\nconst processedSet = new Set(processedFiles);\nconst unprocessedFiles = allFiles.filter(f => !processedSet.has(f));\n\nif (unprocessedFiles.length === 0) {\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({ json: { path: file, fileName: file.split('/').pop() } }));"
+      },
+      "id": "db5c969d-4869-4e00-a26b-d0f2604e5ab9",
+      "name": "Filter Unprocessed Files1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.path }}"
+      },
+      "id": "8e2d7efc-1e11-442e-97a6-405f75e48a2e",
+      "name": "Read Note File1",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -1152,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract UTF-8 text content from binary produced by Read Binary File\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = (item.json.fileName || (path ? path.split('/').pop() : 'Untitled'));\n\nlet fileContent = '';\nif (item.binary) {\n  let base64Str = '';\n  if (typeof item.binary.data === 'string') {\n    base64Str = item.binary.data;\n  } else if (item.binary.data && typeof item.binary.data.data === 'string') {\n    base64Str = item.binary.data.data;\n  } else {\n    const firstKey = Object.keys(item.binary)[0];\n    const entry = item.binary[firstKey];\n    if (entry && typeof entry.data === 'string') {\n      base64Str = entry.data;\n    } else if (entry && entry.data && typeof entry.data.data === 'string') {\n      base64Str = entry.data.data;\n    }\n  }\n  if (base64Str) {\n    try {\n      fileContent = Buffer.from(base64Str, 'base64').toString('utf8');\n    } catch (e) {\n      fileContent = base64Str;\n    }\n  }\n}\n\nreturn { fileName, fileContent, filePath: path, createdDate: new Date().toISOString() };"
+      },
+      "id": "224f20fd-ff8f-4a8f-97a9-5429829e901c",
+      "name": "Set Note Metadata1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -944,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Use OpenAI via HTTP with API key from env\nconst apiKey = $env.OPENAI_API_KEY;\nif (!apiKey) {\n  return { ...$input.item.json, category: '未分類', tags: [] };\n}\nconst inputData = $input.item.json;\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${inputData.fileName}\n内容: ${inputData.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [ { role: 'user', content: prompt } ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, { headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' } });\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n  return { ...inputData, category: parsed.category || '未分類', tags: Array.isArray(parsed.tags) ? parsed.tags : [] };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return { ...inputData, category: '未分類', tags: [] };\n}"
+      },
+      "id": "59a5e655-822a-43eb-8a26-f47de79df4bd",
+      "name": "OpenAI Category Tagging1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -736,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize and pass fields forward\nconst d = $input.item.json;\nreturn { fileName: d.fileName || 'Untitled', fileContent: d.fileContent || '', filePath: d.filePath || '', createdDate: d.createdDate || new Date().toISOString(), category: d.category || '未分類', tags: Array.isArray(d.tags) ? d.tags : [] };"
+      },
+      "id": "27d5cf12-c195-42a6-8ac1-f7a48cd5247f",
+      "name": "Parse AI Response1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format data for Notion\nconst data = $input.item.json;\nlet tags = [];\nif (Array.isArray(data.tags)) tags = data.tags.map(t => String(t));\nelse if (data.tags) tags = [String(data.tags)];\nreturn { title: (data.fileName || data.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, ''), content: data.fileContent || '', category: data.category || '未分類', tags, processed: true, filePath: data.filePath || '' };"
+      },
+      "id": "7be50f9e-5ccc-4500-b652-135982b97b4e",
+      "name": "Format for Notion1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build Notion JSON payload\nconst d = $input.item.json;\nconst notionPayload = { parent: { database_id: '29e1972f485180c89c68d77f1b82e39f' }, properties: { title: { title: [ { text: { content: d.title || 'Untitled' } } ] }, Content: { rich_text: [ { text: { content: (d.content || '').substring(0, 2000) } } ] }, Category: { rich_text: [ { text: { content: d.category || '未分類' } } ] }, Tags: { multi_select: (d.tags || []).map(t => ({ name: String(t) })) }, Processed: { checkbox: d.processed || true } } };\nreturn { notionPayload, filePath: d.filePath || '', __metadata: { filePath: d.filePath || '' } };"
+      },
+      "id": "ffe70d2f-c2a8-4c9e-a40b-c5c0e90b430f",
+      "name": "Prepare Notion Data1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.notionPayload) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": false,
+              "responseFormat": "json",
+              "outputPropertyName": "notionResponse"
+            }
+          }
+        }
+      },
+      "id": "65453a56-297a-471c-b073-5940cd9ccb5e",
+      "name": "Create Notion Page (HTTP)1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        -528
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "nsXTOjwR6MmTqoxn",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "filepath-assignment-001",
+              "name": "filePath",
+              "value": "={{ $json.filePath }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "525a4f4b-1c75-47f5-82a9-1739f038be69",
+      "name": "Pass FilePath1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        -528
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=echo \"{{ $json.filePath }}\" >> /notes/.processed_files.txt"
+      },
+      "id": "0da6c338-8f5a-4a79-ab31-bde963d14e1b",
+      "name": "Mark As Processed1",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -528
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Old File Check": {
+      "main": [
+        [
+          {
+            "node": "Delete Old File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Reminder Cron": {
+      "main": [
+        [
+          {
+            "node": "Get All Notes from Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Notes from Notion": {
+      "main": [
+        [
+          {
+            "node": "Random Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "List All Files1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Processed List1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List All Files1": {
+      "main": [
+        [
+          {
+            "node": "Filter Unprocessed Files1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Processed List1": {
+      "main": [
+        [
+          {
+            "node": "Filter Unprocessed Files1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Unprocessed Files1": {
+      "main": [
+        [
+          {
+            "node": "Read Note File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Note File1": {
+      "main": [
+        [
+          {
+            "node": "Set Note Metadata1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Note Metadata1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Category Tagging1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Old File Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Category Tagging1": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response1": {
+      "main": [
+        [
+          {
+            "node": "Format for Notion1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Notion1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Notion Data1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Notion Data1": {
+      "main": [
+        [
+          {
+            "node": "Create Notion Page (HTTP)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Notion Page (HTTP)1": {
+      "main": [
+        [
+          {
+            "node": "Pass FilePath1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pass FilePath1": {
+      "main": [
+        [
+          {
+            "node": "Mark As Processed1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 60,
+    "availableInMCP": false,
+    "timeSavedPerExecution": 1,
+    "timezone": "Asia/Tokyo",
+    "errorWorkflow": "8u1A7FkVxvdQ7ddq"
+  },
+  "versionId": "31baaf16-3b02-4a60-bd56-c45a2217ea38",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50e903defc9d1e319ece6676f15d8b344337224bc62b9de3cc8418f0c564705c"
+  },
+  "id": "8u1A7FkVxvdQ7ddq",
+  "tags": []
+}
