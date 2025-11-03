@@ -158,52 +158,12 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
-              "name": "title",
-              "value": "={{ ($json.fileName || $json.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, '') }}",
-              "type": "string"
-            },
-            {
-              "id": "f6a7b8c9-d0e1-2345-f123-456789012345",
-              "name": "content",
-              "value": "={{ $json.fileContent }}",
-              "type": "string"
-            },
-            {
-              "id": "a7b8c9d0-e1f2-3456-1234-567890123456",
-              "name": "category",
-              "value": "={{ $json.category }}",
-              "type": "string"
-            },
-            {
-              "id": "b8c9d0e1-f2a3-4567-2345-678901234567",
-              "name": "tags",
-              "value": "={{ $json.tags }}",
-              "type": "array"
-            },
-            {
-              "id": "c9d0e1f2-a3b4-5678-3456-789012345678",
-              "name": "processed",
-              "value": true,
-              "type": "boolean"
-            },
-            {
-              "id": "e0f1a2b3-c4d5-6789-9012-abcdefabcdef",
-              "name": "filePath",
-              "value": "={{ $json.filePath }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
+        "jsCode": "// Format data for Notion\nconst data = $input.item.json;\n\n// Ensure tags is a proper array of strings\nlet tags = [];\nif (Array.isArray(data.tags)) {\n  tags = data.tags.map(tag => String(tag));\n} else if (data.tags) {\n  tags = [String(data.tags)];\n}\n\nreturn {\n  title: (data.fileName || data.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, ''),\n  content: data.fileContent || '',\n  category: data.category || '未分類',\n  tags: tags,\n  processed: true,\n  filePath: data.filePath || ''\n};"
       },
       "id": "018e4f47-2477-4879-b240-77c770fde359",
       "name": "Format for Notion",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         1360,
         0
@@ -272,7 +232,7 @@
             },
             {
               "key": "Tags",
-              "multiSelectValue": "={{ $json.tags }}"
+              "multiSelectValue": "={{ $json.tags.join(',') }}"
             },
             {
               "key": "Processed",
