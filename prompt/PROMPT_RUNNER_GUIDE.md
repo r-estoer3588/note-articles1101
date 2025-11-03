@@ -191,6 +191,76 @@ prompt/
 
 この3ステップで「**商品設計→動画集客→記事教育→自動販売**」が完成！
 
+## 🚀 一気通貫ワークフロー（NEW!）
+
+### note記事のリライト→保存まで自動化
+
+**従来の方法（手動）**
+1. プロンプトをコピー
+2. ChatGPTに貼り付け
+3. 記事本文を追加
+4. 出力をコピー
+5. Markdownファイルを手動作成
+6. noteに投稿
+
+**新しい方法（半自動）**
+```powershell
+# 1コマンドで完結!
+.\note-workflow.ps1 -ArticleFile draft.txt -AutoOpen
+
+# または、クリップボードから
+Get-Clipboard | .\note-workflow.ps1 -AutoOpen
+```
+
+**実行フロー:**
+1. プロンプト + 記事本文を自動生成
+2. ChatGPTへの貼り付け（手動）
+3. 出力をクリップボードにコピー（手動）
+4. Enterキーで続行
+5. **自動的にMarkdownファイルに保存**
+6. **draftsフォルダに整形済みファイルを配置**
+7. **VS Codeで自動オープン（-AutoOpen指定時）**
+
+### 保存されるファイル形式
+
+```markdown
+---
+title: AI動画で稼ぐ方法
+created: 2025-11-03 14:30:00
+source: ChatGPT (note-articles prompt)
+---
+
+# AI動画で稼ぐ方法
+
+（リライト後の本文）
+
+---
+
+## メタ情報
+- 作成日時: 2025年11月03日 14:30
+- 生成元: note_prompt.txt
+- ステータス: 下書き
+
+## 次のアクション
+- [ ] タイトルの最終確認
+- [ ] 本文の誤字脱字チェック
+- [ ] noteに投稿
+- [ ] SNSでシェア
+```
+
+### ファイルの保存場所
+
+```
+note-articles/
+├── drafts/                          # ← ここに保存される
+│   └── 20251103_143000_AI動画で稼ぐ方法.md
+├── articles/                        # 投稿完了後、ここに移動
+└── prompt/
+    ├── run-prompt.ps1              # プロンプト実行
+    ├── save-note-article.ps1       # Markdown保存
+    └── note-workflow.ps1           # 一気通貫スクリプト
+```
+
 ## ⚙️ カスタマイズ
 
 ### 特定セクションのみ表示/コピー
