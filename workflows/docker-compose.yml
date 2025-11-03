@@ -35,10 +35,12 @@ services:
       # - 実行履歴
       # - 設定ファイル
       - n8n_data:/home/node/.n8n
-      
-      # ノートフォルダをDockerコンテナ内にマウント
-      # Windows の場合、ドライブレター（C:）は小文字で、バックスラッシュはフォワードスラッシュに
-      - C:/Notes:/notes:ro
+
+      # ノートフォルダをDockerコンテナ内にマウント（bind指定・書き込み可）
+      - type: bind
+        source: C:/Notes
+        target: /notes
+        read_only: false
       
     networks:
       - n8n-network

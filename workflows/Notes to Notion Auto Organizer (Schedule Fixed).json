@@ -125,7 +125,7 @@
     },
     {
       "parameters": {
-        "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) ! -name \".processed_files.txt\""
+        "command": "find /notes -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) ! -name \".processed_files.txt\""
       },
       "id": "674e88fa-f8a7-4a25-8bd9-1718b4afa2d8",
       "name": "List All Files1",
@@ -151,7 +151,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Filter out already processed files\n// Identify inputs RELIABLY by the executed command string to avoid order/heuristic issues.\nconst inputs = $input.all();\n\nconst fromFind = inputs.find(i => (i.json?.command || '').includes('find /notes')) || null;\nconst fromCat  = inputs.find(i => (i.json?.command || '').includes('cat /notes/.processed_files.txt')) || null;\n\nconst allFilesOutput = (fromFind?.json?.stdout || '').trim();\nconst processedListOutput = (fromCat?.json?.stdout || '').trim();\n\nif (!allFilesOutput) {\n  // Nothing to do if no file list\n  return [];\n}\n\nconst allFiles = allFilesOutput.split('\n').map(s => s.trim()).filter(Boolean);\nconst processedFiles = processedListOutput ? processedListOutput.split('\n').map(s => s.trim()).filter(Boolean) : [];\nconst processedSet = new Set(processedFiles);\n\nconst unprocessedFiles = allFiles.filter(f => !processedSet.has(f));\nif (unprocessedFiles.length === 0) {\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({ json: { path: file, fileName: file.split('/').pop() } }));"
+        "jsCode": "// Filter out already processed files\n// Robust strategy when upstream Execute Command nodes do NOT include the command string.\n// We receive two items: one is file list (find), the other is processed list (cat).\n// Choose the longer stdout as all files; the remaining as processed list.\n\nconst inputs = $input.all();\nconst stdouts = inputs.map(i => String(i.json?.stdout || '')).map(s => s.trim());\n\nlet allFilesOutput = '';\nlet processedListOutput = '';\n\nif (stdouts.length === 0) {\n  return [];\n} else if (stdouts.length === 1) {\n  // Only file list likely arrived; proceed with empty processed list\n  allFilesOutput = stdouts[0];\n} else {\n  // Pick the one with more lines/length as all files\n  const withCounts = stdouts.map((s, idx) => ({ idx, s, lines: s.split(/\\r?\\n/).filter(Boolean).length, len: s.length }));\n  withCounts.sort((a,b) => (b.lines - a.lines) || (b.len - a.len));\n  allFilesOutput = withCounts[0].s;\n  // The other (first non-identical) is processed list\n  const other = withCounts.find(x => x.s !== allFilesOutput);\n  processedListOutput = other ? other.s : '';\n}\n\nallFilesOutput = allFilesOutput.trim();\nprocessedListOutput = processedListOutput.trim();\n\nif (!allFilesOutput) {\n  return [];\n}\n\nconst allFiles = allFilesOutput.split(/\\r?\\n/).map(s => s.trim()).filter(Boolean);\nconst processedFiles = processedListOutput ? processedListOutput.split(/\\r?\\n/).map(s => s.trim()).filter(Boolean) : [];\nconst processedSet = new Set(processedFiles);\n\nconst unprocessedFiles = allFiles.filter(f => !processedSet.has(f));\nif (unprocessedFiles.length === 0) {\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({ json: { path: file, fileName: file.split('/')?.pop() } }));"
       },
       "id": "db5c969d-4869-4e00-a26b-d0f2604e5ab9",
       "name": "Filter Unprocessed Files1",
