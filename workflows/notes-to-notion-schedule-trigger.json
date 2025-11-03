@@ -217,14 +217,33 @@
     },
     {
       "parameters": {
-        "jsCode": "// Create Notion page via API directly\nconst data = $input.item.json;\n\n// Get Notion credentials\nconst credentials = await this.getCredentials('notionApi');\nconst notionApiKey = credentials.apiKey;\nconst databaseId = '29e1972f485180c89c68d77f1b82e39f';\n\n// Prepare tags array\nconst tags = Array.isArray(data.tags) ? data.tags : [];\n\n// Create the page payload\nconst payload = {\n  parent: { database_id: databaseId },\n  properties: {\n    title: {\n      title: [\n        {\n          text: {\n            content: data.title || 'Untitled'\n          }\n        }\n      ]\n    },\n    Category: {\n      select: {\n        name: data.category || '未分類'\n      }\n    },\n    Tags: {\n      multi_select: tags.map(tag => ({ name: String(tag) }))\n    },\n    Processed: {\n      checkbox: data.processed || true\n    }\n  },\n  children: [\n    {\n      object: 'block',\n      type: 'paragraph',\n      paragraph: {\n        rich_text: [\n          {\n            type: 'text',\n            text: {\n              content: data.content || ''\n            }\n          }\n        ]\n      }\n    }\n  ]\n};\n\ntry {\n  const response = await $http.post('https://api.notion.com/v1/pages', payload, {\n    headers: {\n      'Authorization': `Bearer ${notionApiKey}`,\n      'Content-Type': 'application/json',\n      'Notion-Version': '2022-06-28'\n    }\n  });\n\n  return {\n    success: true,\n    pageId: response.data.id,\n    url: response.data.url,\n    filePath: data.filePath\n  };\n} catch (error) {\n  console.error('Notion API Error:', error.response?.data || error.message);\n  throw new Error(`Failed to create Notion page: ${error.message}`);\n}"
+        "jsCode": "// Prepare data for Notion API\nconst data = $input.item.json;\n\n// Ensure tags is a proper array\nconst tags = Array.isArray(data.tags) ? data.tags : [];\n\n// Return formatted data for HTTP Request node\nreturn {\n  databaseId: '29e1972f485180c89c68d77f1b82e39f',\n  title: data.title || 'Untitled',\n  content: data.content || '',\n  category: data.category || '未分類',\n  tags: tags,\n  processed: data.processed || true,\n  filePath: data.filePath || ''\n};"
       },
-      "id": "2d4e25b3-a9e9-47f8-9458-1bbdb419d338",
-      "name": "Create Notion Page (API)",
+      "id": "prep-notion-data-001",
+      "name": "Prepare Notion Data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         1552,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"{{ $json.databaseId }}\" },\n  \"properties\": {\n    \"title\": {\n      \"title\": [\n        {\n          \"text\": {\n            \"content\": \"{{ $json.title }}\"\n          }\n        }\n      ]\n    },\n    \"Category\": {\n      \"select\": {\n        \"name\": \"{{ $json.category }}\"\n      }\n    },\n    \"Tags\": {\n      \"multi_select\": {{ JSON.stringify($json.tags.map(tag => ({ name: String(tag) }))) }}\n    },\n    \"Processed\": {\n      \"checkbox\": {{ $json.processed }}\n    }\n  },\n  \"children\": [\n    {\n      \"object\": \"block\",\n      \"type\": \"paragraph\",\n      \"paragraph\": {\n        \"rich_text\": [\n          {\n            \"type\": \"text\",\n            \"text\": {\n              \"content\": \"{{ $json.content }}\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "2d4e25b3-a9e9-47f8-9458-1bbdb419d338",
+      "name": "Create Notion Page (HTTP)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1744,
         0
       ],
       "credentials": {
@@ -236,6 +255,19 @@
     },
     {
       "parameters": {
+        "jsCode": "// Extract filePath from previous context\nconst prepareData = $input.first().json;\nconst httpResponse = $input.item.json;\n\nreturn {\n  success: true,\n  pageId: httpResponse.id,\n  url: httpResponse.url,\n  filePath: prepareData.filePath\n};"
+      },
+      "id": "extract-filepath-001",
+      "name": "Extract File Path",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        0
+      ]
+    },
+    {
+      "parameters": {
         "command": "=echo \"{{ $json.filePath }}\" >> /notes/.processed_files.txt"
       },
       "id": "mark-as-processed-001",
@@ -243,7 +275,7 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1744,
+        2128,
         0
       ]
     },
@@ -411,14 +443,36 @@
       "main": [
         [
           {
-            "node": "Notion Create Item",
+            "node": "Prepare Notion Data",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Notion Create Item": {
+    "Prepare Notion Data": {
+      "main": [
+        [
+          {
+            "node": "Create Notion Page (HTTP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Notion Page (HTTP)": {
+      "main": [
+        [
+          {
+            "node": "Extract File Path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract File Path": {
       "main": [
         [
           {
