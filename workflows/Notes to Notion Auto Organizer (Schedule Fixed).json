@@ -177,7 +177,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Extract UTF-8 text content from binary produced by Read Binary File\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = (item.json.fileName || (path ? path.split('/').pop() : 'Untitled'));\n\nlet fileContent = '';\nif (item.binary) {\n  let base64Str = '';\n  if (typeof item.binary.data === 'string') {\n    base64Str = item.binary.data;\n  } else if (item.binary.data && typeof item.binary.data.data === 'string') {\n    base64Str = item.binary.data.data;\n  } else {\n    const firstKey = Object.keys(item.binary)[0];\n    const entry = item.binary[firstKey];\n    if (entry && typeof entry.data === 'string') {\n      base64Str = entry.data;\n    } else if (entry && entry.data && typeof entry.data.data === 'string') {\n      base64Str = entry.data.data;\n    }\n  }\n  if (base64Str) {\n    try {\n      fileContent = Buffer.from(base64Str, 'base64').toString('utf8');\n    } catch (e) {\n      fileContent = base64Str;\n    }\n  }\n}\n\nreturn { fileName, fileContent, filePath: path, createdDate: new Date().toISOString() };"
+        "jsCode": "// Extract UTF-8 text content from binary produced by Read Binary File\nconst item = $input.item;\nconst path = item.json.path;\nconst fileName = (item.json.fileName || (path ? path.split('/').pop() : 'Untitled'));\n\nlet fileContent = '';\nif (item.binary) {\n  let base64Str = '';\n  if (typeof item.binary.data === 'string') {\n    base64Str = item.binary.data;\n  } else if (item.binary.data && typeof item.binary.data.data === 'string') {\n    base64Str = item.binary.data.data;\n  } else {\n    const firstKey = Object.keys(item.binary)[0];\n    const entry = item.binary[firstKey];\n    if (entry && typeof entry.data === 'string') {\n      base64Str = entry.data;\n    } else if (entry && entry.data && typeof entry.data.data === 'string') {\n      base64Str = entry.data.data;\n    }\n  }\n  if (base64Str) {\n    try {\n      fileContent = Buffer.from(base64Str, 'base64').toString('utf8');\n    } catch (e) {\n      fileContent = base64Str;\n    }\n  }\n}\n\nreturn { fileName, fileContent, filePath: path, createdDate: new Date().toISOString() };",
+        "mode": "runOnceForEachItem"
       },
       "id": "224f20fd-ff8f-4a8f-97a9-5429829e901c",
       "name": "Set Note Metadata1",
@@ -190,7 +191,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Use OpenAI via HTTP with API key from env\nconst apiKey = $env.OPENAI_API_KEY;\nif (!apiKey) {\n  return { ...$input.item.json, category: '未分類', tags: [] };\n}\nconst inputData = $input.item.json;\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${inputData.fileName}\n内容: ${inputData.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [ { role: 'user', content: prompt } ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, { headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' } });\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n  return { ...inputData, category: parsed.category || '未分類', tags: Array.isArray(parsed.tags) ? parsed.tags : [] };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return { ...inputData, category: '未分類', tags: [] };\n}"
+        "jsCode": "// Use OpenAI via HTTP with API key from env\nconst apiKey = $env.OPENAI_API_KEY;\nif (!apiKey) {\n  return { ...$input.item.json, category: '未分類', tags: [] };\n}\nconst inputData = $input.item.json;\nconst prompt = `あなたはノート分類の専門家です。以下のノート内容を読んで、適切なカテゴリとタグを提案してください。\n\n【カテゴリ候補】\n- 技術メモ\n- 読書メモ\n- アイデア\n- 会議メモ\n- 個人メモ\n\n【出力形式】\nJSON形式で返してください:\n{\"category\": \"カテゴリ名\", \"tags\": [\"タグ1\"]}\n\nファイル名: ${inputData.fileName}\n内容: ${inputData.fileContent}`;\n\ntry {\n  const response = await $http.post('https://api.openai.com/v1/chat/completions', {\n    model: 'gpt-4o-mini',\n    messages: [ { role: 'user', content: prompt } ],\n    temperature: 0.3,\n    response_format: { type: 'json_object' }\n  }, { headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' } });\n  const content = response.data.choices[0].message.content;\n  const parsed = JSON.parse(content);\n  return { ...inputData, category: parsed.category || '未分類', tags: Array.isArray(parsed.tags) ? parsed.tags : [] };\n} catch (error) {\n  console.error('OpenAI API Error:', error.message);\n  return { ...inputData, category: '未分類', tags: [] };\n}",
+        "mode": "runOnceForEachItem"
       },
       "id": "59a5e655-822a-43eb-8a26-f47de79df4bd",
       "name": "OpenAI Category Tagging1",
@@ -203,7 +205,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normalize and pass fields forward\nconst d = $input.item.json;\nreturn { fileName: d.fileName || 'Untitled', fileContent: d.fileContent || '', filePath: d.filePath || '', createdDate: d.createdDate || new Date().toISOString(), category: d.category || '未分類', tags: Array.isArray(d.tags) ? d.tags : [] };"
+        "jsCode": "// Normalize and pass fields forward\nconst d = $input.item.json;\nreturn { fileName: d.fileName || 'Untitled', fileContent: d.fileContent || '', filePath: d.filePath || '', createdDate: d.createdDate || new Date().toISOString(), category: d.category || '未分類', tags: Array.isArray(d.tags) ? d.tags : [] };",
+        "mode": "runOnceForEachItem"
       },
       "id": "27d5cf12-c195-42a6-8ac1-f7a48cd5247f",
       "name": "Parse AI Response1",
@@ -216,7 +219,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Format data for Notion\nconst data = $input.item.json;\nlet tags = [];\nif (Array.isArray(data.tags)) tags = data.tags.map(t => String(t));\nelse if (data.tags) tags = [String(data.tags)];\nreturn { title: (data.fileName || data.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, ''), content: data.fileContent || '', category: data.category || '未分類', tags, processed: true, filePath: data.filePath || '' };"
+        "jsCode": "// Format data for Notion\nconst data = $input.item.json;\nlet tags = [];\nif (Array.isArray(data.tags)) tags = data.tags.map(t => String(t));\nelse if (data.tags) tags = [String(data.tags)];\nreturn { title: (data.fileName || data.filePath?.split('/').pop() || 'Untitled').replace(/\\.(txt|md)$/i, ''), content: data.fileContent || '', category: data.category || '未分類', tags, processed: true, filePath: data.filePath || '' };",
+        "mode": "runOnceForEachItem"
       },
       "id": "7be50f9e-5ccc-4500-b652-135982b97b4e",
       "name": "Format for Notion1",
@@ -229,7 +233,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Build Notion JSON payload\nconst d = $input.item.json;\nconst notionPayload = { parent: { database_id: '29e1972f485180c89c68d77f1b82e39f' }, properties: { title: { title: [ { text: { content: d.title || 'Untitled' } } ] }, Content: { rich_text: [ { text: { content: (d.content || '').substring(0, 2000) } } ] }, Category: { rich_text: [ { text: { content: d.category || '未分類' } } ] }, Tags: { multi_select: (d.tags || []).map(t => ({ name: String(t) })) }, Processed: { checkbox: d.processed || true } } };\nreturn { notionPayload, filePath: d.filePath || '', __metadata: { filePath: d.filePath || '' } };"
+        "jsCode": "// Build Notion JSON payload\nconst d = $input.item.json;\nconst notionPayload = { parent: { database_id: '29e1972f485180c89c68d77f1b82e39f' }, properties: { title: { title: [ { text: { content: d.title || 'Untitled' } } ] }, Content: { rich_text: [ { text: { content: (d.content || '').substring(0, 2000) } } ] }, Category: { rich_text: [ { text: { content: d.category || '未分類' } } ] }, Tags: { multi_select: (d.tags || []).map(t => ({ name: String(t) })) }, Processed: { checkbox: d.processed || true } } };\nreturn { notionPayload, filePath: d.filePath || '', __metadata: { filePath: d.filePath || '' } };",
+        "mode": "runOnceForEachItem"
       },
       "id": "ffe70d2f-c2a8-4c9e-a40b-c5c0e90b430f",
       "name": "Prepare Notion Data1",
