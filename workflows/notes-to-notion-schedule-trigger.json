@@ -6,7 +6,7 @@
         "rule": {
           "interval": [
             {
-              "field": "minutes",
+          tags: []
               "minutesInterval": 5
             }
           ]
@@ -17,8 +17,8 @@
       "position": [
         -240,
         0
-      ],
-      "id": "9357bc40-851d-4033-977e-9d77166f546a",
+              0
+            ]
       "name": "Schedule Trigger"
     },
     {
