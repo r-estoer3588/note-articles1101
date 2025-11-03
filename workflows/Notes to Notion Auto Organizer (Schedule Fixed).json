@@ -60,7 +60,7 @@
       "id": "f668417f-4ddc-432b-915f-2ad6f8f5bef0",
       "name": "Daily Reminder Cron",
       "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
+  "typeVersion": 1,
       "position": [
         -1920,
         -128
@@ -81,7 +81,7 @@
       "id": "76478e0e-3ab4-4249-9748-fd6a594f6d76",
       "name": "Get All Notes from Notion",
       "type": "n8n-nodes-base.notion",
-      "typeVersion": 2.2,
+  "typeVersion": 2,
       "position": [
         -1728,
         -128
@@ -117,7 +117,7 @@
       "id": "ab7a5330-e706-49a3-a3c3-f3cee5c69731",
       "name": "Schedule Trigger1",
       "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
+  "typeVersion": 1,
       "position": [
         -1920,
         -528
@@ -251,18 +251,16 @@
         "jsonBody": "={{ JSON.stringify($json.notionPayload) }}",
         "options": {
           "response": {
-            "response": {
-              "neverError": false,
-              "responseFormat": "json",
-              "outputPropertyName": "notionResponse"
-            }
+            "responseFormat": "json",
+            "outputPropertyName": "notionResponse",
+            "neverError": false
           }
         }
       },
       "id": "65453a56-297a-471c-b073-5940cd9ccb5e",
       "name": "Create Notion Page (HTTP)1",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+  "typeVersion": 4,
       "position": [
         64,
         -528
@@ -291,7 +289,7 @@
       "id": "525a4f4b-1c75-47f5-82a9-1739f038be69",
       "name": "Pass FilePath1",
       "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+  "typeVersion": 3,
       "position": [
         256,
         -528
