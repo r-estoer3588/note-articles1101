@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "command": "find /notes/notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) ! -name \".processed_files.txt\""
+        "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\) ! -name \".processed_files.txt\""
       },
       "id": "list-files-node-001",
       "name": "List All Files",
@@ -152,7 +152,7 @@
     },
     {
       "parameters": {
-        "command": "=echo \"{{$json.filePath}}\" >> /notes/.processed_files.txt"
+        "command": "=echo \"{{ $json.filePath }}\" >> /notes/.processed_files.txt"
       },
       "id": "mark-processed-001",
       "name": "Mark As Processed",
