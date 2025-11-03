@@ -217,7 +217,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Prepare data for Notion API\nconst data = $input.item.json;\n\n// Ensure tags is a proper array\nconst tags = Array.isArray(data.tags) ? data.tags : [];\n\n// Return formatted data for HTTP Request node\nreturn {\n  databaseId: '29e1972f485180c89c68d77f1b82e39f',\n  title: data.title || 'Untitled',\n  content: data.content || '',\n  category: data.category || '未分類',\n  tags: tags,\n  processed: data.processed || true,\n  filePath: data.filePath || ''\n};"
+        "jsCode": "// Prepare complete Notion API payload\nconst data = $input.item.json;\n\n// Ensure tags is a proper array\nconst tags = Array.isArray(data.tags) ? data.tags : [];\n\n// Build the complete Notion API payload\nconst notionPayload = {\n  parent: { \n    database_id: '29e1972f485180c89c68d77f1b82e39f' \n  },\n  properties: {\n    title: {\n      title: [\n        {\n          text: {\n            content: data.title || 'Untitled'\n          }\n        }\n      ]\n    },\n    Category: {\n      select: {\n        name: data.category || '未分類'\n      }\n    },\n    Tags: {\n      multi_select: tags.map(tag => ({ name: String(tag) }))\n    },\n    Processed: {\n      checkbox: data.processed || true\n    }\n  },\n  children: [\n    {\n      object: 'block',\n      type: 'paragraph',\n      paragraph: {\n        rich_text: [\n          {\n            type: 'text',\n            text: {\n              content: (data.content || '').substring(0, 2000)\n            }\n          }\n        ]\n      }\n    }\n  ]\n};\n\nreturn {\n  notionPayload: notionPayload,\n  filePath: data.filePath || ''\n};"
       },
       "id": "prep-notion-data-001",
       "name": "Prepare Notion Data",
@@ -230,13 +230,23 @@
     },
     {
       "parameters": {
+        "method": "POST",
         "url": "https://api.notion.com/v1/pages",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "notionApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"parent\": { \"database_id\": \"{{ $json.databaseId }}\" },\n  \"properties\": {\n    \"title\": {\n      \"title\": [\n        {\n          \"text\": {\n            \"content\": \"{{ $json.title }}\"\n          }\n        }\n      ]\n    },\n    \"Category\": {\n      \"select\": {\n        \"name\": \"{{ $json.category }}\"\n      }\n    },\n    \"Tags\": {\n      \"multi_select\": {{ JSON.stringify($json.tags.map(tag => ({ name: String(tag) }))) }}\n    },\n    \"Processed\": {\n      \"checkbox\": {{ $json.processed }}\n    }\n  },\n  \"children\": [\n    {\n      \"object\": \"block\",\n      \"type\": \"paragraph\",\n      \"paragraph\": {\n        \"rich_text\": [\n          {\n            \"type\": \"text\",\n            \"text\": {\n              \"content\": \"{{ $json.content }}\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
-        "options": {}
+        "jsonBody": "={{ JSON.stringify($json.notionPayload) }}",
+        "options": {
+          "headers": {
+            "entries": [
+              {
+                "name": "Notion-Version",
+                "value": "2022-06-28"
+              }
+            ]
+          }
+        }
       },
       "id": "2d4e25b3-a9e9-47f8-9458-1bbdb419d338",
       "name": "Create Notion Page (HTTP)",
@@ -255,7 +265,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Extract filePath from previous context\nconst prepareData = $input.first().json;\nconst httpResponse = $input.item.json;\n\nreturn {\n  success: true,\n  pageId: httpResponse.id,\n  url: httpResponse.url,\n  filePath: prepareData.filePath\n};"
+        "jsCode": "// Get filePath from the Prepare Notion Data output\nconst items = $input.all();\n\n// Find the item with filePath (from Prepare Notion Data)\nlet filePath = '';\nfor (const item of items) {\n  if (item.json.filePath) {\n    filePath = item.json.filePath;\n    break;\n  }\n}\n\nconst httpResponse = $input.item.json;\n\nreturn {\n  success: true,\n  pageId: httpResponse.id || 'unknown',\n  url: httpResponse.url || '',\n  filePath: filePath\n};"
       },
       "id": "extract-filepath-001",
       "name": "Extract File Path",
