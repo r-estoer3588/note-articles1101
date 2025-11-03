@@ -217,42 +217,12 @@
     },
     {
       "parameters": {
-        "resource": "databasePage",
-        "databaseId": {
-          "__rl": true,
-          "value": "29e1972f485180c89c68d77f1b82e39f",
-          "mode": "id"
-        },
-        "title": "={{ $json.title }}",
-        "propertiesUi": {
-          "propertyValues": [
-            {
-              "key": "Category",
-              "selectValue": "={{ $json.category }}"
-            },
-            {
-              "key": "Tags",
-              "multiSelectValue": "={{ $json.tags.join(',') }}"
-            },
-            {
-              "key": "Processed",
-              "checkboxValue": "={{ $json.processed }}"
-            }
-          ]
-        },
-        "blockUi": {
-          "blockValues": [
-            {
-              "richText": "={{ $json.content }}"
-            }
-          ]
-        },
-        "options": {}
+        "jsCode": "// Create Notion page via API directly\nconst data = $input.item.json;\n\n// Get Notion credentials\nconst credentials = await this.getCredentials('notionApi');\nconst notionApiKey = credentials.apiKey;\nconst databaseId = '29e1972f485180c89c68d77f1b82e39f';\n\n// Prepare tags array\nconst tags = Array.isArray(data.tags) ? data.tags : [];\n\n// Create the page payload\nconst payload = {\n  parent: { database_id: databaseId },\n  properties: {\n    title: {\n      title: [\n        {\n          text: {\n            content: data.title || 'Untitled'\n          }\n        }\n      ]\n    },\n    Category: {\n      select: {\n        name: data.category || '未分類'\n      }\n    },\n    Tags: {\n      multi_select: tags.map(tag => ({ name: String(tag) }))\n    },\n    Processed: {\n      checkbox: data.processed || true\n    }\n  },\n  children: [\n    {\n      object: 'block',\n      type: 'paragraph',\n      paragraph: {\n        rich_text: [\n          {\n            type: 'text',\n            text: {\n              content: data.content || ''\n            }\n          }\n        ]\n      }\n    }\n  ]\n};\n\ntry {\n  const response = await $http.post('https://api.notion.com/v1/pages', payload, {\n    headers: {\n      'Authorization': `Bearer ${notionApiKey}`,\n      'Content-Type': 'application/json',\n      'Notion-Version': '2022-06-28'\n    }\n  });\n\n  return {\n    success: true,\n    pageId: response.data.id,\n    url: response.data.url,\n    filePath: data.filePath\n  };\n} catch (error) {\n  console.error('Notion API Error:', error.response?.data || error.message);\n  throw new Error(`Failed to create Notion page: ${error.message}`);\n}"
       },
       "id": "2d4e25b3-a9e9-47f8-9458-1bbdb419d338",
-      "name": "Notion Create Item",
-      "type": "n8n-nodes-base.notion",
-      "typeVersion": 2.2,
+      "name": "Create Notion Page (API)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         1552,
         0
