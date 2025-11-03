@@ -36,30 +36,16 @@
     },
     {
       "parameters": {
-        "fieldToSplitOut": "stdout",
-        "include": "noOtherFields"
-      },
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        144,
-        0
-      ],
-      "id": "split-lines-node-001",
-      "name": "Split Lines"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Parse file path from Split Out\nconst item = $input.item.json;\n\n// Split Out gives us each line as a separate item\nconst filePath = item.stdout;\n\nif (!filePath || filePath.trim() === '') {\n  return null; // Skip empty items\n}\n\nconst trimmedPath = filePath.trim();\n\nreturn {\n  path: trimmedPath,\n  fileName: trimmedPath.split('/').pop()\n};"
+        "jsCode": "// Parse find command output into file paths\nconst output = $input.item.json.stdout;\n\nif (!output || output.trim() === '') {\n  return [];\n}\n\nconst lines = output.trim().split('\\n').filter(line => line.trim() !== '');\n\nreturn lines.map(line => ({\n  path: line.trim(),\n  fileName: line.trim().split('/').pop()\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        336,
+        144,
         0
       ],
-      "id": "format-paths-node-001",
-      "name": "Format File Paths"
+      "id": "parse-file-list-001",
+      "name": "Parse File List"
     },
     {
       "parameters": {
@@ -71,7 +57,7 @@
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
       "position": [
-        528,
+        336,
         0
       ]
     },
@@ -191,6 +177,52 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "f1234567-890a-bcde-f123-4567890abcde",
+              "leftValue": "={{ $now.minus({ days: 30 }).toMillis() }}",
+              "rightValue": "={{ new Date($json.createdDate).getTime() }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "15b7b2e8-d15d-489a-9360-0adc4a05e26c",
+      "name": "Old File Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        944,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=rm -f {{ $json.filePath }}"
+      },
+      "id": "89b1c827-455c-476f-afdd-161c5f7004a9",
+      "name": "Delete Old File",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        208
+      ]
+    },
+    {
+      "parameters": {
         "resource": "databasePage",
         "databaseId": {
           "__rl": true,
@@ -293,25 +325,14 @@
       "main": [
         [
           {
-            "node": "Split Lines",
+            "node": "Parse File List",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Split Lines": {
-      "main": [
-        [
-          {
-            "node": "Format File Paths",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Format File Paths": {
+    "Parse File List": {
       "main": [
         [
           {
@@ -338,6 +359,11 @@
         [
           {
             "node": "OpenAI Category Tagging",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Old File Check",
             "type": "main",
             "index": 0
           }
@@ -371,6 +397,17 @@
         [
           {
             "node": "Notion Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Old File Check": {
+      "main": [
+        [
+          {
+            "node": "Delete Old File",
             "type": "main",
             "index": 0
           }
