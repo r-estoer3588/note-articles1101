@@ -237,35 +237,16 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://api.notion.com/v1/pages",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "notionApi",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.notionPayload) }}",
-        "options": {
-          "response": {
-            "responseFormat": "json",
-            "outputPropertyName": "notionResponse",
-            "neverError": false
-          }
-        }
+        "functionCode": "// Create Notion page with retries to smooth over transient 409 conflicts\nconst payload = item.json?.notionPayload;\nif (!payload) {\n  throw new Error('Missing notionPayload for Notion request');\n}\n\nconst filePath = item.json.filePath || '';\nconst baseKey = `${filePath || 'note'}-${Date.now()}`;\n\nconst buildOptions = (idempotencyKey) => ({\n  method: 'POST',\n  url: 'https://api.notion.com/v1/pages',\n  body: payload,\n  json: true,\n  headers: {\n    'Notion-Version': '2022-06-28',\n    'Idempotency-Key': idempotencyKey\n  }\n});\n\nconst maxAttempts = 3;\nfor (let attempt = 0; attempt < maxAttempts; attempt += 1) {\n  const idempotencyKey = attempt === 0 ? baseKey : `${baseKey}-retry${attempt}`;\n  try {\n    const response = await this.helpers.requestWithAuthentication.call(this, 'notionApi', buildOptions(idempotencyKey));\n    item.json.notionResponse = response;\n    return item;\n  } catch (error) {\n    const status = error.statusCode ?? error.response?.statusCode ?? error.httpStatusCode;\n    const details = error.response?.body ? JSON.stringify(error.response.body) : error.message;\n    if (status === 409 && attempt < maxAttempts - 1) {\n      const waitMs = 500 * (attempt + 1);\n      await new Promise((resolve) => setTimeout(resolve, waitMs));\n      continue;\n    }\n    throw new Error(`Notion create failed (status ${status ?? 'unknown'}): ${details}`);\n  }\n}\nthrow new Error('Notion create failed after retries');"
       },
       "id": "65453a56-297a-471c-b073-5940cd9ccb5e",
-      "name": "Create Notion Page (HTTP)1",
-      "type": "n8n-nodes-base.httpRequest",
-  "typeVersion": 4,
+      "name": "Create Notion Page",
+      "type": "n8n-nodes-base.functionItem",
+      "typeVersion": 1,
       "position": [
         64,
         -528
-      ],
-      "credentials": {
-        "notionApi": {
-          "id": "nsXTOjwR6MmTqoxn",
-          "name": "Notion account"
-        }
-      }
+      ]
     },
     {
       "parameters": {
@@ -452,14 +433,14 @@
       "main": [
         [
           {
-            "node": "Create Notion Page (HTTP)1",
+            "node": "Create Notion Page",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Create Notion Page (HTTP)1": {
+    "Create Notion Page": {
       "main": [
         [
           {
