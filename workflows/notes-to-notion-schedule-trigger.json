@@ -25,14 +25,14 @@
       "parameters": {
         "command": "find /notes -maxdepth 1 -type f \\( -name \"*.txt\" -o -name \"*.md\" \\)"
       },
+      "id": "list-files-node-001",
+      "name": "List All Files",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
         -48,
         0
-      ],
-      "id": "list-files-node-001",
-      "name": "List All Files"
+      ]
     },
     {
       "parameters": {
@@ -49,7 +49,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Filter out already processed files\nconst inputs = $input.all();\n\nif (inputs.length < 2) {\n  console.log('Error: Expected 2 inputs, got', inputs.length);\n  return [];\n}\n\nconst allFilesOutput = inputs[0].json.stdout;\nconst processedListOutput = inputs[1].json.stdout;\n\nconsole.log('All files output:', allFilesOutput);\nconsole.log('Processed list output:', processedListOutput);\n\nif (!allFilesOutput || allFilesOutput.trim() === '') {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput.trim().split('\\n').filter(line => line.trim() !== '');\nconst processedFiles = processedListOutput ? processedListOutput.trim().split('\\n').filter(line => line.trim() !== '') : [];\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedFiles.length);\n\n// Filter unprocessed files\nconst unprocessedFiles = allFiles.filter(file => !processedFiles.includes(file.trim()));\n\nconsole.log('Unprocessed files:', unprocessedFiles.length);\nconsole.log('Unprocessed list:', unprocessedFiles);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\n// Return array of items with json wrapper\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file.trim(),\n    fileName: file.trim().split('/').pop()\n  }\n}));"
+        "jsCode": "// Filter out already processed files\nconst inputs = $input.all();\n\n// Expect two inputs: [0] from List All Files, [1] from Get Processed List\nif (inputs.length < 2) {\n  console.log('Error: Expected 2 inputs, got', inputs.length);\n  return [];\n}\n\nconst allFilesOutput = inputs[0]?.json?.stdout ?? '';\nconst processedListOutput = inputs[1]?.json?.stdout ?? '';\n\nif (!allFilesOutput.trim()) {\n  console.log('No files found');\n  return [];\n}\n\nconst allFiles = allFilesOutput\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(Boolean);\n\nconst processedFiles = processedListOutput\n  ? processedListOutput\n      .split('\\n')\n      .map(line => line.trim())\n      .filter(Boolean)\n  : [];\n\nconst processedSet = new Set(processedFiles);\nconst unprocessedFiles = allFiles.filter(file => !processedSet.has(file));\n\nconsole.log('All files:', allFiles.length);\nconsole.log('Already processed:', processedSet.size);\nconsole.log('Unprocessed files:', unprocessedFiles.length);\n\nif (unprocessedFiles.length === 0) {\n  console.log('No new files to process');\n  return [];\n}\n\nreturn unprocessedFiles.map(file => ({\n  json: {\n    path: file,\n    fileName: file.split('/').pop()\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -174,8 +174,7 @@
               "name": "processed",
               "value": true,
               "type": "boolean"
-            }
-            ,
+            },
             {
               "id": "e0f1a2b3-c4d5-6789-9012-abcdefabcdef",
               "name": "filePath",
@@ -250,7 +249,29 @@
           "mode": "id"
         },
         "title": "={{ $json.title }}",
-        "simpleProperties": {},
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Category",
+              "textContent": "={{ $json.category }}"
+            },
+            {
+              "key": "Tags",
+              "multiSelectValue": "={{ $json.tags }}"
+            },
+            {
+              "key": "Processed",
+              "checkboxValue": "={{ $json.processed }}"
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "richText": "={{ $json.content }}"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "2d4e25b3-a9e9-47f8-9458-1bbdb419d338",
