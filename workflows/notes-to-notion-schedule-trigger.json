@@ -36,7 +36,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Parse find command output into file paths\nconst output = $input.item.json.stdout;\n\nif (!output || output.trim() === '') {\n  return [];\n}\n\nconst lines = output.trim().split('\\n').filter(line => line.trim() !== '');\n\nreturn lines.map(line => ({\n  path: line.trim(),\n  fileName: line.trim().split('/').pop()\n}));"
+        "jsCode": "// Parse find command output into file paths\nconst output = $input.item.json.stdout;\n\nif (!output || output.trim() === '') {\n  // Return empty to skip this execution\n  return [];\n}\n\nconst lines = output.trim().split('\\n').filter(line => line.trim() !== '');\n\n// Return array of items - n8n will process each as separate item\nreturn lines.map(line => ({\n  json: {\n    path: line.trim(),\n    fileName: line.trim().split('/').pop()\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
