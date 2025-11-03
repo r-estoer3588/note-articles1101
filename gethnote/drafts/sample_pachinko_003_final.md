@@ -208,7 +208,7 @@ Twitterフォローしてくれた人には次回記事を**100円引き**で読
 
 ## 👤 このマガジンについて
 
-**GETH | 底辺脱出マガジン**
+**げすいぬ | 底辺脱出マガジン**
 
 底辺から這い上がる情報を晒してる📢
 
@@ -231,7 +231,7 @@ Twitterフォローしてくれた人には次回記事を**100円引き**で読
 お前は違う。
 
 🔗 **X(Twitter)**: [@gethinu](https://x.com/gethinu)  
-📝 **note**: [GETH | 底辺脱出マガジン](https://note.com/geth_teiben)
+📝 **note**: [げすいぬ | 底辺脱出マガジン](https://note.com/geth_teiben)
 
 ---
 
