@@ -13,8 +13,14 @@ note-articles/
 │   │   ├── images/            # 記事用画像
 │   │   └── metadata.json      # 公開日・タグ・URL等
 │   └── ...
+├── designs/            # 運用戦略・フレームワーク設計書
+│   ├── x_api_operation_framework.md           # X API v2 総合フレームワーク
+│   ├── ai_narrative_studio_operation_manual.md # AI Narrative Studio運用マニュアル
+│   └── gethnote_operation_manual.md           # GETHNOTE運用マニュアル
 ├── templates/          # 記事テンプレート・プロンプトひな形
 ├── tools/              # 執筆支援・公開支援ツール
+│   ├── x_api_analyzer.py      # X API v2分析ツール
+│   └── x_api_setup_guide.md   # X API環境構築ガイド
 └── drafts/             # 下書き・アイデアメモ
 ```
 
@@ -46,9 +52,14 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 
 ## 🛠️ ツール
 
+### 記事制作支援
 - `tools/publish_to_note.py` - note API への自動投稿（将来実装予定）
 - `tools/image_optimizer.py` - 画像サイズ最適化
 - `tools/metadata_generator.py` - メタデータ自動生成
+
+### X（旧Twitter）運用分析
+- `tools/x_api_analyzer.py` - X API v2を使った投稿分析・レポート自動生成
+- `tools/x_api_setup_guide.md` - 環境構築・トラブルシューティングガイド
 
 ## 📖 テンプレート
 
@@ -86,6 +97,24 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 - [note ヘルプセンター](https://help.note.com)
 - [Markdown 記法](https://help.note.com/hc/ja/articles/360000114182)
 
+## 📋 運用戦略ドキュメント
+
+### X（旧Twitter）運用フレームワーク
+
+- **[X API v2 運用分析・最適化フレームワーク](designs/x_api_operation_framework.md)**  
+  両アカウント共通の分析軸・データ取得設計・実装ロードマップ
+
+- **[AI Narrative Studio 運用マニュアル](designs/ai_narrative_studio_operation_manual.md)**  
+  30代会社員向け・信頼構築型の投稿戦術（月30投稿カレンダー・文体ルール・KPI追跡）
+
+- **[GETHNOTE 運用マニュアル](designs/gethnote_operation_manual.md)**  
+  底辺脱出層向け・損失回避刺激型の投稿戦術（月40投稿カレンダー・炎上管理・コミュニティ化）
+
+### 実装ステップ
+1. [X API環境構築ガイド](tools/x_api_setup_guide.md)を参照してAPI認証情報を取得
+2. `tools/x_api_analyzer.py`で過去30日分のデータを取得・分析
+3. 各運用マニュアルの投稿テンプレートを使って週次・月次で改善サイクルを回す
+
 ## 📊 パフォーマンス追跡
 
 各記事の`metadata.json`に以下を記録：
@@ -98,13 +127,19 @@ cp templates/article_template.md articles/$(date +%Y-%m-%d)_テーマ名/article
 
 ## 🌟 今後の展開
 
+### note記事制作
 - [ ] note API 連携で自動投稿
 - [ ] 画像生成 AI との統合ワークフロー
 - [ ] 記事パフォーマンス分析ダッシュボード
 - [ ] タグ別・カテゴリ別アーカイブ
 
+### X運用最適化
+- [ ] Phase 1（0-3ヶ月）：基盤構築・初期分析・競合調査
+- [ ] Phase 2（4-6ヶ月）：感情分析導入・予測モデル構築
+- [ ] Phase 3（7-12ヶ月）：自動化強化・収益化連携・ダッシュボード化
+
 ---
 
-**Last Updated**: 2025-11-01
+**Last Updated**: 2025-11-08
 **Total Articles**: 1
 **Status**: 🚀 稼働中

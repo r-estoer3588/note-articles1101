@@ -1,0 +1,38 @@
+{
+  "id": 1,
+  "article_id": "月曜_パチンコ_sample_pachinko_003_final",
+  "title": "【パチで負ける台の見分け方】",
+  "price": 300,
+  "category": "ギャンブル・金",
+  "day_of_week": "月曜日",
+  "target": "底辺層（年収300万以下）",
+  "created": "2025-11-03 15:30:00",
+  "status": "published",
+  "version": "3.0（緩急最適化版）",
+  "word_count": {
+    "free": 300,
+    "paid": 650,
+    "total": 950
+  },
+  "estimated_reading_time": "3分",
+  "optimization": [
+    "1文15字以内",
+    "緩急のある改行",
+    "ネット言葉（ホール、晒す、ガチで）"
+  ],
+  "tags": [
+    "パチンコ",
+    "スロット",
+    "ギャンブル",
+    "副業",
+    "お金"
+  ],
+  "note_url": "https://note.com/geth_note/n/n81273b0ff556",
+  "published_date": "2025-11-03",
+  "next_article": {
+    "id": 2,
+    "preview_text": "競馬で絶対に当たらない買い方",
+    "publish_day": "火曜12時"
+  }
+}
+
