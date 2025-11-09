@@ -1,0 +1,26 @@
+{
+  "id": 56,
+  "title": "【友達関係で損する距離感】",
+  "price": 300,
+  "category": "趣味・遊び🎮",
+  "day_of_week": "日曜",
+  "status": "draft",
+  "word_count": {
+    "free": 220,
+    "paid": 829,
+    "total": 1049
+  },
+  "tags": [
+    "げすいぬ",
+    "GETH",
+    "底辺脱出",
+    "友達関係で損する距離"
+  ],
+  "note_url": "",
+  "published_date": "",
+  "next_article": {
+    "id": 57,
+    "preview_text": "LINE・SNSで嫌われるメッセージ",
+    "publish_day": "月曜12時"
+  }
+}

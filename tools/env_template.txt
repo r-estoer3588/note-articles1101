@@ -1,0 +1,28 @@
+# LINE Bot 環境設定
+# このファイルをコピーして .env にリネームし、実際の値を設定してください
+
+# LINE Messaging API設定
+LINE_CHANNEL_ACCESS_TOKEN=your_channel_access_token_here
+LINE_CHANNEL_SECRET=your_channel_secret_here
+
+# Google Sheets設定
+GOOGLE_SHEET_ID=your_spreadsheet_id_here
+GOOGLE_SERVICE_ACCOUNT_JSON=path/to/service-account.json
+
+# n8n設定
+N8N_WEBHOOK_URL=http://localhost:5678/webhook/hogey-bot
+
+# Python実行パス
+HOGEY_SCRIPT_PATH=c:\Repos\note-articles\tools\hogey_algorithm.py
+
+# 作業ディレクトリ
+WORK_DIR=c:\Repos\note-articles\tools
+
+# X (Twitter) API設定（オプション - X投稿機能用）
+X_API_KEY=your_x_api_key_here
+X_API_SECRET=your_x_api_secret_here
+X_ACCESS_TOKEN=your_x_access_token_here
+X_ACCESS_TOKEN_SECRET=your_x_access_token_secret_here
+
+# デバッグモード
+DEBUG=false

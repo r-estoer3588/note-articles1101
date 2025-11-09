@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホゲーアルゴリズム リッチメニュー</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+        }
+        
+        .rich-menu {
+            width: 2500px;
+            height: 1686px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .emoji {
+            font-size: 160px;
+            margin-bottom: 30px;
+        }
+        
+        .label {
+            font-size: 80px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .sublabel {
+            font-size: 50px;
+            margin-top: 15px;
+            opacity: 0.9;
+        }
+        
+        /* 個別の色 */
+        .item-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .item-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .item-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .item-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .item-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .item-6 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+    </style>
+</head>
+<body>
+    <div class="rich-menu">
+        <div class="menu-item item-1">
+            <div class="emoji">📝</div>
+            <div class="label">投稿生成</div>
+            <div class="sublabel">バズ投稿作成</div>
+        </div>
+        
+        <div class="menu-item item-2">
+            <div class="emoji">📖</div>
+            <div class="label">3部作</div>
+            <div class="sublabel">ストーリー生成</div>
+        </div>
+        
+        <div class="menu-item item-3">
+            <div class="emoji">📚</div>
+            <div class="label">今日</div>
+            <div class="sublabel">今日のテーマ</div>
+        </div>
+        
+        <div class="menu-item item-4">
+            <div class="emoji">🎓</div>
+            <div class="label">学習</div>
+            <div class="sublabel">CSV学習実行</div>
+        </div>
+        
+        <div class="menu-item item-5">
+            <div class="emoji">📊</div>
+            <div class="label">状態</div>
+            <div class="sublabel">現在の状況</div>
+        </div>
+        
+        <div class="menu-item item-6">
+            <div class="emoji">❓</div>
+            <div class="label">ヘルプ</div>
+            <div class="sublabel">使い方を見る</div>
+        </div>
+    </div>
+    
+    <script>
+        // スクリーンショット用のヘルプ
+        console.log(`
+============================================
+リッチメニュー画像の作り方
+============================================
+
+このHTMLファイルをブラウザで開いて、以下の手順でスクリーンショットを撮ってください：
+
+1. ブラウザを全画面表示（F11）
+2. ズーム100%に設定
+3. デベロッパーツール（F12）を開く
+4. デバイスモードに切り替え（Ctrl+Shift+M）
+5. カスタムサイズ: 2500 x 1686 に設定
+6. スクリーンショット撮影
+
+または、Windowsの「Snipping Tool」で全画面キャプチャでもOK。
+
+保存後、LINEリッチメニューにアップロードしてください。
+============================================
+        `);
+    </script>
+</body>
+</html>

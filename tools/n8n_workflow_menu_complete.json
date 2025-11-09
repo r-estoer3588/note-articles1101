@@ -1,0 +1,409 @@
+{
+  "name": "ホゲーアルゴリズム LINE Bot メニュー版",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "hogey-bot",
+        "options": {}
+      },
+      "id": "webhook-line",
+      "name": "LINE Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const event = $input.item.json.events[0];\nconst text = event.message?.text || '';\nconst userId = event.source.userId;\nconst replyToken = event.replyToken;\nconst postbackData = event.postback?.data || '';\n\nlet result = {\n  userId: userId,\n  replyToken: replyToken,\n  text: text,\n  postbackData: postbackData,\n  eventType: event.type\n};\n\n// リッチメニューコマンド判定\nif (text.startsWith('menu:')) {\n  const menuAction = text.split(':')[1];\n  result.menuAction = menuAction;\n  result.needsState = true;\n} \n// ポストバックイベント\nelse if (event.type === 'postback') {\n  const params = new URLSearchParams(postbackData);\n  result.action = params.get('action');\n  result.index = parseInt(params.get('index'));\n  result.needsState = true;\n}\n// 通常のテキスト（状態依存）\nelse {\n  result.needsState = true;\n}\n\nreturn { json: result };"
+      },
+      "id": "parse-command",
+      "name": "コマンド解析",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "serviceAccountEmail": "{{ $credentials.googleServiceAccount.email }}",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "ユーザー状態管理!A:G",
+        "options": {}
+      },
+      "id": "get-user-state",
+      "name": "ユーザー状態取得",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [650, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "1",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+  "functionCode": "const userId = $input.item.json.userId;\nconst menuAction = $input.item.json.menuAction;\nconst text = $input.item.json.text;\nconst action = $input.item.json.action;\nconst eventType = $input.item.json.eventType;\n\n// Google Sheetsから取得したユーザー状態\nconst stateRows = $node['ユーザー状態取得'].json.values || [];\nconst userRow = stateRows.find(row => row[0] === userId);\n\nlet userState = {\n  userId: userId,\n  state: 'idle',\n  count: null,\n  theme: null,\n  type: null,\n  posts_data: null,\n  current_index: 0\n};\n\nif (userRow) {\n  userState = {\n    userId: userRow[0],\n    state: userRow[1] || 'idle',\n    count: userRow[2] ? parseInt(userRow[2]) : null,\n    theme: userRow[3] || null,\n    posts_data: userRow[4] || null,\n    current_index: userRow[5] ? parseInt(userRow[5]) : 0,\n    type: userRow[7] || null\n  };\n}\n\nlet result = {\n  userId: userId,\n  replyToken: $input.item.json.replyToken,\n  currentState: userState,\n  nextAction: null,\n  updateState: null\n};\n\n// メニューアクション処理\nif (menuAction) {\n  switch(menuAction) {\n    case 'generate':\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'buzz' };\n      break;\n      \n    case 'trilogy':\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', type: 'trilogy', count: 3 };\n      break;\n      \n    case 'today':\n      // 7カテゴリに同期\n      const cats = ['ギャンブル・金', 'ビジネス・キャリア', '生活・節約', '社会・ネット裏事情', '健康・美容', '恋愛・人間関係', '趣味・遊び'];\n      const todayTheme = cats[new Date().getDay()];\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'today', theme: todayTheme };\n      result.todayTheme = todayTheme;\n      break;\n      \n    case 'learn':\n      result.nextAction = 'show_learn_confirm';\n      break;\n      \n    case 'status':\n      result.nextAction = 'show_status';\n      break;\n      \n    case 'help':\n      result.nextAction = 'show_help';\n      break;\n  }\n}\n// ポストバックアクション処理\nelse if (action) {\n  const posts = userState.posts_data ? JSON.parse(userState.posts_data) : [];\n  const index = $input.item.json.index;\n  \n  switch(action) {\n    case 'post':\n      result.nextAction = 'post_to_x';\n      result.postContent = posts[index];\n      result.updateState = { state: 'idle', posts_data: null, current_index: 0 };\n      break;\n      \n    case 'save':\n      result.nextAction = 'save_to_sheets';\n      result.postContent = posts[index];\n      break;\n      \n    case 'next':\n      const nextIndex = index >= posts.length ? 0 : index;\n      result.nextAction = 'show_post';\n      result.postContent = posts[nextIndex];\n      result.postIndex = nextIndex;\n      result.totalPosts = posts.length;\n      result.updateState = { current_index: nextIndex };\n      break;\n      \n    case 'detail':\n      result.nextAction = 'show_post_detail';\n      result.postContent = posts[index];\n      result.postIndex = index;\n      result.totalPosts = posts.length;\n      break;\n      \n    case 'learn_execute':\n      result.nextAction = 'execute_learn';\n      break;\n  }\n}\n// 状態に応じたテキスト処理\nelse if (userState.state === 'selecting_count') {\n  const count = parseInt(text);\n  if (count > 0) {\n    if (userState.type === 'today') {\n      // 今日のテーマは既に設定済み → 即生成\n      result.nextAction = 'generate_posts';\n      result.generateParams = {\n        count: count,\n        theme: userState.theme,\n        type: userState.type\n      };\n      result.updateState = { state: 'generating', count: count };\n    } else {\n      // 通常フロー → テーマ選択へ\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', count: count };\n    }\n  } else {\n    result.nextAction = 'error';\n    result.errorMessage = '数字を入力してください';\n  }\n}\nelse if (userState.state === 'selecting_theme') {\n  result.nextAction = 'generate_posts';\n  result.generateParams = {\n    count: userState.count,\n    theme: text,\n    type: userState.type || 'buzz'\n  };\n  result.updateState = { state: 'generating', theme: text };\n}\nelse {\n  result.nextAction = 'error';\n  result.errorMessage = 'メニューから操作を選択してください';\n}\n\nreturn { json: result };"
+      },
+      "id": "state-machine",
+      "name": "状態判定",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "show_count_selection"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-count",
+      "name": "件数選択表示?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "show_theme_selection"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-theme",
+      "name": "テーマ選択表示?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "generate_posts"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-generate",
+      "name": "投稿生成実行?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "functionCode": "const type = $input.item.json.currentState.type;\nconst todayTheme = $input.item.json.todayTheme;\n\nlet message = {\n  type: 'text',\n  text: '何件生成しますか？',\n  quickReply: {\n    items: [\n      {\n        type: 'action',\n        action: { type: 'message', label: '3件', text: '3' }\n      },\n      {\n        type: 'action',\n        action: { type: 'message', label: '5件', text: '5' }\n      },\n      {\n        type: 'action',\n        action: { type: 'message', label: '10件', text: '10' }\n      },\n      {\n        type: 'action',\n        action: { type: 'message', label: '20件', text: '20' }\n      }\n    ]\n  }\n};\n\nif (type === 'today') {\n  message.text = `📚 今日は「${todayTheme}」のテーマです\\n何件生成しますか？`;\n}\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId,\n    updateState: $input.item.json.updateState\n  } \n};"
+      },
+      "id": "create-count-reply",
+      "name": "件数選択メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+  "functionCode": "const themes = [\n  { emoji: '🎰', name: 'ギャンブル・金' },\n  { emoji: '💼', name: 'ビジネス・キャリア' },\n  { emoji: '�', name: '生活・節約' },\n  { emoji: '🌐', name: '社会・ネット裏事情' },\n  { emoji: '�', name: '健康・美容' },\n  { emoji: '❤️', name: '恋愛・人間関係' },\n  { emoji: '🎮', name: '趣味・遊び' }\n];\n\nconst message = {\n  type: 'text',\n  text: 'テーマを選んでください (7カテゴリ)',\n  quickReply: {\n    items: themes.map(t => ({\n      type: 'action',\n      action: {\n        type: 'message',\n        label: `${t.emoji} ${t.name}`,\n        text: t.name\n      }\n    }))\n  }\n};\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId,\n    updateState: $input.item.json.updateState\n  } \n};"
+      },
+      "id": "create-theme-reply",
+      "name": "テーマ選択メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd c:\\Repos\\note-articles\\tools && python hogey_algorithm.py --count {{ $json.generateParams.count }} --theme \"{{ $json.generateParams.theme }}\" --mode {{ $json.generateParams.type === 'trilogy' ? 'trilogy' : 'buzz' }} --output temp_{{ $json.userId }}.csv"
+      },
+      "id": "execute-python",
+      "name": "Python実行",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1250, 400]
+    },
+    {
+      "parameters": {
+        "url": "https://api.line.me/v2/bot/message/reply",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "lineNotifyOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_CHANNEL_ACCESS_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "replyToken",
+              "value": "={{ $json.replyToken }}"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([$json.message]) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "line-reply",
+      "name": "LINE返信",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "ユーザー状態管理!A:H",
+        "options": {}
+      },
+      "id": "update-user-state",
+      "name": "ユーザー状態更新",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [1450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "1",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const params = $input.item.json.generateParams;\nconst output = $node['Python実行'].json;\nconst userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\n// CSVファイルを読み込んで投稿データを取得\nconst fs = require('fs');\nconst csvPath = `c:\\\\Repos\\\\note-articles\\\\tools\\\\temp_${userId}.csv`;\nconst csvContent = fs.readFileSync(csvPath, 'utf-8');\n\n// CSV解析（簡易版）\nconst lines = csvContent.split('\\n').slice(1); // ヘッダースキップ\nconst posts = lines\n  .filter(line => line.trim())\n  .map(line => {\n    const cols = line.split(',');\n    return {\n      text: cols[0],\n      theme: cols[1],\n      education_type: cols[2],\n      template_type: cols[3],\n      created_at: cols[4]\n    };\n  });\n\n// 最初の投稿を表示\nconst firstPost = posts[0];\nconst progressBar = '█' + '░'.repeat(9);\n\nconst message = {\n  type: 'text',\n  text: `🐶 投稿1/${posts.length}\\n${progressBar}\\n\\n${firstPost.text}\\n\\nテーマ: ${firstPost.theme}\\n教育: ${firstPost.education_type}`,\n  quickReply: {\n    items: [\n      {\n        type: 'action',\n        action: {\n          type: 'postback',\n          label: '🚀 X投稿',\n          data: `action=post&index=0`\n        }\n      },\n      {\n        type: 'action',\n        action: {\n          type: 'postback',\n          label: '💾 保存',\n          data: `action=save&index=0`\n        }\n      },\n      {\n        type: 'action',\n        action: {\n          type: 'postback',\n          label: '➡️ 次へ',\n          data: `action=next&index=1`\n        }\n      },\n      {\n        type: 'action',\n        action: {\n          type: 'message',\n          label: '🗑️ 破棄',\n          text: '破棄'\n        }\n      }\n    ]\n  }\n};\n\nreturn { \n  json: {\n    replyToken: replyToken,\n    message: message,\n    userId: userId,\n    updateState: {\n      state: 'viewing_posts',\n      posts_data: JSON.stringify(posts),\n      current_index: 0\n    }\n  } \n};"
+      },
+      "id": "create-post-display",
+      "name": "投稿表示メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "show_help"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-help",
+      "name": "ヘルプ表示?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "functionCode": "const message = {\n  type: 'text',\n  text: `🐶 ホゲーアルゴリズム使い方\\n\\n【リッチメニュー】\\n📝 投稿生成: バズ投稿を作成\\n📖 3部作: ストーリー投稿作成\\n📚 今日: 今日のテーマで生成\\n🎓 学習: CSV学習実行\\n📊 状態: 現在の状況確認\\n❓ ヘルプ: このメッセージ\\n\\n【投稿表示中】\\n🚀 X投稿: Xに即投稿\\n💾 保存: Sheetsに保存\\n➡️ 次へ: 次の投稿を表示\\n🗑️ 破棄: 破棄して終了\\n\\n使い方:\\n1. リッチメニューをタップ\\n2. 件数/テーマを選択\\n3. 生成された投稿を確認\\n4. 投稿 or 保存を選択`\n};\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId\n  } \n};"
+      },
+      "id": "create-help-message",
+      "name": "ヘルプメッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 500]
+    },
+    {
+      "parameters": {
+        "functionCode": "// ローディングメッセージを先送り\nconst loadingMessage = {\n  type: 'text',\n  text: '⏳ 生成中です...\\nしばらくお待ちください'\n};\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: loadingMessage,\n    userId: $input.item.json.userId,\n    generateParams: $input.item.json.generateParams,\n    updateState: $input.item.json.updateState\n  } \n};"
+      },
+      "id": "create-loading-message",
+      "name": "ローディングメッセージ",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "show_learn_confirm"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-learn-confirm",
+      "name": "学習確認表示?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 600]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.nextAction }}",
+              "value2": "execute_learn"
+            }
+          ]
+        }
+      },
+      "id": "switch-action-learn-exec",
+      "name": "学習実行?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1050, 700]
+    },
+    {
+      "parameters": {
+        "functionCode": "const message = {\n  type: 'text',\n  text: '🎓 学習を実行しますか？\\n\\n学習内容:\\n・過去の投稿データを分析\\n・バズりやすいパターンを学習\\n・テンプレートの精度を向上\\n\\n所要時間: 約3〜5分',\n  quickReply: {\n    items: [\n      {\n        type: 'action',\n        action: {\n          type: 'postback',\n          label: '✅ 実行する',\n          data: 'action=learn_execute'\n        }\n      },\n      {\n        type: 'action',\n        action: {\n          type: 'message',\n          label: '❌ キャンセル',\n          text: 'キャンセル'\n        }\n      }\n    ]\n  }\n};\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId\n  } \n};"
+      },
+      "id": "create-learn-confirm-message",
+      "name": "学習確認メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 600]
+    },
+    {
+      "parameters": {
+        "functionCode": "const loadingMessage = {\n  type: 'text',\n  text: '🎓 学習を開始します...\\n⏳ 3〜5分お待ちください'\n};\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: loadingMessage,\n    userId: $input.item.json.userId\n  } \n};"
+      },
+      "id": "create-learn-loading",
+      "name": "学習ローディング",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 700]
+    },
+    {
+      "parameters": {
+        "command": "cd c:\\Repos\\note-articles\\tools && python hogey_algorithm.py --learn --input my_posts_sample.csv"
+      },
+      "id": "execute-learn-script",
+      "name": "学習スクリプト実行",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1450, 720]
+    },
+    {
+      "parameters": {
+        "functionCode": "const output = $node['学習スクリプト実行'].json;\nconst exitCode = output.exitCode || 0;\nconst stdout = output.stdout || '';\nconst stderr = output.stderr || '';\n\nlet message;\nif (exitCode === 0) {\n  // 成功\n  const lines = stdout.split('\\n').filter(l => l.trim());\n  const summary = lines.slice(-3).join('\\n');\n  message = {\n    type: 'text',\n    text: `✅ 学習が完了しました！\\n\\n${summary}\\n\\n次回の投稿生成から新しいパターンが反映されます。`\n  };\n} else {\n  // 失敗\n  const errorSnippet = stderr.split('\\n').slice(0, 3).join('\\n');\n  message = {\n    type: 'text',\n    text: `❌ 学習に失敗しました\\n\\nエラー:\\n${errorSnippet}\\n\\n管理者に連絡してください。`\n  };\n}\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId\n  } \n};"
+      },
+      "id": "create-learn-result-message",
+      "name": "学習結果メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 720]
+    }
+  ],
+  "connections": {
+    "LINE Webhook": {
+      "main": [[{ "node": "コマンド解析", "type": "main", "index": 0 }]]
+    },
+    "コマンド解析": {
+      "main": [[{ "node": "ユーザー状態取得", "type": "main", "index": 0 }]]
+    },
+    "ユーザー状態取得": {
+      "main": [[{ "node": "状態判定", "type": "main", "index": 0 }]]
+    },
+    "状態判定": {
+      "main": [[
+        { "node": "件数選択表示?", "type": "main", "index": 0 },
+        { "node": "テーマ選択表示?", "type": "main", "index": 0 },
+        { "node": "投稿生成実行?", "type": "main", "index": 0 },
+        { "node": "ヘルプ表示?", "type": "main", "index": 0 },
+        { "node": "学習確認表示?", "type": "main", "index": 0 },
+        { "node": "学習実行?", "type": "main", "index": 0 }
+      ]]
+    },
+    "件数選択表示?": {
+      "main": [[{ "node": "件数選択メッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "テーマ選択表示?": {
+      "main": [[{ "node": "テーマ選択メッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "投稿生成実行?": {
+      "main": [[
+        { "node": "ローディングメッセージ", "type": "main", "index": 0 }
+      ]]
+    },
+    "ヘルプ表示?": {
+      "main": [[{ "node": "ヘルプメッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "学習確認表示?": {
+      "main": [[{ "node": "学習確認メッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "学習実行?": {
+      "main": [[{ "node": "学習ローディング", "type": "main", "index": 0 }]]
+    },
+    "学習確認メッセージ作成": {
+      "main": [[{ "node": "LINE返信", "type": "main", "index": 0 }]]
+    },
+    "学習ローディング": {
+      "main": [[
+        { "node": "LINE返信", "type": "main", "index": 0 },
+        { "node": "学習スクリプト実行", "type": "main", "index": 0 }
+      ]]
+    },
+    "学習スクリプト実行": {
+      "main": [[{ "node": "学習結果メッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "学習結果メッセージ作成": {
+      "main": [[{ "node": "LINE返信", "type": "main", "index": 0 }]]
+    },
+    "ローディングメッセージ": {
+      "main": [[
+        { "node": "LINE返信", "type": "main", "index": 0 },
+        { "node": "Python実行", "type": "main", "index": 0 }
+      ]]
+    },
+    "件数選択メッセージ作成": {
+      "main": [[
+        { "node": "ユーザー状態更新", "type": "main", "index": 0 }
+      ]]
+    },
+    "テーマ選択メッセージ作成": {
+      "main": [[
+        { "node": "ユーザー状態更新", "type": "main", "index": 0 }
+      ]]
+    },
+    "ヘルプメッセージ作成": {
+      "main": [[
+        { "node": "LINE返信", "type": "main", "index": 0 }
+      ]]
+    },
+    "Python実行": {
+      "main": [[{ "node": "投稿表示メッセージ作成", "type": "main", "index": 0 }]]
+    },
+    "投稿表示メッセージ作成": {
+      "main": [[
+        { "node": "ユーザー状態更新", "type": "main", "index": 0 }
+      ]]
+    },
+    "ユーザー状態更新": {
+      "main": [[{ "node": "LINE返信", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-08T00:00:00.000Z",
+  "versionId": "1"
+}

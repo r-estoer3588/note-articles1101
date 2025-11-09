@@ -1,0 +1,26 @@
+{
+  "id": 12,
+  "title": "【NISAで知らないと損する落とし穴】",
+  "price": 300,
+  "category": "健康・美容💪",
+  "day_of_week": "金曜",
+  "status": "draft",
+  "word_count": {
+    "free": 226,
+    "paid": 826,
+    "total": 1052
+  },
+  "tags": [
+    "げすいぬ",
+    "GETH",
+    "底辺脱出",
+    "NISAで知らないと"
+  ],
+  "note_url": "",
+  "published_date": "",
+  "next_article": {
+    "id": 13,
+    "preview_text": "iDeCoで絶対失敗する運用法",
+    "publish_day": "土曜12時"
+  }
+}

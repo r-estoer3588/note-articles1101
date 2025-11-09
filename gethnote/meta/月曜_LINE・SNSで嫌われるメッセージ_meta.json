@@ -1,0 +1,26 @@
+{
+  "id": 57,
+  "title": "【LINE・SNSで嫌われるメッセージ】",
+  "price": 300,
+  "category": "ギャンブル・金💰",
+  "day_of_week": "月曜",
+  "status": "draft",
+  "word_count": {
+    "free": 227,
+    "paid": 823,
+    "total": 1050
+  },
+  "tags": [
+    "げすいぬ",
+    "GETH",
+    "底辺脱出",
+    "LINE・SNSで嫌"
+  ],
+  "note_url": "",
+  "published_date": "",
+  "next_article": {
+    "id": 58,
+    "preview_text": "飲み会で絶対嫌われる行動",
+    "publish_day": "火曜12時"
+  }
+}

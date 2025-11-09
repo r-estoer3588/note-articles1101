@@ -1,0 +1,473 @@
+{
+  "name": "ホゲーアルゴリズム スマホ版",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "line-hogey",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "LINE Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "YOUR_WEBHOOK_ID"
+    },
+    {
+      "parameters": {
+        "functionCode": "// LINEメッセージからコマンド解析\nconst event = $input.item.json.events[0];\nconst text = event.message.text;\nconst replyToken = event.replyToken;\nconst userId = event.source.userId;\n\n// 認証チェック（オプション）\nconst allowedUsers = ['YOUR_LINE_USER_ID'];\nif (!allowedUsers.includes(userId)) {\n  return {\n    json: {\n      error: 'Unauthorized',\n      replyToken: replyToken,\n      message: '認証エラー：このアカウントは使用できません'\n    }\n  };\n}\n\n// コマンド解析\nconst parts = text.trim().split(/\\s+/);\nconst command = parts[0];\n\nlet result = {\n  command: command,\n  replyToken: replyToken,\n  userId: userId\n};\n\nswitch(command) {\n  case '生成':\n    result.count = parseInt(parts[1]) || 5;\n    result.theme = parts.slice(2).join(' ') || '人生逆転';\n    result.type = 'buzz';\n    break;\n    \n  case 'ストーリー':\n    result.theme = parts.slice(1).join(' ') || '停滞からの逆転';\n    result.type = 'trilogy';\n    break;\n    \n  case '学習':\n    result.type = 'learn';\n    break;\n    \n  case '今日':\n    const themes = {\n      0: '時間の使い方',\n      1: 'ギャンブル依存',\n      2: 'ブラック企業',\n      3: '無駄遣い',\n      4: 'SNS依存',\n      5: '疲労',\n      6: '人間関係'\n    };\n    const today = new Date().getDay();\n    result.theme = themes[today];\n    result.count = parseInt(parts[1]) || 3;\n    result.type = 'buzz';\n    break;\n    \n  case '状態':\n    result.type = 'status';\n    break;\n    \n  default:\n    result.error = 'Unknown command';\n    result.message = '使い方:\\n生成 [件数] [テーマ]\\nストーリー [テーマ]\\n学習\\n今日 [件数]\\n状態';\n}\n\nreturn { json: result };"
+      },
+      "name": "コマンド解析",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.error }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "name": "エラーチェック",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.type }}",
+              "value2": "buzz"
+            }
+          ]
+        }
+      },
+      "name": "コマンド分岐",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [850, 200],
+      "parameters": {
+        "mode": "expression",
+        "output": "multiple",
+        "rules": {
+          "rules": [
+            {
+              "operation": "equal",
+              "value1": "={{ $json.type }}",
+              "value2": "buzz"
+            },
+            {
+              "operation": "equal",
+              "value1": "={{ $json.type }}",
+              "value2": "trilogy"
+            },
+            {
+              "operation": "equal",
+              "value1": "={{ $json.type }}",
+              "value2": "learn"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "python",
+        "arguments": "c:\\Repos\\note-articles\\tools\\hogey_algorithm.py --theme \"={{ $json.theme }}\" --count {{ $json.count }} --json"
+      },
+      "name": "バズ投稿生成",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1050, 100]
+    },
+    {
+      "parameters": {
+        "command": "python",
+        "arguments": "c:\\Repos\\note-articles\\tools\\hogey_algorithm.py --type trilogy --theme \"={{ $json.theme }}\" --json"
+      },
+      "name": "ストーリー生成",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "command": "python",
+        "arguments": "c:\\Repos\\note-articles\\tools\\hogey_algorithm.py --learn --my-posts c:\\Repos\\note-articles\\tools\\my_posts.csv --bench-posts c:\\Repos\\note-articles\\tools\\bench_posts.csv"
+      },
+      "name": "学習実行",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Python出力をパース\nconst output = $input.item.json.stdout;\nconst posts = JSON.parse(output);\n\n// 最初の投稿を取り出す\nconst firstPost = Array.isArray(posts) ? posts[0] : posts.posts[0];\n\nreturn {\n  json: {\n    ...firstPost,\n    replyToken: $node[\"コマンド解析\"].json.replyToken,\n    allPosts: posts,\n    currentIndex: 0\n  }\n};"
+      },
+      "name": "結果パース",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "replyToken": "={{ $json.replyToken }}",
+        "message": "🐶 ホゲー投稿生成完了\n\n{{ $json.text }}\n\n教育: {{ $json.education_type }}\nテーマ: {{ $json.theme }}",
+        "additionalFields": {
+          "quickReply": {
+            "items": [
+              {
+                "type": "action",
+                "action": {
+                  "type": "postback",
+                  "label": "この投稿をXに投稿",
+                  "data": "action=post&id={{ $json.post_id }}"
+                }
+              },
+              {
+                "type": "action",
+                "action": {
+                  "type": "postback",
+                  "label": "次の投稿を見る",
+                  "data": "action=next&index={{ $json.currentIndex + 1 }}"
+                }
+              },
+              {
+                "type": "action",
+                "action": {
+                  "type": "postback",
+                  "label": "スプレッドシートに保存",
+                  "data": "action=save"
+                }
+              },
+              {
+                "type": "action",
+                "action": {
+                  "type": "message",
+                  "label": "破棄",
+                  "text": "破棄"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "name": "LINE返信",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1450, 200]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "message": "❌ エラー\n\n{{ $json.message }}"
+      },
+      "name": "エラー返信",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [850, 450]
+    },
+    {
+      "parameters": {
+        "path": "line-postback",
+        "responseMode": "lastNode"
+      },
+      "name": "LINE Postback Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 600]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Postbackデータ解析\nconst event = $input.item.json.events[0];\nconst data = event.postback.data;\nconst params = new URLSearchParams(data);\n\nreturn {\n  json: {\n    action: params.get('action'),\n    id: params.get('id'),\n    index: parseInt(params.get('index')) || 0,\n    replyToken: event.replyToken\n  }\n};"
+      },
+      "name": "Postback解析",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 600]
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "output": "multiple",
+        "rules": {
+          "rules": [
+            {
+              "operation": "equal",
+              "value1": "={{ $json.action }}",
+              "value2": "post"
+            },
+            {
+              "operation": "equal",
+              "value1": "={{ $json.action }}",
+              "value2": "save"
+            },
+            {
+              "operation": "equal",
+              "value1": "={{ $json.action }}",
+              "value2": "next"
+            }
+          ]
+        }
+      },
+      "name": "アクション分岐",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [650, 600]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "投稿管理",
+        "columns": {
+          "mappings": [
+            {
+              "column": "post_id",
+              "value": "={{ $json.post_id }}"
+            },
+            {
+              "column": "text",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "column": "theme",
+              "value": "={{ $json.theme }}"
+            },
+            {
+              "column": "education_type",
+              "value": "={{ $json.education_type }}"
+            },
+            {
+              "column": "投稿",
+              "value": ""
+            },
+            {
+              "column": "scheduled_datetime",
+              "value": "={{ $now.toISO() }}"
+            }
+          ]
+        }
+      },
+      "name": "スプレッドシート保存",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [850, 700]
+    },
+    {
+      "parameters": {
+        "resource": "tweet",
+        "operation": "create",
+        "text": "={{ $json.text }}"
+      },
+      "name": "X投稿",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "message": "✅ Xに投稿しました！\n\n{{ $json.text }}"
+      },
+      "name": "投稿完了通知",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "message": "💾 スプレッドシートに保存しました！\n\n後で投稿できます。"
+      },
+      "name": "保存完了通知",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1050, 700]
+    }
+  ],
+  "connections": {
+    "LINE Webhook": {
+      "main": [
+        [
+          {
+            "node": "コマンド解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "コマンド解析": {
+      "main": [
+        [
+          {
+            "node": "エラーチェック",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "エラーチェック": {
+      "main": [
+        [
+          {
+            "node": "コマンド分岐",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "エラー返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "コマンド分岐": {
+      "main": [
+        [
+          {
+            "node": "バズ投稿生成",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ストーリー生成",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "学習実行",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "バズ投稿生成": {
+      "main": [
+        [
+          {
+            "node": "結果パース",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ストーリー生成": {
+      "main": [
+        [
+          {
+            "node": "結果パース",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "結果パース": {
+      "main": [
+        [
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LINE Postback Webhook": {
+      "main": [
+        [
+          {
+            "node": "Postback解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postback解析": {
+      "main": [
+        [
+          {
+            "node": "アクション分岐",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "アクション分岐": {
+      "main": [
+        [
+          {
+            "node": "X投稿",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "スプレッドシート保存",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "X投稿": {
+      "main": [
+        [
+          {
+            "node": "投稿完了通知",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "スプレッドシート保存": {
+      "main": [
+        [
+          {
+            "node": "保存完了通知",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-11-08T00:00:00.000Z",
+  "versionId": "1"
+}
