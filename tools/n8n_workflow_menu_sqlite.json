@@ -4,7 +4,6 @@
     {
       "parameters": {
         "path": "webhook/line-menu",
-        "options": {}
       },
       "id": "webhook-line",
       "name": "LINE Webhook",

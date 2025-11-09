@@ -110,13 +110,28 @@ class HogeyAlgorithm:
         }
     
     def learn_from_csv(self, my_posts_path: str = None, bench_posts_path: str = None):
-        """CSV学習メソッド"""
+        """CSV学習メソッド（進捗出力付き）"""
         all_patterns = {
             'hooks': [],
             'endings': [],
             'nouns': [],
             'high_score_words': []
         }
+        
+        total_steps = 0
+        current_step = 0
+        
+        # ステップ数の事前計算
+        if my_posts_path:
+            my_df = self.load_csv(my_posts_path)
+            if not my_df.empty and 'text' in my_df.columns:
+                total_steps += min(20, len(my_df))
+        if bench_posts_path:
+            bench_df = self.load_csv(bench_posts_path)
+            if not bench_df.empty and 'text' in bench_df.columns:
+                total_steps += min(30, len(bench_df))
+        
+        print(f"PROGRESS:0:{total_steps}")  # 進捗開始マーカー
         
         # 自分の投稿を学習
         if my_posts_path:
@@ -131,10 +146,13 @@ class HogeyAlgorithm:
                 # 高スコア投稿を優先分析
                 top_posts = my_df.nlargest(min(20, len(my_df)), 'score')
                 
-                for text in top_posts['text']:
+                for idx, text in enumerate(top_posts['text'], 1):
                     analysis = self.analyze_post(str(text))
                     all_patterns['high_score_words'].extend(analysis['words'])
                     all_patterns['nouns'].extend(analysis['nouns'])
+                    current_step += 1
+                    progress_pct = int((current_step / total_steps) * 100)
+                    print(f"PROGRESS:{progress_pct}:{total_steps}")
         
         # 強者アカウント投稿を学習
         if bench_posts_path:
@@ -149,10 +167,15 @@ class HogeyAlgorithm:
                 # 高スコア投稿を優先分析
                 top_posts = bench_df.nlargest(min(30, len(bench_df)), 'score')
                 
-                for text in top_posts['text']:
+                for idx, text in enumerate(top_posts['text'], 1):
                     analysis = self.analyze_post(str(text))
                     all_patterns['high_score_words'].extend(analysis['words'])
                     all_patterns['nouns'].extend(analysis['nouns'])
+                    current_step += 1
+                    progress_pct = int((current_step / total_steps) * 100)
+                    print(f"PROGRESS:{progress_pct}:{total_steps}")
+        
+        print(f"PROGRESS:100:{total_steps}")  # 完了マーカー
         
         # 学習済みパターンを更新
         if all_patterns['high_score_words']:

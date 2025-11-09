@@ -3,9 +3,17 @@
 ## 概要
 LINE Bot の「学習」メニューから、過去の投稿データを分析してテンプレート精度を向上させる機能を実装しました。
 
+**✨ 新機能追加（v2）**:
+- **進捗通知**: 学習途中の経過をLINE pushで通知（20%刻み）
+- **定期自動学習**: 毎週日曜 3:00 AM に自動実行
+
+---
+
 ## 追加したノード（n8n_workflow_menu_complete.json）
 
-### 1. 学習確認表示分岐（switch-action-learn-confirm）
+### 手動実行フロー（リッチメニュー経由）
+
+#### 1. 学習確認表示分岐（switch-action-learn-confirm）
 - **ID**: `switch-action-learn-confirm`
 - **位置**: [1050, 600]
 - **トリガー条件**: `nextAction === 'show_learn_confirm'`

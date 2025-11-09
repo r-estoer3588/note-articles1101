@@ -3,6 +3,24 @@
   "nodes": [
     {
       "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * 0"
+            }
+          ]
+        }
+      },
+      "id": "cron-weekly-learn",
+      "name": "定期学習トリガー",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 900],
+      "notes": "毎週日曜 3:00 AM に自動学習実行"
+    },
+    {
+      "parameters": {
         "path": "hogey-bot",
         "options": {}
       },
@@ -301,6 +319,62 @@
     },
     {
       "parameters": {
+        "command": "cd c:\\Repos\\note-articles\\tools && set LINE_CHANNEL_ACCESS_TOKEN={{ $env.LINE_CHANNEL_ACCESS_TOKEN }} && set LINE_USER_ID={{ $env.ADMIN_LINE_USER_ID }} && python learn_with_progress_push.py --learn --input my_posts_sample.csv"
+      },
+      "id": "execute-learn-with-progress",
+      "name": "学習実行（進捗通知付き）",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [450, 920],
+      "notes": "定期実行用：進捗をLINE pushで通知"
+    },
+    {
+      "parameters": {
+        "functionCode": "const adminUserId = $env.ADMIN_LINE_USER_ID || 'U1234567890abcdef';\nconst message = {\n  type: 'text',\n  text: '🎓 定期学習を開始しました\\n完了まで3〜5分お待ちください'\n};\n\nreturn { \n  json: {\n    to: adminUserId,\n    message: message\n  } \n};"
+      },
+      "id": "create-scheduled-learn-start-push",
+      "name": "定期学習開始通知",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 900]
+    },
+    {
+      "parameters": {
+        "url": "https://api.line.me/v2/bot/message/push",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "lineNotifyOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.LINE_CHANNEL_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([$json.message]) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "line-push-scheduled",
+      "name": "LINE Push（定期）",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 900]
+    },
+    {
+      "parameters": {
         "functionCode": "const output = $node['学習スクリプト実行'].json;\nconst exitCode = output.exitCode || 0;\nconst stdout = output.stdout || '';\nconst stderr = output.stderr || '';\n\nlet message;\nif (exitCode === 0) {\n  // 成功\n  const lines = stdout.split('\\n').filter(l => l.trim());\n  const summary = lines.slice(-3).join('\\n');\n  message = {\n    type: 'text',\n    text: `✅ 学習が完了しました！\\n\\n${summary}\\n\\n次回の投稿生成から新しいパターンが反映されます。`\n  };\n} else {\n  // 失敗\n  const errorSnippet = stderr.split('\\n').slice(0, 3).join('\\n');\n  message = {\n    type: 'text',\n    text: `❌ 学習に失敗しました\\n\\nエラー:\\n${errorSnippet}\\n\\n管理者に連絡してください。`\n  };\n}\n\nreturn { \n  json: {\n    replyToken: $input.item.json.replyToken,\n    message: message,\n    userId: $input.item.json.userId\n  } \n};"
       },
       "id": "create-learn-result-message",
@@ -311,6 +385,15 @@
     }
   ],
   "connections": {
+    "定期学習トリガー": {
+      "main": [[{ "node": "定期学習開始通知", "type": "main", "index": 0 }]]
+    },
+    "定期学習開始通知": {
+      "main": [[
+        { "node": "LINE Push（定期）", "type": "main", "index": 0 },
+        { "node": "学習実行（進捗通知付き）", "type": "main", "index": 0 }
+      ]]
+    },
     "LINE Webhook": {
       "main": [[{ "node": "コマンド解析", "type": "main", "index": 0 }]]
     },
