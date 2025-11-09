@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "path": "webhook/line-menu",
+        "path": "line-menu"
       },
       "id": "webhook-line",
       "name": "LINE Webhook",
