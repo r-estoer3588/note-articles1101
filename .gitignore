@@ -65,3 +65,6 @@ credentials.json
 
 # Note specific
 .note_cache/
+
+# Input folder (large files)
+input/
