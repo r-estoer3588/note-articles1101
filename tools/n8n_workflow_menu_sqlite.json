@@ -3,126 +3,208 @@
   "nodes": [
     {
       "parameters": {
-        "path": "line-menu"
+        "httpMethod": "POST",
+        "path": "line-menu",
+        "options": {}
       },
-      "id": "webhook-line",
+      "id": "f5ecdebc-c7a3-4aab-9434-82d3055494a2",
       "name": "LINE Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1.1,
-      "position": [250, 300]
+      "position": [
+        -1744,
+        80
+      ],
+      "webhookId": "c3f01ed6-3497-46c3-9239-9854ad2ba945"
     },
     {
       "parameters": {
-        "functionCode": "// LINEからのデータ取得（body.eventsまたはeventsを試す）\nconst events = $input.item.json.body?.events || $input.item.json.events;\n\nif (!events || events.length === 0) {\n  throw new Error('No events found in webhook data');\n}\n\nconst event = events[0];\nconst text = event.message?.text || '';\nconst userId = event.source?.userId;\nconst replyToken = event.replyToken;\nconst postbackData = event.postback?.data || '';\n\nlet result = {\n  userId: userId,\n  replyToken: replyToken,\n  text: text,\n  postbackData: postbackData,\n  eventType: event.type\n};\n\n// リッチメニューコマンド判定\nif (text.startsWith('menu:')) {\n  const menuAction = text.split(':')[1];\n  result.menuAction = menuAction;\n  result.needsState = true;\n} \n// ポストバックイベント\nelse if (event.type === 'postback') {\n  const params = new URLSearchParams(postbackData);\n  result.action = params.get('action');\n  result.index = parseInt(params.get('index'));\n  result.needsState = true;\n}\n// 通常のテキスト（状態依存）\nelse {\n  result.needsState = true;\n}\n\nreturn { json: result };"
+        "jsCode": "// LINEからのデータ取得（body.eventsまたはeventsを試す）\nconst events = $input.item.json.body?.events || $input.item.json.events;\n\nif (!events || events.length === 0) {\n  throw new Error('No events found in webhook data');\n}\n\nconst event = events[0];\nconst text = event.message?.text || '';\nconst userId = event.source?.userId;\nconst replyToken = event.replyToken;\nconst postbackData = event.postback?.data || '';\n\nlet result = {\n  userId: userId,\n  replyToken: replyToken,\n  text: text,\n  postbackData: postbackData,\n  eventType: event.type\n};\n\n// リッチメニューコマンド判定\nif (text.startsWith('menu:')) {\n  const menuAction = text.split(':')[1];\n  result.menuAction = menuAction;\n  result.needsState = true;\n} \n// ポストバックイベント\nelse if (event.type === 'postback') {\n  const params = new URLSearchParams(postbackData);\n  result.action = params.get('action');\n  result.index = parseInt(params.get('index'));\n  result.needsState = true;\n}\n// 通常のテキスト（状態依存）\nelse {\n  result.needsState = true;\n}\n\nreturn { json: result };"
       },
-      "id": "parse-command",
+      "id": "7a5dccf6-b144-4923-b83e-c8cf40ef4033",
       "name": "コマンド解析",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 300]
+      "position": [
+        -1552,
+        80
+      ]
     },
     {
       "parameters": {
-        "method": "GET",
         "url": "http://host.docker.internal:5679/api/state/={{ $json.userId }}",
         "options": {}
       },
-      "id": "get-user-state",
+      "id": "4bee573c-6d42-40fe-8025-aa5ff0794ace",
       "name": "ユーザー状態取得",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [650, 300]
+      "position": [
+        -1344,
+        80
+      ]
     },
     {
       "parameters": {
-        "functionCode": "const userId = $input.item.json.userId;\nconst menuAction = $input.item.json.menuAction;\nconst text = $input.item.json.text;\nconst action = $input.item.json.action;\nconst eventType = $input.item.json.eventType;\n\n// HTTP Requestからのユーザー状態取得\nconst userState = $node['ユーザー状態取得'].json;\n\nlet result = {\n  userId: userId,\n  replyToken: $input.item.json.replyToken,\n  currentState: userState,\n  nextAction: null,\n  updateState: null\n};\n\n// メニューアクション処理\nif (menuAction) {\n  switch(menuAction) {\n    case 'generate':\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'buzz' };\n      break;\n      \n    case 'trilogy':\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', type: 'trilogy', count: 3 };\n      break;\n      \n    case 'today':\n      const cats = ['日曜_趣味遊び', '月曜_ギャンブル金', '火曜_ビジネスキャリア', '水曜_生活節約', '木曜_社会ネット裏事情', '金曜_健康美容', '土曜_恋愛人間関係'];\n      const todayTheme = cats[new Date().getDay()];\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'today', theme: todayTheme };\n      result.todayTheme = todayTheme;\n      break;\n      \n    case 'help':\n      result.nextAction = 'show_help';\n      break;\n  }\n}\n// ポストバックアクション処理\nelse if (action) {\n  const posts = userState.posts_data ? JSON.parse(userState.posts_data) : [];\n  const index = $input.item.json.index;\n  \n  switch(action) {\n    case 'next':\n      const nextIndex = (index >= posts.length - 1) ? 0 : index;\n      result.nextAction = 'show_post';\n      result.postContent = posts[nextIndex];\n      result.postIndex = nextIndex;\n      result.totalPosts = posts.length;\n      result.updateState = { current_index: nextIndex };\n      break;\n  }\n}\n// 状態に応じたテキスト処理\nelse if (userState.state === 'selecting_count') {\n  const count = parseInt(text);\n  if (count > 0 && count <= 50) {\n    if (userState.type === 'today') {\n      result.nextAction = 'generate_posts';\n      result.generateParams = {\n        count: count,\n        theme: userState.theme,\n        type: userState.type\n      };\n      result.updateState = { state: 'generating', count: count };\n    } else {\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', count: count };\n    }\n  } else {\n    result.nextAction = 'error';\n    result.errorMessage = '1〜50の数字を入力してください';\n  }\n}\nelse if (userState.state === 'selecting_theme') {\n  result.nextAction = 'generate_posts';\n  result.generateParams = {\n    count: userState.count,\n    theme: text,\n    type: userState.type || 'buzz'\n  };\n  result.updateState = { state: 'generating', theme: text };\n}\nelse {\n  result.nextAction = 'show_help';\n}\n\nreturn { json: result };"
+        "jsCode": "const userId = $input.item.json.userId;\nconst menuAction = $input.item.json.menuAction;\nconst text = $input.item.json.text;\nconst action = $input.item.json.action;\nconst eventType = $input.item.json.eventType;\n\n// HTTP Requestからのユーザー状態取得\nconst userState = $node['ユーザー状態取得'].json;\n\n// デバッグ: userStateの内容を確認\nif (!userState) {\n  throw new Error('userState is null or undefined');\n}\n\nlet result = {\n  userId: userId,\n  replyToken: $input.item.json.replyToken,\n  currentState: userState,\n  nextAction: null,\n  updateState: null\n};\n\n// メニューアクション処理\nif (menuAction) {\n  switch(menuAction) {\n    case 'generate':\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'buzz' };\n      break;\n      \n    case 'trilogy':\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', type: 'trilogy', count: 3 };\n      break;\n      \n    case 'today':\n      const cats = ['日曜_趣味遊び', '月曜_ギャンブル金', '火曜_ビジネスキャリア', '水曜_生活節約', '木曜_社会ネット裏事情', '金曜_健康美容', '土曜_恋愛人間関係'];\n      const todayTheme = cats[new Date().getDay()];\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'today', theme: todayTheme };\n      result.todayTheme = todayTheme;\n      break;\n      \n    case 'help':\n      result.nextAction = 'show_help';\n      break;\n  }\n}\n// ポストバックアクション処理\nelse if (action) {\n  const posts = userState.posts_data ? JSON.parse(userState.posts_data) : [];\n  const index = $input.item.json.index;\n  \n  switch(action) {\n    case 'next':\n      const nextIndex = (index >= posts.length - 1) ? 0 : index;\n      result.nextAction = 'show_post';\n      result.postContent = posts[nextIndex];\n      result.postIndex = nextIndex;\n      result.totalPosts = posts.length;\n      result.updateState = { current_index: nextIndex };\n      break;\n  }\n}\n// 状態に応じたテキスト処理\nelse if (userState.state === 'selecting_count') {\n  const count = parseInt(text);\n  if (count > 0 && count <= 50) {\n    if (userState.type === 'today') {\n      result.nextAction = 'generate_posts';\n      result.generateParams = {\n        count: count,\n        theme: userState.theme,\n        type: userState.type\n      };\n      result.updateState = { state: 'generating', count: count };\n    } else {\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', count: count };\n    }\n  } else {\n    result.nextAction = 'error';\n    result.errorMessage = '1〜50の数字を入力してください';\n  }\n}\nelse if (userState.state === 'selecting_theme') {\n  result.nextAction = 'generate_posts';\n  result.generateParams = {\n    count: userState.count,\n    theme: text,\n    type: userState.type || 'buzz'\n  };\n  result.updateState = { state: 'generating', theme: text };\n}\nelse {\n  result.nextAction = 'show_help';\n}\n\nreturn { json: result };"
       },
-      "id": "state-machine",
+      "id": "0516f188-f035-4a7a-8f15-65d09c106184",
       "name": "状態判定",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 300]
+      "position": [
+        -1152,
+        80
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "string": [
+        "rules": {
+          "values": [
             {
-              "value1": "={{ $json.nextAction }}",
-              "value2": "show_count_selection"
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "show_count_selection",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "switch-action-count",
+      "id": "3624d4ba-07c6-4d27-bc91-96b6ba3ed5dc",
       "name": "件数選択表示?",
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 1,
-      "position": [1050, 200]
+      "typeVersion": 3,
+      "position": [
+        -944,
+        -32
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "string": [
+        "rules": {
+          "values": [
             {
-              "value1": "={{ $json.nextAction }}",
-              "value2": "show_theme_selection"
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "show_theme_selection",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "switch-action-theme",
+      "id": "1f0e25f0-c987-43f1-a9f4-1fb3acc4bce1",
       "name": "テーマ選択表示?",
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 1,
-      "position": [1050, 300]
+      "typeVersion": 3,
+      "position": [
+        -944,
+        80
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "string": [
+        "rules": {
+          "values": [
             {
-              "value1": "={{ $json.nextAction }}",
-              "value2": "generate_posts"
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "generate_posts",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "switch-action-generate",
+      "id": "fee4f84d-937d-4bac-bd1d-6fb80f7bc125",
       "name": "投稿生成実行?",
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 1,
-      "position": [1050, 400]
+      "typeVersion": 3,
+      "position": [
+        -944,
+        176
+      ]
     },
     {
-      "parameters": {
-        "functionCode": "const type = $input.item.json.currentState.type;\nconst todayTheme = $input.item.json.todayTheme;\n\nlet message = {\n  type: 'text',\n  text: '何件生成しますか？',\n  quickReply: {\n    items: [\n      { type: 'action', action: { type: 'message', label: '3件', text: '3' } },\n      { type: 'action', action: { type: 'message', label: '5件', text: '5' } },\n      { type: 'action', action: { type: 'message', label: '10件', text: '10' } },\n      { type: 'action', action: { type: 'message', label: '20件', text: '20' } }\n    ]\n  }\n};\n\nif (type === 'today') {\n  message.text = `📚 今日は「${todayTheme}」のテーマです\\n何件生成しますか？`;\n}\n\nreturn { json: { replyToken: $input.item.json.replyToken, message: message, userId: $input.item.json.userId, updateState: $input.item.json.updateState } };"
-      },
-      "id": "create-count-reply",
+      "parameters": {},
+      "id": "7f7f2abd-67cd-4697-9f73-6a374adfe753",
       "name": "件数選択メッセージ作成",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 200]
+      "position": [
+        -752,
+        -32
+      ]
     },
     {
-      "parameters": {
-        "functionCode": "const themes = [\n  '月曜_ギャンブル金',\n  '火曜_ビジネスキャリア',\n  '水曜_生活節約',\n  '木曜_社会ネット裏事情',\n  '金曜_健康美容',\n  '土曜_恋愛人間関係',\n  '日曜_趣味遊び'\n];\n\nconst message = {\n  type: 'text',\n  text: 'テーマを選んでください',\n  quickReply: {\n    items: themes.map(t => ({ type: 'action', action: { type: 'message', label: t, text: t } }))\n  }\n};\n\nreturn { json: { replyToken: $input.item.json.replyToken, message: message, userId: $input.item.json.userId, updateState: $input.item.json.updateState } };"
-      },
-      "id": "create-theme-reply",
+      "parameters": {},
+      "id": "9fb34c53-28a7-4a3c-bbb3-0f64a394ffdd",
       "name": "テーマ選択メッセージ作成",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 300]
+      "position": [
+        -752,
+        80
+      ]
     },
     {
       "parameters": {
         "command": "cd c:\\Repos\\note-articles\\tools && python hogey_algorithm.py --count {{ $json.generateParams.count }} --theme \"{{ $json.generateParams.theme }}\" --mode {{ $json.generateParams.type === 'trilogy' ? 'trilogy' : 'buzz' }} --output temp_{{ $json.userId }}.csv"
       },
-      "id": "execute-python",
+      "id": "7932a5b3-43be-43e0-ae81-318e7f2f438c",
       "name": "Python実行",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [1250, 420]
+      "position": [
+        -752,
+        192
+      ]
     },
     {
       "parameters": {
@@ -142,7 +224,6 @@
           ]
         },
         "sendBody": true,
-        "contentType": "json",
         "bodyParameters": {
           "parameters": [
             {
@@ -157,11 +238,14 @@
         },
         "options": {}
       },
-      "id": "line-reply",
+      "id": "db6c5dc1-ae40-449c-a876-d1d84e7fbe9c",
       "name": "LINE返信",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1650, 300]
+      "position": [
+        -352,
+        80
+      ]
     },
     {
       "parameters": {
@@ -181,119 +265,283 @@
         "jsonBody": "={{ JSON.stringify($json.updateState) }}",
         "options": {}
       },
-      "id": "update-user-state",
+      "id": "400e01c0-8145-4c1a-ac12-a87b361fa3d5",
       "name": "ユーザー状態更新",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1450, 300]
+      "position": [
+        -544,
+        80
+      ]
     },
     {
-      "parameters": {
-        "functionCode": "const params = $input.item.json.generateParams;\nconst userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst fs = require('fs');\nconst path = require('path');\n\nconst csvPath = `c:\\\\Repos\\\\note-articles\\\\tools\\\\temp_${userId}.csv`;\nlet csvContent;\ntry {\n  csvContent = fs.readFileSync(csvPath, 'utf-8');\n} catch(e) {\n  return { json: { replyToken: replyToken, message: { type: 'text', text: '❌ 生成に失敗しました' }, userId: userId } };\n}\n\nconst lines = csvContent.split('\\n').slice(1).filter(l => l.trim());\nconst posts = lines.map(line => {\n  const match = line.match(/^\"([^\"]+)\",\"([^\"]+)\",\"([^\"]+)\",\"([^\"]+)\",\"([^\"]+)\"$/);\n  if (match) {\n    return { text: match[1], theme: match[2], education_type: match[3], template_type: match[4], created_at: match[5] };\n  }\n  return null;\n}).filter(p => p !== null);\n\nif (posts.length === 0) {\n  return { json: { replyToken: replyToken, message: { type: 'text', text: '❌ 投稿データが見つかりません' }, userId: userId } };\n}\n\nconst firstPost = posts[0];\nconst progressBar = '█' + '░'.repeat(9);\n\nconst message = {\n  type: 'text',\n  text: `🐶 投稿1/${posts.length}\\n${progressBar}\\n\\n${firstPost.text}\\n\\nテーマ: ${firstPost.theme}`,\n  quickReply: {\n    items: [\n      { type: 'action', action: { type: 'postback', label: '➡️ 次へ', data: `action=next&index=1` } },\n      { type: 'action', action: { type: 'message', label: '✅ 完了', text: '完了' } }\n    ]\n  }\n};\n\nreturn { json: { replyToken: replyToken, message: message, userId: userId, updateState: { state: 'viewing_posts', posts_data: JSON.stringify(posts), current_index: 0 } } };"
-      },
-      "id": "create-post-display",
+      "parameters": {},
+      "id": "7a1233ca-b42b-4b39-9222-6a0f7062c8b3",
       "name": "投稿表示メッセージ作成",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 420]
+      "position": [
+        -544,
+        192
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "string": [
+        "rules": {
+          "values": [
             {
-              "value1": "={{ $json.nextAction }}",
-              "value2": "show_help"
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "show_help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "switch-action-help",
+      "id": "b9e490e4-b36e-452c-9d26-3a42dd0c7d0f",
       "name": "ヘルプ表示?",
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 1,
-      "position": [1050, 500]
+      "typeVersion": 3,
+      "position": [
+        -944,
+        272
+      ]
     },
     {
-      "parameters": {
-        "functionCode": "const message = {\n  type: 'text',\n  text: `🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。`\n};\n\nreturn { json: { replyToken: $input.item.json.replyToken, message: message, userId: $input.item.json.userId } };"
-      },
-      "id": "create-help-message",
+      "parameters": {},
+      "id": "e3aae550-fcfa-45ee-ab85-166206aab040",
       "name": "ヘルプメッセージ作成",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 500]
+      "position": [
+        -752,
+        272
+      ]
     },
     {
-      "parameters": {
-        "functionCode": "const loadingMessage = { type: 'text', text: '⏳ 生成中...\\nしばらくお待ちください' };\nreturn { json: { replyToken: $input.item.json.replyToken, message: loadingMessage, userId: $input.item.json.userId, generateParams: $input.item.json.generateParams, updateState: $input.item.json.updateState } };"
-      },
-      "id": "create-loading-message",
+      "parameters": {},
+      "id": "bf25f1d9-e140-4665-9a94-1814f0d63f02",
       "name": "ローディングメッセージ",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 400]
+      "position": [
+        -752,
+        176
+      ]
     }
   ],
+  "pinData": {},
   "connections": {
     "LINE Webhook": {
-      "main": [[{ "node": "コマンド解析", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "コマンド解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "コマンド解析": {
-      "main": [[{ "node": "ユーザー状態取得", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ユーザー状態取得",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "ユーザー状態取得": {
-      "main": [[{ "node": "状態判定", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "状態判定",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "状態判定": {
-      "main": [[
-        { "node": "件数選択表示?", "type": "main", "index": 0 },
-        { "node": "テーマ選択表示?", "type": "main", "index": 0 },
-        { "node": "投稿生成実行?", "type": "main", "index": 0 },
-        { "node": "ヘルプ表示?", "type": "main", "index": 0 }
-      ]]
+      "main": [
+        [
+          {
+            "node": "件数選択表示?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "テーマ選択表示?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "投稿生成実行?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ヘルプ表示?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "件数選択表示?": {
-      "main": [[{ "node": "件数選択メッセージ作成", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "件数選択メッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "テーマ選択表示?": {
-      "main": [[{ "node": "テーマ選択メッセージ作成", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "テーマ選択メッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "投稿生成実行?": {
-      "main": [[{ "node": "ローディングメッセージ", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ローディングメッセージ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "ヘルプ表示?": {
-      "main": [[{ "node": "ヘルプメッセージ作成", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ヘルプメッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "ローディングメッセージ": {
-      "main": [[
-        { "node": "LINE返信", "type": "main", "index": 0 },
-        { "node": "Python実行", "type": "main", "index": 0 }
-      ]]
+      "main": [
+        [
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Python実行",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "件数選択メッセージ作成": {
-      "main": [[{ "node": "ユーザー状態更新", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "テーマ選択メッセージ作成": {
-      "main": [[{ "node": "ユーザー状態更新", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "ヘルプメッセージ作成": {
-      "main": [[{ "node": "LINE返信", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Python実行": {
-      "main": [[{ "node": "投稿表示メッセージ作成", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "投稿表示メッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "投稿表示メッセージ作成": {
-      "main": [[{ "node": "ユーザー状態更新", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "ユーザー状態更新": {
-      "main": [[{ "node": "LINE返信", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
-  "tags": [],
-  "active": false
+  "versionId": "31e29457-dec3-4fd5-a927-ab1d0d5b91a9",
+  "meta": {
+    "instanceId": "2540e56e49eb088925e01910351788944bfe79648cfc8674ed90d1d41fe01fc2"
+  },
+  "id": "VIYo5WcepmI3rmcJ",
+  "tags": []
 }
