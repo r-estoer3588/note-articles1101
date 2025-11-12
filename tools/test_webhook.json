@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "type": "message",
+      "replyToken": "test123",
+      "source": {
+        "userId": "testuser"
+      },
+      "message": {
+        "type": "text",
+        "text": "menu:help"
+      }
+    }
+  ]
+}

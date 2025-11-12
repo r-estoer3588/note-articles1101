@@ -51,7 +51,7 @@ LINE DevelopersのWebhook URLが`/line-menu`のままのため、n8nのエンド
 ### ステップ2: LINE Webhook URL設定
 1. LINE Developers Console: https://developers.line.biz/console/
 2. Messaging API設定タブ
-3. Webhook URL: `https://yummy-onions-slide.loca.lt/webhook/line-menu`
+3. Webhook URL: `https://hogey-linebot.loca.lt/webhook/line-menu`
 4. 「検証」ボタンをクリック → 成功を確認
 
 ### ステップ3: 動作テスト
@@ -85,8 +85,13 @@ LINE DevelopersのWebhook URLが`/line-menu`のままのため、n8nのエンド
 - Docker起動コマンド: `docker ps` で確認可能
 
 ### localtunnel
-- 現在のURL: `https://yummy-onions-slide.loca.lt`
-- 再起動コマンド: `npx -y localtunnel --port 5678`
+- **固定URL**: `https://hogey-linebot.loca.lt`
+- **起動コマンド（必ずこれを使う）**:
+  ```powershell
+  cd C:\Repos\note-articles\tools
+  npx -y localtunnel --port 5678 --subdomain hogey-linebot
+  ```
+- **重要**: `--subdomain hogey-linebot` を必ず指定すること（URLが固定される）
 
 ## 🐛 トラブルシューティング
 
@@ -99,7 +104,12 @@ LINE DevelopersのWebhook URLが`/line-menu`のままのため、n8nのエンド
 - **対処:** LINE DevelopersのWebhook設定を修正
 
 ### localtunnel接続エラー
-- **対処:** ターミナルで再実行: `npx -y localtunnel --port 5678`
+- **対処:** ターミナルで以下のコマンドを実行（**必ずサブドメインを指定**）:
+  ```powershell
+  cd C:\Repos\note-articles\tools
+  npx -y localtunnel --port 5678 --subdomain hogey-linebot
+  ```
+- **重要**: `--subdomain hogey-linebot` がないと毎回URLが変わります
 
 ## 📋 テストコマンド
 
