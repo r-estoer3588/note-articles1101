@@ -314,7 +314,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\nconst helpMessage = {\n  type: \"text\",\n  text: \"🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。\"\n};\n\nreturn {\n  json: {\n    userId: userId,\n    replyToken: replyToken,\n    message: helpMessage\n  }\n};"
+      },
       "id": "e3aae550-fcfa-45ee-ab85-166206aab040",
       "name": "ヘルプメッセージ作成",
       "type": "n8n-nodes-base.code",
@@ -325,7 +327,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst generateParams = $input.item.json.generateParams;\n\nconst loadingMessage = {\n  type: \"text\",\n  text: \"⏳ 投稿を生成中...\\n\\nテーマ: \" + generateParams.theme + \"\\n件数: \" + generateParams.count + \"件\"\n};\n\nreturn {\n  json: {\n    userId: userId,\n    replyToken: replyToken,\n    message: loadingMessage,\n    generateParams: generateParams\n  }\n};"
+      },
       "id": "bf25f1d9-e140-4665-9a94-1814f0d63f02",
       "name": "ローディングメッセージ",
       "type": "n8n-nodes-base.code",
