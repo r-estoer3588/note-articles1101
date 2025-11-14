@@ -225,7 +225,7 @@
         },
   "sendBody": true,
   "specifyBody": "json",
-  "jsonBody": "={{ JSON.stringify({ replyToken: $json.replyToken, messages: [$json.message] }) }}",
+  "jsonBody": "={{ { replyToken: $json.replyToken, messages: [$json.message] } }}",
         "options": {}
       },
       "id": "db6c5dc1-ae40-449c-a876-d1d84e7fbe9c",
