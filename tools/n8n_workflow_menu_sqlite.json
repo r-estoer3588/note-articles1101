@@ -315,7 +315,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\nconst helpMessage = {\n  type: \"text\",\n  text: \"🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。\"\n};\n\nreturn {\n  json: {\n    userId: userId,\n    replyToken: replyToken,\n    message: helpMessage\n  }\n};"
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\nconst helpMessage = {\n  type: \"text\",\n  text: \"🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。\"\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    message: helpMessage\n  }\n};"
       },
       "id": "e3aae550-fcfa-45ee-ab85-166206aab040",
       "name": "ヘルプメッセージ作成",
@@ -341,7 +341,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Ensure replyToken is present from upstream node\nconst replyToken = $input.item.json.replyToken || $json.replyToken;\n\nif (!replyToken) {\n  throw new Error('replyToken could not be resolved for LINE返信. Input: ' + JSON.stringify($input.item.json));\n}\n\nlet messages = [];\nif (Array.isArray($json.messages)) {\n  messages = $json.messages;\n} else if ($json.message) {\n  messages = [$json.message];\n}\n\nif (messages.length === 0) {\n  throw new Error('messages payload is empty for LINE返信');\n}\n\nreturn {\n  json: {\n    replyToken,\n    messages\n  }\n};"
+        "jsCode": "// Try to get data directly from the previous node by name\nconst previousNodeData = $input.item.json;\nlet replyToken = previousNodeData.replyToken;\nlet message = previousNodeData.message;\n\n// Fallback: if replyToken is missing, try to find it from any upstream node\nif (!replyToken) {\n  const allInputs = $input.all();\n  for (const item of allInputs) {\n    if (item.json.replyToken) {\n      replyToken = item.json.replyToken;\n      break;\n    }\n  }\n}\n\nif (!replyToken) {\n  throw new Error('❌ replyToken not found anywhere. Input: ' + JSON.stringify(previousNodeData));\n}\n\nlet messages = [];\nif (Array.isArray(previousNodeData.messages)) {\n  messages = previousNodeData.messages;\n} else if (message) {\n  messages = [message];\n}\n\nif (messages.length === 0) {\n  throw new Error('messages payload is empty');\n}\n\nreturn {\n  json: {\n    replyToken,\n    messages\n  }\n};"
       },
       "id": "5173cf26-f0d7-4a97-8efa-ef5088e8b9aa",
       "name": "返信メッセージ整形",
