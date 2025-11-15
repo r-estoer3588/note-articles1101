@@ -225,7 +225,7 @@
         },
   "sendBody": true,
   "specifyBody": "json",
-  "jsonBody": "={{ ({ replyToken: $json.replyToken || $item(0).$node[\"状態判定\"].json.replyToken, messages: Array.isArray($json.messages) ? $json.messages : [$json.message] }) }}",
+  "jsonBody": "={{ ({ replyToken: $json.replyToken, messages: $json.messages }) }}",
         "options": {}
       },
       "id": "db6c5dc1-ae40-449c-a876-d1d84e7fbe9c",
@@ -338,6 +338,19 @@
         -752,
         176
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const resolveReplyToken = () => {\n  const items = $items('状態判定');\n  if (items && items.length > 0) {\n    return items[0].json.replyToken;\n  }\n  return undefined;\n};\n\nconst replyToken = $json.replyToken || resolveReplyToken();\n\nif (!replyToken) {\n  throw new Error('replyToken could not be resolved for LINE返信');\n}\n\nlet messages = [];\nif (Array.isArray($json.messages)) {\n  messages = $json.messages;\n} else if ($json.message) {\n  messages = [$json.message];\n}\n\nif (messages.length === 0) {\n  throw new Error('messages payload is empty for LINE返信');\n}\n\nreturn {\n  json: {\n    replyToken,\n    messages\n  }\n};"
+      },
+      "id": "5173cf26-f0d7-4a97-8efa-ef5088e8b9aa",
+      "name": "返信メッセージ整形",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        16
+      ]
     }
   ],
   "pinData": {},
@@ -449,7 +462,7 @@
       "main": [
         [
           {
-            "node": "LINE返信",
+            "node": "返信メッセージ整形",
             "type": "main",
             "index": 0
           },
@@ -470,7 +483,7 @@
             "index": 0
           },
           {
-            "node": "LINE返信",
+            "node": "返信メッセージ整形",
             "type": "main",
             "index": 0
           }
@@ -486,7 +499,7 @@
             "index": 0
           },
           {
-            "node": "LINE返信",
+            "node": "返信メッセージ整形",
             "type": "main",
             "index": 0
           }
@@ -497,7 +510,7 @@
       "main": [
         [
           {
-            "node": "LINE返信",
+            "node": "返信メッセージ整形",
             "type": "main",
             "index": 0
           }
@@ -523,6 +536,17 @@
             "type": "main",
             "index": 0
           },
+          {
+            "node": "返信メッセージ整形",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "返信メッセージ整形": {
+      "main": [
+        [
           {
             "node": "LINE返信",
             "type": "main",
