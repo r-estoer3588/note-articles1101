@@ -172,7 +172,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst todayTheme = $input.item.json.todayTheme || '';\n\nlet messageText = \"何件の投稿を生成しますか？\\n\\n1〜50の数字を入力してください。\";\nif (todayTheme) {\n  messageText = `今日のテーマ: ${todayTheme}\\n\\n何件の投稿を生成しますか？\\n\\n1〜50の数字を入力してください。`;\n}\n\nconst message = {\n  type: \"text\",\n  text: messageText\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    messages: [message]\n  }\n};"
+      },
       "id": "7f7f2abd-67cd-4697-9f73-6a374adfe753",
       "name": "件数選択メッセージ作成",
       "type": "n8n-nodes-base.code",
@@ -183,7 +185,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst count = $input.item.json.updateState?.count || '';\n\nconst message = {\n  type: \"text\",\n  text: `${count}件の投稿を生成します。\\n\\nテーマを入力してください。\\n\\n例: ビジネス、恋愛、お金、健康 など`\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    messages: [message]\n  }\n};"
+      },
       "id": "9fb34c53-28a7-4a3c-bbb3-0f64a394ffdd",
       "name": "テーマ選択メッセージ作成",
       "type": "n8n-nodes-base.code",
@@ -265,7 +269,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "jsCode": "// Python実行後のCSVファイルを読み込んで投稿を表示\nconst userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst generateParams = $input.item.json.generateParams;\n\n// Python実行の結果からCSV内容を取得する必要があるが、\n// とりあえず完了メッセージを返す\nconst message = {\n  type: \"text\",\n  text: `✅ ${generateParams.count}件の投稿を生成しました！\\n\\nテーマ: ${generateParams.theme}`\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    messages: [message]\n  }\n};"
+      },
       "id": "7a1233ca-b42b-4b39-9222-6a0f7062c8b3",
       "name": "投稿表示メッセージ作成",
       "type": "n8n-nodes-base.code",
@@ -315,7 +321,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\nconst helpMessage = {\n  type: \"text\",\n  text: \"🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。\"\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    message: helpMessage\n  }\n};"
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\n\nconst helpMessage = {\n  type: \"text\",\n  text: \"🐶 ホゲーアルゴリズム\\n\\n使い方:\\n1. 「menu:generate」で投稿生成\\n2. 「menu:today」で今日のテーマ\\n3. 「menu:help」でヘルプ\\n\\n件数とテーマを選択して投稿を生成します。\"\n};\n\nreturn {\n  json: {\n    replyToken: replyToken,\n    userId: userId,\n    messages: [helpMessage]\n  }\n};"
       },
       "id": "e3aae550-fcfa-45ee-ab85-166206aab040",
       "name": "ヘルプメッセージ作成",
@@ -328,7 +334,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst generateParams = $input.item.json.generateParams;\n\nconst loadingMessage = {\n  type: \"text\",\n  text: \"⏳ 投稿を生成中...\\n\\nテーマ: \" + generateParams.theme + \"\\n件数: \" + generateParams.count + \"件\"\n};\n\nreturn {\n  json: {\n    userId: userId,\n    replyToken: replyToken,\n    message: loadingMessage,\n    generateParams: generateParams\n  }\n};"
+        "jsCode": "const userId = $input.item.json.userId;\nconst replyToken = $input.item.json.replyToken;\nconst generateParams = $input.item.json.generateParams;\n\nconst loadingMessage = {\n  type: \"text\",\n  text: \"⏳ 投稿を生成中...\\n\\nテーマ: \" + generateParams.theme + \"\\n件数: \" + generateParams.count + \"件\"\n};\n\nreturn {\n  json: {\n    userId: userId,\n    replyToken: replyToken,\n    messages: [loadingMessage],\n    generateParams: generateParams\n  }\n};"
       },
       "id": "bf25f1d9-e140-4665-9a94-1814f0d63f02",
       "name": "ローディングメッセージ",
@@ -337,19 +343,6 @@
       "position": [
         -752,
         176
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Consolidate reply payloads from any upstream branch\nconst previousNodeData = $input.item.json || {};\nlet replyToken = previousNodeData.replyToken;\nlet messages = Array.isArray(previousNodeData.messages) ? previousNodeData.messages.slice() : [];\n\n// Prefer message -> messages conversion when array missing\nif (!messages.length && previousNodeData.message) {\n  messages.push(previousNodeData.message);\n}\n\n// Collect helper to probe arbitrary nodes for data\nconst probeNodes = (names, key) => {\n  for (const name of names) {\n    const nodeData = $node[name]?.json;\n    if (!nodeData) {\n      continue;\n    }\n    if (key === 'messages') {\n      if (Array.isArray(nodeData.messages) && nodeData.messages.length) {\n        return nodeData.messages;\n      }\n      if (nodeData.message) {\n        return [nodeData.message];\n      }\n    } else if (nodeData[key]) {\n      return nodeData[key];\n    }\n  }\n  return undefined;\n};\n\n// Fallback 1: inspect every incoming item\nif (!replyToken) {\n  for (const item of $input.all()) {\n    if (item.json.replyToken) {\n      replyToken = item.json.replyToken;\n      break;\n    }\n  }\n}\n\n// Fallback 2: read directly from known upstream nodes\nconst upstreamNodeNames = [\n  'ヘルプメッセージ作成',\n  '件数選択メッセージ作成',\n  'テーマ選択メッセージ作成',\n  'ローディングメッセージ',\n  '投稿表示メッセージ作成',\n  '状態判定',\n  'コマンド解析'\n];\nif (!replyToken) {\n  replyToken = probeNodes(upstreamNodeNames, 'replyToken');\n}\n\nif (!messages.length) {\n  const fallbackMessages = probeNodes(upstreamNodeNames, 'messages');\n  if (fallbackMessages?.length) {\n    messages = fallbackMessages;\n  }\n}\n\nif (!replyToken) {\n  throw new Error('❌ replyToken still missing after probing inputs/nodes. Input: ' + JSON.stringify(previousNodeData));\n}\n\nif (messages.length === 0) {\n  throw new Error('messages payload is empty');\n}\n\nreturn {\n  json: {\n    replyToken,\n    messages\n  }\n};"
-      },
-      "id": "5173cf26-f0d7-4a97-8efa-ef5088e8b9aa",
-      "name": "返信メッセージ整形",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -544,
-        16
       ]
     }
   ],
@@ -462,7 +455,7 @@
       "main": [
         [
           {
-            "node": "返信メッセージ整形",
+            "node": "LINE返信",
             "type": "main",
             "index": 0
           },
@@ -483,7 +476,7 @@
             "index": 0
           },
           {
-            "node": "返信メッセージ整形",
+            "node": "LINE返信",
             "type": "main",
             "index": 0
           }
@@ -499,7 +492,7 @@
             "index": 0
           },
           {
-            "node": "返信メッセージ整形",
+            "node": "LINE返信",
             "type": "main",
             "index": 0
           }
@@ -510,7 +503,7 @@
       "main": [
         [
           {
-            "node": "返信メッセージ整形",
+            "node": "LINE返信",
             "type": "main",
             "index": 0
           }
@@ -536,17 +529,6 @@
             "type": "main",
             "index": 0
           },
-          {
-            "node": "返信メッセージ整形",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "返信メッセージ整形": {
-      "main": [
-        [
           {
             "node": "LINE返信",
             "type": "main",
