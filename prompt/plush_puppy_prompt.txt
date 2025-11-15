@@ -1,0 +1,10 @@
+# Plush Puppy Hyper-Real 3D Prompt (JP/EN)
+
+[JP]
+ちょこんと正面でおすわりする、超ソフトなロングファーの子犬のぬいぐるみ。やさしい黄色を基調に、ふわふわの手触りが伝わる超ディテール。両足を揃えて座り、子供のようにあどけなく、遊び心のある可愛い表情。純白の背景。柔らかく拡散したライトで、あたたかく心地よい雰囲気。ハイパーキュート、フォトリアル、スタジオ品質、微細な繊維、ソフトシャドウ、前面カメラアングル、中心構図。
+
+[EN]
+ultra-soft long-fur plush puppy sitting neatly with both feet together, front-facing, childlike innocent and playful expression; gentle pastel yellow as the primary color; hyper-detailed fibers, fluffy tactile realism, soft diffused studio lighting, warm and cozy mood, pure white seamless background, soft shadows, photorealistic plush texture, studio quality, centered composition, front camera angle.
+
+[NEGATIVE]
+lowres, blur, overexposed, harsh shadows, extra limbs, deformed face, open seams, plastic look, wet fur, dirty background, text, watermark, logo, excessive saturation, gritty, toy eyes too reflective

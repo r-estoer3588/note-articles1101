@@ -1,0 +1,6 @@
+{
+  "backend": "openai",
+  "created": "2025-11-15T04:48:40.926408Z",
+  "prompt": "ultra-soft long-fur plush puppy sitting neatly with both feet together, front-facing, childlike innocent and playful expression; gentle pastel yellow as the primary color; hyper-detailed fibers, fluffy tactile realism, soft diffused studio lighting, warm and cozy mood, pure white seamless background, soft shadows, photorealistic plush texture, studio quality, centered composition, front camera angle.",
+  "negative": "lowres, blur, overexposed, harsh shadows, extra limbs, deformed face, open seams, plastic look, wet fur, dirty background, text, watermark, logo, excessive saturation, gritty, toy eyes too reflective"
+}

@@ -13,18 +13,39 @@ from pathlib import Path
 DB_PATH = Path(__file__).parent / "line_bot_states.db"
 
 
+def _ensure_table(conn: sqlite3.Connection) -> None:
+    """Create user_states table if missing."""
+    conn.execute(
+        (
+            "CREATE TABLE IF NOT EXISTS user_states ("
+            "user_id TEXT PRIMARY KEY,"
+            "state TEXT,"
+            "count INTEGER,"
+            "theme TEXT,"
+            "posts_data TEXT,"
+            "current_index INTEGER,"
+            "type TEXT,"
+            "updated_at TEXT)"
+        )
+    )
+
+
 def get_user_state(user_id: str) -> dict:
     """ユーザーの状態を取得"""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
+    _ensure_table(conn)
+
     cursor.execute(
-        "SELECT state, count, theme, posts_data, current_index, type FROM user_states WHERE user_id = ?",
-        (user_id,)
+        (
+            "SELECT state, count, theme, posts_data, current_index, type "
+            "FROM user_states WHERE user_id = ?"
+        ),
+        (user_id,),
     )
     row = cursor.fetchone()
     conn.close()
-    
+
     if row:
         return {
             "user_id": user_id,
@@ -35,56 +56,86 @@ def get_user_state(user_id: str) -> dict:
             "current_index": row[4] or 0,
             "type": row[5]
         }
-    else:
-        # 新規ユーザー
-        return {
-            "user_id": user_id,
-            "state": "idle",
-            "count": None,
-            "theme": None,
-            "posts_data": None,
-            "current_index": 0,
-            "type": None
-        }
+    # 初期レコードを挿入
+    update_user_state(user_id, state="idle", current_index=0)
+    return {
+        "user_id": user_id,
+        "state": "idle",
+        "count": None,
+        "theme": None,
+        "posts_data": None,
+        "current_index": 0,
+        "type": None
+    }
 
 
 def update_user_state(user_id: str, **kwargs) -> dict:
     """ユーザーの状態を更新"""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
-    # 既存レコードがあるか確認
+    _ensure_table(conn)
+
     cursor.execute("SELECT 1 FROM user_states WHERE user_id = ?", (user_id,))
     exists = cursor.fetchone()
-    
+
+    # Filter allowed columns
+    allowed = {}
+    for k, v in kwargs.items():
+        if k in [
+            "state",
+            "count",
+            "theme",
+            "posts_data",
+            "current_index",
+            "type",
+        ]:
+            allowed[k] = v
+
+    if "posts_data" in allowed and allowed["posts_data"] in (None, "", "[]"):
+        allowed.setdefault("current_index", 0)
+
+    if (
+        allowed.get("state") in {"idle", "initial"}
+        and "current_index" not in allowed
+    ):
+        allowed["current_index"] = 0
+
     if exists:
-        # UPDATE
-        set_parts = []
-        values = []
-        for key, value in kwargs.items():
-            if key in ["state", "count", "theme", "posts_data", "current_index", "type"]:
-                set_parts.append(f"{key} = ?")
-                values.append(value)
-        
-        if set_parts:
+        if allowed:
+            set_parts = [f"{k} = ?" for k in allowed.keys()]
             set_parts.append("updated_at = ?")
-            values.append(datetime.now().isoformat())
-            values.append(user_id)
-            
-            sql = f"UPDATE user_states SET {', '.join(set_parts)} WHERE user_id = ?"
+            values = list(allowed.values()) + [
+                datetime.now().isoformat(),
+                user_id,
+            ]
+            sql = (
+                "UPDATE user_states SET "
+                + ", ".join(set_parts)
+                + " WHERE user_id = ?"
+            )
             cursor.execute(sql, values)
     else:
-        # INSERT
-        columns = ["user_id"] + list(kwargs.keys())
-        placeholders = ["?"] * len(columns)
-        values = [user_id] + list(kwargs.values())
-        
-        sql = f"INSERT INTO user_states ({', '.join(columns)}) VALUES ({', '.join(placeholders)})"
-        cursor.execute(sql, values)
-    
+        insert_values = (
+            user_id,
+            allowed.get("state", "idle"),
+            allowed.get("count"),
+            allowed.get("theme"),
+            allowed.get("posts_data"),
+            allowed.get("current_index", 0),
+            allowed.get("type"),
+            datetime.now().isoformat(),
+        )
+        # Break SQL into concatenated parts to satisfy line-length rules
+        sql_insert = (
+            "INSERT INTO user_states ("
+            + "user_id, state, count, theme, posts_data, "
+            + "current_index, type, updated_at) VALUES (?,?,?,?,?,?,?,?)"
+        )
+        cursor.execute(sql_insert, insert_values)
+
     conn.commit()
     conn.close()
-    
+
     return get_user_state(user_id)
 
 

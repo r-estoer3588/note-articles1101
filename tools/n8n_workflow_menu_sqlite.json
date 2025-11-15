@@ -46,7 +46,7 @@
     },
     {
       "parameters": {
-  "jsCode": "const userId = $input.item.json.userId;\nconst menuAction = $input.item.json.menuAction;\nconst text = $input.item.json.text;\nconst action = $input.item.json.action;\nconst eventType = $input.item.json.eventType;\n\n// ユーザー状態取得 (失敗時は初期状態にフォールバック)\nconst userStateRaw = $node['ユーザー状態取得'].json;\nlet userState = userStateRaw;\nif (!userState || userState.error) {\n  userState = { state: 'initial' };\n}\n\nlet result = {\n  userId,\n  replyToken: $input.item.json.replyToken,\n  currentState: userState,\n  nextAction: null,\n  updateState: null\n};\n\n// メニューアクション処理\nif (menuAction) {\n  switch(menuAction) {\n    case 'generate':\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'buzz' };\n      break;\n    case 'trilogy':\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', type: 'trilogy', count: 3 };\n      break;\n    case 'today':\n      const cats = ['日曜_趣味遊び', '月曜_ギャンブル金', '火曜_ビジネスキャリア', '水曜_生活節約', '木曜_社会ネット裏事情', '金曜_健康美容', '土曜_恋愛人間関係'];\n      const todayTheme = cats[new Date().getDay()];\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'today', theme: todayTheme };\n      result.todayTheme = todayTheme;\n      break;\n    case 'help':\n      result.nextAction = 'show_help';\n      break;\n  }\n}\n// ポストバックアクション処理\nelse if (action) {\n  const posts = userState.posts_data ? JSON.parse(userState.posts_data) : [];\n  const index = $input.item.json.index;\n  switch(action) {\n    case 'next':\n      const nextIndex = (index >= posts.length - 1) ? 0 : index;\n      result.nextAction = 'show_post';\n      result.postContent = posts[nextIndex];\n      result.postIndex = nextIndex;\n      result.totalPosts = posts.length;\n      result.updateState = { current_index: nextIndex };\n      break;\n  }\n}\n// 状態に応じたテキスト処理\nelse if (userState.state === 'selecting_count') {\n  const count = parseInt(text);\n  if (count > 0 && count <= 50) {\n    if (userState.type === 'today') {\n      result.nextAction = 'generate_posts';\n      result.generateParams = { count, theme: userState.theme, type: userState.type };\n      result.updateState = { state: 'generating', count };\n    } else {\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', count };\n    }\n  } else {\n    result.nextAction = 'error';\n    result.errorMessage = '1〜50の数字を入力してください';\n  }\n}\nelse if (userState.state === 'selecting_theme') {\n  result.nextAction = 'generate_posts';\n  result.generateParams = { count: userState.count, theme: text, type: userState.type || 'buzz' };\n  result.updateState = { state: 'generating', theme: text };\n}\nelse {\n  // 初期状態ではメニュー未選択 -> ヘルプを返す\n  result.nextAction = 'show_help';\n}\n\nreturn { json: result };"
+  "jsCode": "const userId = $input.item.json.userId;\nconst menuAction = $input.item.json.menuAction;\nconst text = $input.item.json.text || '';\nconst action = $input.item.json.action;\n\nconst normalizeDigits = (value = '') => value.replace(/[０-９]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 0xFEE0));\nconst parsePostsData = (raw) => {\n  if (!raw) {\n    return [];\n  }\n  try {\n    const parsed = JSON.parse(raw);\n    return Array.isArray(parsed) ? parsed : [];\n  } catch (err) {\n    return [];\n  }\n};\n\nconst userStateRaw = $node['ユーザー状態取得'].json;\nlet userState = userStateRaw;\nif (!userState || userState.error) {\n  userState = { state: 'initial' };\n}\n\nconst makeResetState = () => ({\n  state: 'idle',\n  count: null,\n  theme: null,\n  posts_data: null,\n  current_index: 0,\n  type: null\n});\n\nlet result = {\n  userId,\n  replyToken: $input.item.json.replyToken,\n  currentState: userState,\n  nextAction: null,\n  updateState: null\n};\n\nconst buildGenerateParams = (count, theme, type) => ({\n  count: count ?? userState.count ?? null,\n  theme: theme ?? userState.theme ?? '不明',\n  type: type ?? userState.type ?? 'buzz'\n});\n\nconst postsFromState = parsePostsData(userState.posts_data);\n\nif (menuAction) {\n  switch (menuAction) {\n    case 'generate':\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'buzz' };\n      break;\n    case 'trilogy':\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', type: 'trilogy', count: 3 };\n      break;\n    case 'today':\n      const cats = ['日曜_趣味遊び', '月曜_ギャンブル金', '火曜_ビジネスキャリア', '水曜_生活節約', '木曜_社会ネット裏事情', '金曜_健康美容', '土曜_恋愛人間関係'];\n      const todayTheme = cats[new Date().getDay()];\n      result.nextAction = 'show_count_selection';\n      result.updateState = { state: 'selecting_count', type: 'today', theme: todayTheme };\n      result.todayTheme = todayTheme;\n      break;\n    case 'help':\n      result.nextAction = 'show_help';\n      break;\n    case 'discard':\n      result.nextAction = 'discard_posts';\n      result.updateState = makeResetState();\n      break;\n    default:\n      result.nextAction = 'show_help';\n      break;\n  }\n}\nelse if (action) {\n  const posts = postsFromState;\n  if (!Array.isArray(posts) || posts.length === 0) {\n    result.nextAction = 'error';\n    result.errorMessage = '表示できる投稿がありません';\n  } else {\n    const providedIndex = Number.isInteger($input.item.json.index)\n      ? $input.item.json.index\n      : (Number.isInteger(userState.current_index) ? userState.current_index : 0);\n    const normalizedIndex = Math.min(posts.length - 1, Math.max(0, providedIndex));\n    let targetIndex = normalizedIndex;\n\n    if (action === 'next') {\n      targetIndex = (normalizedIndex + 1) % posts.length;\n    } else if (action === 'prev') {\n      targetIndex = (normalizedIndex - 1 + posts.length) % posts.length;\n    } else if (action === 'first') {\n      targetIndex = 0;\n    } else if (action === 'last') {\n      targetIndex = posts.length - 1;\n    }\n\n    if (action === 'discard') {\n      result.nextAction = 'discard_posts';\n      result.updateState = makeResetState();\n    } else {\n      const targetPost = posts[targetIndex] || posts[0];\n      const generateParams = {\n        count: userState.count || posts.length,\n        theme: userState.theme || targetPost?.theme || '不明',\n        type: userState.type || 'buzz'\n      };\n\n      if (action === 'post' || action === 'save') {\n        result.nextAction = 'post_action';\n        result.actionIntent = action;\n        result.postContent = targetPost;\n        result.postIndex = targetIndex;\n      } else {\n        result.nextAction = 'show_post';\n        result.postContent = targetPost;\n        result.postIndex = targetIndex;\n      }\n\n      result.totalPosts = posts.length;\n      result.generateParams = generateParams;\n      result.updateState = {\n        state: 'viewing_posts',\n        posts_data: userState.posts_data,\n        current_index: targetIndex,\n        count: generateParams.count,\n        theme: generateParams.theme,\n        type: generateParams.type\n      };\n    }\n  }\n}\nelse if (userState.state === 'selecting_count') {\n  const normalized = normalizeDigits(text).replace(/[^0-9]/g, '');\n  const count = parseInt(normalized, 10);\n  if (Number.isFinite(count) && count > 0 && count <= 50) {\n    if (userState.type === 'today') {\n      result.nextAction = 'generate_posts';\n      result.generateParams = { count, theme: userState.theme, type: userState.type };\n      result.updateState = { state: 'generating', count };\n    } else {\n      result.nextAction = 'show_theme_selection';\n      result.updateState = { state: 'selecting_theme', count };\n    }\n  } else {\n    result.nextAction = 'error';\n    result.errorMessage = '1〜50の数字を入力してください';\n  }\n}\nelse if (userState.state === 'selecting_theme') {\n  result.nextAction = 'generate_posts';\n  result.generateParams = { count: userState.count, theme: text, type: userState.type || 'buzz' };\n  result.updateState = { state: 'generating', theme: text };\n}\nelse {\n  result.nextAction = 'show_help';\n}\n\nreturn { json: result };"
       },
       "id": "0516f188-f035-4a7a-8f15-65d09c106184",
       "name": "状態判定",
@@ -199,7 +199,7 @@
     },
     {
       "parameters": {
-        "command": "cd c:\\Repos\\note-articles\\tools && python hogey_algorithm.py --count {{ $json.generateParams.count }} --theme \"{{ $json.generateParams.theme }}\" --mode {{ $json.generateParams.type === 'trilogy' ? 'trilogy' : 'buzz' }} --output temp_{{ $json.userId }}.csv"
+        "command": "cd c:\\Repos\\note-articles\\tools && python hogey_algorithm.py --count {{ $json.generateParams.count }} --theme \"{{ $json.generateParams.theme }}\" --type {{ $json.generateParams.type || 'buzz' }} --json"
       },
       "id": "7932a5b3-43be-43e0-ae81-318e7f2f438c",
       "name": "Python実行",
@@ -270,7 +270,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Python実行後のCSVファイルを読み込んで投稿を表示\nconst input = { ...$input.item.json };\nconst userId = input.userId;\nlet replyToken = input.replyToken;\nif (!replyToken) {\n  const fallbackNodes = ['ローディングメッセージ', '状態判定', 'コマンド解析'];\n  for (const name of fallbackNodes) {\n    try {\n      const data = $node[name]?.json;\n      if (data?.replyToken) {\n        replyToken = data.replyToken;\n        break;\n      }\n    } catch (err) {\n      continue;\n    }\n  }\n}\n\nif (!replyToken) {\n  throw new Error('replyToken missing for post display');\n}\n\nconst generateParams = input.generateParams;\n\n// Python実行の結果からCSV内容を取得する必要があるが、\n// とりあえず完了メッセージを返す\nconst message = {\n  type: \"text\",\n  text: `✅ ${generateParams.count}件の投稿を生成しました！\\n\\nテーマ: ${generateParams.theme}`\n};\n\nconst payload = { ...input };\npayload.replyToken = replyToken;\npayload.userId = userId;\ndelete payload.message;\npayload.messages = [message];\n\nreturn { json: payload };"
+        "jsCode": "const execResult = $input.item.json;\nlet stdout = execResult.stdout || '';\nstdout = stdout.trim();\n\nlet posts = [];\nif (stdout) {\n  try {\n    posts = JSON.parse(stdout);\n  } catch (err) {\n    throw new Error('投稿JSONの解析に失敗しました: ' + err.message);\n  }\n}\n\nif (!Array.isArray(posts) || posts.length === 0) {\n  throw new Error('生成結果が空でした');\n}\n\nconst generateParams = $node['状態判定']?.json?.generateParams || { count: posts.length, theme: posts[0]?.theme || '不明', type: 'buzz' };\nconst userId = $node['状態判定']?.json?.userId || $node['コマンド解析']?.json?.userId;\nlet replyToken = $node['ローディングメッセージ']?.json?.replyToken || $node['状態判定']?.json?.replyToken || $node['コマンド解析']?.json?.replyToken;\n\nif (!replyToken) {\n  throw new Error('replyToken missing for post display');\n}\n\nconst total = posts.length;\nconst currentIndex = 0;\nconst currentPost = posts[currentIndex];\n\nconst makeProgressBar = (index, size) => {\n  const filledBlocks = Math.min(10, Math.max(0, Math.round(((index + 1) / size) * 10)));\n  return '█'.repeat(filledBlocks) + '░'.repeat(10 - filledBlocks);\n};\n\nconst progressBar = makeProgressBar(currentIndex, total);\nconst footer = currentPost.education_type ? `教育: ${currentPost.education_type}` : '';\n\nconst quickReply = {\n  items: [\n    { type: 'action', action: { type: 'postback', label: '🚀 投稿', data: `action=post&index=${currentIndex}` } },\n    { type: 'action', action: { type: 'postback', label: '💾 保存', data: `action=save&index=${currentIndex}` } },\n    { type: 'action', action: { type: 'postback', label: '➡️ 次へ', data: `action=next&index=${currentIndex}` } },\n    { type: 'action', action: { type: 'message', label: '🗑️ 破棄', text: 'menu:discard' } }\n  ]\n};\n\nconst textLines = [\n  `🐶 投稿${currentIndex + 1}/${total}`,\n  progressBar,\n  '',\n  currentPost.text || '（本文なし）',\n  '',\n  `テーマ: ${currentPost.theme || generateParams.theme}`,\n  footer\n].filter(Boolean);\n\nconst message = {\n  type: 'text',\n  text: textLines.join('\\n'),\n  quickReply\n};\n\nconst payload = {\n  userId,\n  replyToken,\n  messages: [message],\n  generateParams\n};\n\npayload.updateState = {\n  state: 'viewing_posts',\n  posts_data: JSON.stringify(posts),\n  current_index: currentIndex,\n  count: total,\n  theme: currentPost.theme || generateParams.theme,\n  type: generateParams.type\n};\n\nreturn { json: payload };"
       },
       "id": "7a1233ca-b42b-4b39-9222-6a0f7062c8b3",
       "name": "投稿表示メッセージ作成",
@@ -344,6 +344,159 @@
         -752,
         176
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "show_post",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c430181b-6e2c-4f7d-9fb8-6e68d8e7dcb6",
+      "name": "保存投稿表示?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -944,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = { ...$input.item.json };\nconst post = input.postContent || {};\nconst total = input.totalPosts || 1;\nconst index = Number.isInteger(input.postIndex) ? input.postIndex : 0;\nconst userId = input.userId || $node['状態判定']?.json?.userId;\n\nconst fallbackNodes = ['保存投稿メッセージ作成', '投稿表示メッセージ作成', 'ローディングメッセージ', '状態判定', 'コマンド解析'];\nlet replyToken = input.replyToken;\nif (!replyToken) {\n  for (const name of fallbackNodes) {\n    try {\n      const data = $node[name]?.json;\n      if (data?.replyToken) {\n        replyToken = data.replyToken;\n        break;\n      }\n    } catch (err) {\n      continue;\n    }\n  }\n}\nif (!replyToken) {\n  throw new Error('replyToken missing for saved post display');\n}\n\nconst makeProgressBar = (idx, size) => {\n  const filledBlocks = Math.min(10, Math.max(0, Math.round(((idx + 1) / size) * 10)));\n  return '█'.repeat(filledBlocks) + '░'.repeat(10 - filledBlocks);\n};\nconst progressBar = makeProgressBar(index, total);\nconst footer = post.education_type ? `教育: ${post.education_type}` : '';\n\nconst quickReply = {\n  items: [\n    { type: 'action', action: { type: 'postback', label: '⬅️ 前へ', data: `action=prev&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '➡️ 次へ', data: `action=next&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '🚀 投稿', data: `action=post&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '💾 保存', data: `action=save&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '🗑️ 破棄', data: `action=discard&index=${index}` } }\n  ]\n};\n\nconst textLines = [\n  `🐶 投稿${index + 1}/${total}`,\n  progressBar,\n  '',\n  post.text || '（本文なし）',\n  '',\n  `テーマ: ${post.theme || input.generateParams?.theme || '不明'}`,\n  footer\n].filter(Boolean);\n\nconst message = {\n  type: 'text',\n  text: textLines.join('\\n'),\n  quickReply\n};\n\nconst payload = {\n  userId,\n  replyToken,\n  messages: [message],\n  updateState: input.updateState || null,\n  generateParams: input.generateParams || null\n};\n\nreturn { json: payload };"
+      },
+      "id": "9c0a0a47-4f62-4b2f-b616-5c7a7de0736c",
+      "name": "保存投稿メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "post_action",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8dc81ef6-07ad-4f0c-934a-13b0cf7d0dd5",
+      "name": "投稿アクション?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -944,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = { ...$input.item.json };\nconst action = input.actionIntent || 'post';\nconst index = Number.isInteger(input.postIndex) ? input.postIndex : 0;\nconst userId = input.userId || $node['状態判定']?.json?.userId;\n\nconst fallbackNodes = ['投稿アクションメッセージ作成', '保存投稿メッセージ作成', '投稿表示メッセージ作成', '状態判定', 'コマンド解析'];\nlet replyToken = input.replyToken;\nif (!replyToken) {\n  for (const name of fallbackNodes) {\n    try {\n      const data = $node[name]?.json;\n      if (data?.replyToken) {\n        replyToken = data.replyToken;\n        break;\n      }\n    } catch (err) {\n      continue;\n    }\n  }\n}\nif (!replyToken) {\n  throw new Error('replyToken missing for post action message');\n}\n\nlet text;\nif (action === 'post') {\n  text = '🚀 投稿フローはまだ外部APIと連携していません。次の投稿または保存操作に進めます。';\n} else {\n  text = '💾 保存リクエストを受け付けました。（ストレージ連携は今後実装予定）';\n}\n\nconst quickReply = {\n  items: [\n    { type: 'action', action: { type: 'postback', label: '⬅️ 戻る', data: `action=first&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '➡️ 次へ', data: `action=next&index=${index}` } },\n    { type: 'action', action: { type: 'postback', label: '🗑️ 破棄', data: `action=discard&index=${index}` } }\n  ]\n};\n\nconst message = {\n  type: 'text',\n  text,\n  quickReply\n};\n\nconst payload = {\n  userId,\n  replyToken,\n  messages: [message],\n  updateState: input.updateState || null\n};\n\nreturn { json: payload };"
+      },
+      "id": "2d9c879a-de4d-47d6-b335-0cfa8a8c8e5b",
+      "name": "投稿アクションメッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.nextAction }}",
+                    "rightValue": "discard_posts",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "03a3c2f2-e9f0-4d8b-aef3-b9d3a7e7a5d1",
+      "name": "破棄処理?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -944,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = { ...$input.item.json };\nconst userId = input.userId || $node['状態判定']?.json?.userId;\n\nconst fallbackNodes = ['破棄メッセージ作成', '投稿アクションメッセージ作成', '保存投稿メッセージ作成', '状態判定', 'コマンド解析'];\nlet replyToken = input.replyToken;\nif (!replyToken) {\n  for (const name of fallbackNodes) {\n    try {\n      const data = $node[name]?.json;\n      if (data?.replyToken) {\n        replyToken = data.replyToken;\n        break;\n      }\n    } catch (err) {\n      continue;\n    }\n  }\n}\nif (!replyToken) {\n  throw new Error('replyToken missing for discard message');\n}\n\nconst message = {\n  type: 'text',\n  text: '🗑️ 投稿セットを破棄しました。メニューから新しく生成してください。',\n  quickReply: {\n    items: [\n      { type: 'action', action: { type: 'message', label: '📝 投稿生成', text: 'menu:generate' } },\n      { type: 'action', action: { type: 'message', label: '📚 今日のテーマ', text: 'menu:today' } },\n      { type: 'action', action: { type: 'message', label: '❓ ヘルプ', text: 'menu:help' } }\n    ]\n  }\n};\n\nconst payload = {\n  userId,\n  replyToken,\n  messages: [message],\n  updateState: input.updateState || null\n};\n\nreturn { json: payload };"
+      },
+      "id": "4f3dc0ba-bc8b-41f7-9a25-3c2c2a52a7da",
+      "name": "破棄メッセージ作成",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        576
+      ]
     }
   ],
   "pinData": {},
@@ -403,6 +556,21 @@
             "node": "ヘルプ表示?",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "保存投稿表示?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "投稿アクション?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "破棄処理?",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -434,6 +602,39 @@
         [
           {
             "node": "ローディングメッセージ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "保存投稿表示?": {
+      "main": [
+        [
+          {
+            "node": "保存投稿メッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "投稿アクション?": {
+      "main": [
+        [
+          {
+            "node": "投稿アクションメッセージ作成",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "破棄処理?": {
+      "main": [
+        [
+          {
+            "node": "破棄メッセージ作成",
             "type": "main",
             "index": 0
           }
@@ -522,6 +723,54 @@
       ]
     },
     "投稿表示メッセージ作成": {
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "保存投稿メッセージ作成": {
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "投稿アクションメッセージ作成": {
+      "main": [
+        [
+          {
+            "node": "ユーザー状態更新",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LINE返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "破棄メッセージ作成": {
       "main": [
         [
           {

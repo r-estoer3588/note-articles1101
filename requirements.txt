@@ -1,0 +1,5 @@
+flask>=3.0,<4
+
+# Image generation helpers (optional, used by tools/generate_plush_image.py)
+requests>=2.31,<3
+openai>=1.40,<2
