@@ -44,7 +44,19 @@ if (-not $NoTunnel) {
 
     if (-not $ltRunning) {
         Write-Host "[line-bot] Starting localtunnel on port $ltPort (subdomain: $ltSubdomain)..."
-        Start-Process -FilePath "npx" -ArgumentList "localtunnel --port $ltPort --subdomain $ltSubdomain" -WindowStyle Hidden
+        # Use node directly with npx to avoid PATH issues
+        $nodePath = (Get-Command node -ErrorAction SilentlyContinue).Source
+        if ($nodePath) {
+            $npxPath = Join-Path (Split-Path (Split-Path $nodePath)) "node_modules\npm\bin\npx-cli.js"
+            if (Test-Path $npxPath) {
+                Start-Process -FilePath $nodePath -ArgumentList "`"$npxPath`" localtunnel --port $ltPort --subdomain $ltSubdomain" -WindowStyle Hidden
+            } else {
+                # Fallback: try global npx
+                Start-Process -FilePath "cmd.exe" -ArgumentList "/c npx localtunnel --port $ltPort --subdomain $ltSubdomain" -WindowStyle Hidden
+            }
+        } else {
+            Write-Warning "[line-bot] Node.js not found in PATH, cannot start localtunnel"
+        }
     } else {
         Write-Host "[line-bot] localtunnel already running"
     }
