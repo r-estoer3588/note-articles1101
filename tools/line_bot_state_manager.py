@@ -91,8 +91,19 @@ def update_user_state(user_id: str, **kwargs) -> dict:
         ]:
             allowed[k] = v
 
-    if "posts_data" in allowed and allowed["posts_data"] in (None, "", "[]"):
-        allowed.setdefault("current_index", 0)
+    # Auto-reset current_index when posts_data is empty/null
+    posts_data_value = allowed.get("posts_data")
+    is_empty_posts = (
+        posts_data_value is None
+        or posts_data_value == ""
+        or (
+            isinstance(posts_data_value, str)
+            and posts_data_value.strip() in ("[]", "null", "")
+        )
+    )
+    if "posts_data" in allowed and is_empty_posts:
+        # Force reset (override any existing value)
+        allowed["current_index"] = 0
 
     if (
         allowed.get("state") in {"idle", "initial"}
