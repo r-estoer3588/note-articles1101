@@ -675,11 +675,6 @@
             "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "LINE返信",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -691,11 +686,6 @@
             "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "LINE返信",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -704,7 +694,7 @@
       "main": [
         [
           {
-            "node": "LINE返信",
+            "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
           }
@@ -729,11 +719,6 @@
             "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "LINE返信",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -743,11 +728,6 @@
         [
           {
             "node": "ユーザー状態更新",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "LINE返信",
             "type": "main",
             "index": 0
           }
@@ -761,11 +741,6 @@
             "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "LINE返信",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -777,7 +752,13 @@
             "node": "ユーザー状態更新",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "ユーザー状態更新": {
+      "main": [
+        [
           {
             "node": "LINE返信",
             "type": "main",
@@ -785,8 +766,7 @@
           }
         ]
       ]
-    },
-    "ユーザー状態更新": {}
+    }
   },
   "active": true,
   "settings": {
