@@ -1,0 +1,2299 @@
+{
+  "OK": [
+    {
+      "title": "**【270万円焦げ付いた】不動産投資で絶対避けたい物件｜利回り10%の甘い罠**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\010_不動産投資で絶対避けたい物件.md",
+      "free_length": 2420,
+      "paid_length": 0,
+      "total_length": 2420,
+      "bottom_words": 3,
+      "target_words": 1,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 10,
+        "target_match": 7,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 7.0
+      },
+      "issues": [
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 10,
+      "master_title": "【不動産投資で絶対避けたい物件】"
+    },
+    {
+      "title": "**【150万円損した】NISAで損する銘柄選び｜気づいてないだけで年100万円の損失**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\100_ネット詐欺で絶対引っかからない防衛法.md",
+      "free_length": 3055,
+      "paid_length": 0,
+      "total_length": 3055,
+      "bottom_words": 4,
+      "target_words": 4,
+      "evidence_words": 3,
+      "score": {
+        "title_quality": 10,
+        "target_match": 6,
+        "evidence_level": 9,
+        "structure_score": 5,
+        "total": 7.5
+      },
+      "issues": [
+        "有料部分が短い（0文字）"
+      ],
+      "id": 100,
+      "master_title": "【ネット詐欺で絶対引っかからない防衛法】"
+    }
+  ],
+  "要改善": [
+    {
+      "title": "**【面接で絶対落ちる回答】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\sample_saving_001.md",
+      "free_length": 2574,
+      "paid_length": 0,
+      "total_length": 2574,
+      "bottom_words": 8,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 3,
+      "master_title": "【貧乏人がやりがちな無駄遣い10選】"
+    },
+    {
+      "title": "**【不動産投資で確実に失敗する物件選び】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\sample_scam_001.md",
+      "free_length": 2625,
+      "paid_length": 0,
+      "total_length": 2625,
+      "bottom_words": 8,
+      "target_words": 2,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.75
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 4,
+      "master_title": "【ネット詐欺の裏話を元詐欺師が暴露】"
+    },
+    {
+      "title": "**【ふるさと納税で損する選び方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\sample_diet_001.md",
+      "free_length": 2655,
+      "paid_length": 0,
+      "total_length": 2655,
+      "bottom_words": 8,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 5,
+      "master_title": "【ダイエットで逆に太る食事法10選】"
+    },
+    {
+      "title": "**【iDeCoで損する運用方法】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\sample_dating_001.md",
+      "free_length": 2577,
+      "paid_length": 0,
+      "total_length": 2577,
+      "bottom_words": 8,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 6,
+      "master_title": "【マッチングアプリで絶対モテないプロフィール】"
+    },
+    {
+      "title": "**【投資信託で損する選び方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\sample_game_001.md",
+      "free_length": 2675,
+      "paid_length": 0,
+      "total_length": 2675,
+      "bottom_words": 8,
+      "target_words": 2,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 7,
+      "master_title": "【ゲーム課金で絶対に損する罠ワースト5】"
+    },
+    {
+      "title": "**【72万円の税金を見逃した】NISAで\"現状維持バイアス\"に支配された瞬間を解析したら、俺の判断が全部停止してた話**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\012_NISAで知らないと損する落とし穴.md",
+      "free_length": 5192,
+      "paid_length": 0,
+      "total_length": 5192,
+      "bottom_words": 9,
+      "target_words": 5,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 5,
+        "target_match": 1,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（9個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 12,
+      "master_title": "【NISAで知らないと損する落とし穴】"
+    },
+    {
+      "title": "**【38万円の追徴課税を食らった】副業の確定申告で\"正常性バイアス\"に支配された瞬間を解析したら、俺の判断が全部停止してた話**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\014_副業の確定申告で絶対やってはいけないこと.md",
+      "free_length": 5144,
+      "paid_length": 0,
+      "total_length": 5144,
+      "bottom_words": 9,
+      "target_words": 4,
+      "evidence_words": 3,
+      "score": {
+        "title_quality": 5,
+        "target_match": 1,
+        "evidence_level": 9,
+        "structure_score": 5,
+        "total": 5.0
+      },
+      "issues": [
+        "底辺語彙多数（9個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 14,
+      "master_title": "【副業の確定申告で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【サプリで逆効果になる飲み方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\019_ふるさと納税で損する選び方.md",
+      "free_length": 2614,
+      "paid_length": 0,
+      "total_length": 2614,
+      "bottom_words": 8,
+      "target_words": 2,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 19,
+      "master_title": "【ふるさと納税で損する選び方】"
+    },
+    {
+      "title": "**【転職で絶対に失敗する面接回答】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\021_転職で絶対に失敗する面接回答.md",
+      "free_length": 2985,
+      "paid_length": 0,
+      "total_length": 2985,
+      "bottom_words": 10,
+      "target_words": 5,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 21,
+      "master_title": "【転職で絶対に失敗する面接回答】"
+    },
+    {
+      "title": "**【電子マネーで損する使い方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\024_退職で損する辞め方.md",
+      "free_length": 2640,
+      "paid_length": 0,
+      "total_length": 2640,
+      "bottom_words": 8,
+      "target_words": 2,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 2,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.0
+      },
+      "issues": [
+        "底辺語彙多数（8個）",
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 24,
+      "master_title": "【退職で損する辞め方】"
+    },
+    {
+      "title": "**【起業で失敗する初心者の罠】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\026_起業で失敗する初心者の罠.md",
+      "free_length": 3017,
+      "paid_length": 0,
+      "total_length": 3017,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 26,
+      "master_title": "【起業で失敗する初心者の罠】"
+    },
+    {
+      "title": "**【会議で絶対失敗する発言パターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\032_会議で絶対失敗する発言パターン.md",
+      "free_length": 3042,
+      "paid_length": 0,
+      "total_length": 3042,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 32,
+      "master_title": "【会議で絶対失敗する発言パターン】"
+    },
+    {
+      "title": "【ダイエットで絶対失敗する食事法】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\036_ダイエットで絶対失敗する食事法.md",
+      "free_length": 614,
+      "paid_length": 2300,
+      "total_length": 2923,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 36,
+      "master_title": "【ダイエットで絶対失敗する食事法】"
+    },
+    {
+      "title": "【美容医療で失敗するクリニック選び】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\043_美容医療で失敗するクリニック選び.md",
+      "free_length": 615,
+      "paid_length": 2299,
+      "total_length": 2923,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 43,
+      "master_title": "【美容医療で失敗するクリニック選び】"
+    },
+    {
+      "title": "**【コスメ選びで損する成分の罠】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\045_コスメ選びで損する成分の罠.md",
+      "free_length": 3002,
+      "paid_length": 0,
+      "total_length": 3002,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 45,
+      "master_title": "【コスメ選びで損する成分の罠】"
+    },
+    {
+      "title": "**【デートで絶対失敗する会話術】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\052_デートで絶対失敗する会話術.md",
+      "free_length": 2995,
+      "paid_length": 0,
+      "total_length": 2995,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 52,
+      "master_title": "【デートで絶対失敗する会話術】"
+    },
+    {
+      "title": "**【プレゼント選びで絶対失敗する基準】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\060_プレゼント選びで絶対失敗する基準.md",
+      "free_length": 3040,
+      "paid_length": 0,
+      "total_length": 3040,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 60,
+      "master_title": "【プレゼント選びで絶対失敗する基準】"
+    },
+    {
+      "title": "**【料理で絶対失敗するパターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\072_料理で絶対失敗するパターン.md",
+      "free_length": 3012,
+      "paid_length": 0,
+      "total_length": 3012,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 72,
+      "master_title": "【料理で絶対失敗するパターン】"
+    },
+    {
+      "title": "**【ゲーム課金で絶対に損する罠】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\076_ゲーム課金で絶対に損する罠.md",
+      "free_length": 2982,
+      "paid_length": 0,
+      "total_length": 2982,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 76,
+      "master_title": "【ゲーム課金で絶対に損する罠】"
+    },
+    {
+      "title": "**【DIYで絶対やってはいけない失敗例】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\082_DIYで絶対やってはいけない失敗例.md",
+      "free_length": 3028,
+      "paid_length": 0,
+      "total_length": 3028,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 82,
+      "master_title": "【DIYで絶対やってはいけない失敗例】"
+    },
+    {
+      "title": "**【写真撮影で絶対失敗する構図】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\083_写真撮影で絶対失敗する構図.md",
+      "free_length": 2984,
+      "paid_length": 0,
+      "total_length": 2984,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 83,
+      "master_title": "【写真撮影で絶対失敗する構図】"
+    },
+    {
+      "title": "**【ショッピングサイトの隠れ割引の罠】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\094_ショッピングサイトの隠れ割引の罠.md",
+      "free_length": 3006,
+      "paid_length": 0,
+      "total_length": 3006,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 6,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 4.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 94,
+      "master_title": "【ショッピングサイトの隠れ割引の罠】"
+    }
+  ],
+  "削除候補": [
+    {
+      "title": "【パチで負ける台の見分け方】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\001_sample_pachinko_003_final.md",
+      "free_length": 611,
+      "paid_length": 2296,
+      "total_length": 2916,
+      "bottom_words": 11,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（11個）"
+      ],
+      "id": 1,
+      "master_title": "【パチで負ける台の見分け方】"
+    },
+    {
+      "title": "**【競馬で絶対当たらない買い方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\002_sample_keiba_001.md",
+      "free_length": 3015,
+      "paid_length": 0,
+      "total_length": 3015,
+      "bottom_words": 11,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（11個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 2,
+      "master_title": "【競馬で絶対当たらない買い方】"
+    },
+    {
+      "title": "【FXで絶対やってはいけないこと】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\008_FXで絶対やってはいけないこと.md",
+      "free_length": 545,
+      "paid_length": 2217,
+      "total_length": 2771,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 8,
+      "master_title": "【FXで絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【120万円送金した瞬間】暗号資産で\"損失回避バイアス\"が発動する3つのタイミングを解析したら、俺の判断が全部狂ってた話**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\009_暗号資産で失敗する初心者の罠.md",
+      "free_length": 4540,
+      "paid_length": 0,
+      "total_length": 4540,
+      "bottom_words": 10,
+      "target_words": 2,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 5,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 5,
+        "total": 3.25
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "会社員向けキーワード不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 9,
+      "master_title": "【暗号資産で失敗する初心者の罠】"
+    },
+    {
+      "title": "**【480万円多く払った】住宅ローンで\"フレーミング効果\"にハマった瞬間を解析したら、俺の判断が全部誘導されてた話**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\011_住宅ローンで損する契約内容.md",
+      "free_length": 5071,
+      "paid_length": 0,
+      "total_length": 5071,
+      "bottom_words": 9,
+      "target_words": 2,
+      "evidence_words": 0,
+      "score": {
+        "title_quality": 5,
+        "target_match": 1,
+        "evidence_level": 0,
+        "structure_score": 5,
+        "total": 2.75
+      },
+      "issues": [
+        "底辺語彙多数（9個）",
+        "会社員向けキーワード不足",
+        "エビデンス不足",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 11,
+      "master_title": "【住宅ローンで損する契約内容】"
+    },
+    {
+      "title": "**【96万円の手数料を払った】iDeCoで\"サンクコスト錯誤\"に囚われた瞬間を解析したら、俺の判断が全部狂ってた話**",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\013_iDeCoで絶対失敗する運用法.md",
+      "free_length": 6731,
+      "paid_length": 0,
+      "total_length": 6731,
+      "bottom_words": 11,
+      "target_words": 8,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 5,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 5,
+        "total": 3.25
+      },
+      "issues": [
+        "底辺語彙多数（11個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 13,
+      "master_title": "【iDeCoで絶対失敗する運用法】"
+    },
+    {
+      "title": "【節税で逆に損する方法】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\015_節税で逆に損する方法.md",
+      "free_length": 528,
+      "paid_length": 2166,
+      "total_length": 2703,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 15,
+      "master_title": "【節税で逆に損する方法】"
+    },
+    {
+      "title": "**【相続で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\016_相続で絶対やってはいけないこと.md",
+      "free_length": 3019,
+      "paid_length": 0,
+      "total_length": 3019,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 16,
+      "master_title": "【相続で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【生命保険で損する見直しパターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\017_生命保険で損する見直しパターン.md",
+      "free_length": 2999,
+      "paid_length": 0,
+      "total_length": 2999,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 17,
+      "master_title": "【生命保険で損する見直しパターン】"
+    },
+    {
+      "title": "**【電子マネーで知らないと損する裏技】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\018_電子マネーで知らないと損する裏技.md",
+      "free_length": 3040,
+      "paid_length": 0,
+      "total_length": 3040,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 18,
+      "master_title": "【電子マネーで知らないと損する裏技】"
+    },
+    {
+      "title": "**【金融詐欺で絶対引っかかる人の特徴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\020_金融詐欺で絶対引っかかる人の特徴.md",
+      "free_length": 2987,
+      "paid_length": 0,
+      "total_length": 2987,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 20,
+      "master_title": "【金融詐欺で絶対引っかかる人の特徴】"
+    },
+    {
+      "title": "【履歴書・職務経歴書で損する書き方】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\022_履歴書・職務経歴書で損する書き方.md",
+      "free_length": 615,
+      "paid_length": 2294,
+      "total_length": 2918,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 22,
+      "master_title": "【履歴書・職務経歴書で損する書き方】"
+    },
+    {
+      "title": "**【年収交渉で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\023_年収交渉で絶対やってはいけないこと.md",
+      "free_length": 3022,
+      "paid_length": 0,
+      "total_length": 3022,
+      "bottom_words": 10,
+      "target_words": 5,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 23,
+      "master_title": "【年収交渉で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【副業で絶対選んではいけない案件】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\025_副業で絶対選んではいけない案件.md",
+      "free_length": 3037,
+      "paid_length": 0,
+      "total_length": 3037,
+      "bottom_words": 10,
+      "target_words": 5,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 25,
+      "master_title": "【副業で絶対選んではいけない案件】"
+    },
+    {
+      "title": "**【フリーランスで損する契約書の穴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\027_フリーランスで損する契約書の穴.md",
+      "free_length": 2978,
+      "paid_length": 0,
+      "total_length": 2978,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 27,
+      "master_title": "【フリーランスで損する契約書の穴】"
+    },
+    {
+      "title": "**【資格取得で絶対無駄になる選び方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\028_資格取得で絶対無駄になる選び方.md",
+      "free_length": 2990,
+      "paid_length": 0,
+      "total_length": 2990,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 28,
+      "master_title": "【資格取得で絶対無駄になる選び方】"
+    },
+    {
+      "title": "【昇進で損する働き方】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\029_昇進で損する働き方.md",
+      "free_length": 608,
+      "paid_length": 2293,
+      "total_length": 2910,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 29,
+      "master_title": "【昇進で損する働き方】"
+    },
+    {
+      "title": "**【職場の人間関係で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\030_職場の人間関係で絶対やってはいけないこと.md",
+      "free_length": 3028,
+      "paid_length": 0,
+      "total_length": 3028,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 30,
+      "master_title": "【職場の人間関係で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【テレワークで損する働き方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\031_テレワークで損する働き方.md",
+      "free_length": 2995,
+      "paid_length": 0,
+      "total_length": 2995,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 31,
+      "master_title": "【テレワークで損する働き方】"
+    },
+    {
+      "title": "**【上司への報告で損するタイミング】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\033_上司への報告で損するタイミング.md",
+      "free_length": 3021,
+      "paid_length": 0,
+      "total_length": 3021,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 33,
+      "master_title": "【上司への報告で損するタイミング】"
+    },
+    {
+      "title": "**【ビジネスメールで絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\034_ビジネスメールで絶対やってはいけないこと.md",
+      "free_length": 2994,
+      "paid_length": 0,
+      "total_length": 2994,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 34,
+      "master_title": "【ビジネスメールで絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【営業で絶対売れないNG行動】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\035_営業で絶対売れないNG行動.md",
+      "free_length": 2979,
+      "paid_length": 0,
+      "total_length": 2979,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 35,
+      "master_title": "【営業で絶対売れないNG行動】"
+    },
+    {
+      "title": "**【筋トレで逆効果になる間違い】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\037_筋トレで逆効果になる間違い.md",
+      "free_length": 3016,
+      "paid_length": 0,
+      "total_length": 3016,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 37,
+      "master_title": "【筋トレで逆効果になる間違い】"
+    },
+    {
+      "title": "**【サプリで損する選び方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\038_サプリで損する選び方.md",
+      "free_length": 2991,
+      "paid_length": 0,
+      "total_length": 2991,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 38,
+      "master_title": "【サプリで損する選び方】"
+    },
+    {
+      "title": "**【スキンケアで逆に肌が荒れるNG習慣】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\039_スキンケアで逆に肌が荒れるNG習慣.md",
+      "free_length": 3038,
+      "paid_length": 0,
+      "total_length": 3038,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 39,
+      "master_title": "【スキンケアで逆に肌が荒れるNG習慣】"
+    },
+    {
+      "title": "**【睡眠で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\040_睡眠で絶対やってはいけないこと.md",
+      "free_length": 3028,
+      "paid_length": 0,
+      "total_length": 3028,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 40,
+      "master_title": "【睡眠で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【プロテインで損する飲み方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\041_プロテインで損する飲み方.md",
+      "free_length": 2979,
+      "paid_length": 0,
+      "total_length": 2979,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 41,
+      "master_title": "【プロテインで損する飲み方】"
+    },
+    {
+      "title": "**【ランニングで絶対やってはいけないフォーム】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\042_ランニングで絶対やってはいけないフォーム.md",
+      "free_length": 2993,
+      "paid_length": 0,
+      "total_length": 2993,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 42,
+      "master_title": "【ランニングで絶対やってはいけないフォーム】"
+    },
+    {
+      "title": "**【ヘアケアで逆に髪が傷む習慣】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\044_ヘアケアで逆に髪が傷む習慣.md",
+      "free_length": 3011,
+      "paid_length": 0,
+      "total_length": 3011,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 44,
+      "master_title": "【ヘアケアで逆に髪が傷む習慣】"
+    },
+    {
+      "title": "**【腸活で逆効果になる食べ方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\046_腸活で逆効果になる食べ方.md",
+      "free_length": 3026,
+      "paid_length": 0,
+      "total_length": 3026,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 46,
+      "master_title": "【腸活で逆効果になる食べ方】"
+    },
+    {
+      "title": "**【メンタルヘルスで絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\047_メンタルヘルスで絶対やってはいけないこと.md",
+      "free_length": 3031,
+      "paid_length": 0,
+      "total_length": 3031,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 47,
+      "master_title": "【メンタルヘルスで絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【歯のケアで損する習慣】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\048_歯のケアで損する習慣.md",
+      "free_length": 2973,
+      "paid_length": 0,
+      "total_length": 2973,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 48,
+      "master_title": "【歯のケアで損する習慣】"
+    },
+    {
+      "title": "**【ストレス解消で逆効果な方法】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\049_ストレス解消で逆効果な方法.md",
+      "free_length": 2987,
+      "paid_length": 0,
+      "total_length": 2987,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 49,
+      "master_title": "【ストレス解消で逆効果な方法】"
+    },
+    {
+      "title": "【アンチエイジングで損する習慣】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\050_アンチエイジングで損する習慣.md",
+      "free_length": 613,
+      "paid_length": 2301,
+      "total_length": 2923,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 50,
+      "master_title": "【アンチエイジングで損する習慣】"
+    },
+    {
+      "title": "**【マッチングアプリで絶対モテないプロフィール】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\051_マッチングアプリで絶対モテないプロフィー.md",
+      "free_length": 3029,
+      "paid_length": 0,
+      "total_length": 3029,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 51,
+      "master_title": "【マッチングアプリで絶対モテないプロフィール】"
+    },
+    {
+      "title": "**【告白で絶対振られるタイミング】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\053_告白で絶対振られるタイミング.md",
+      "free_length": 3036,
+      "paid_length": 0,
+      "total_length": 3036,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 53,
+      "master_title": "【告白で絶対振られるタイミング】"
+    },
+    {
+      "title": "**【結婚で損する相手の見極め方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\054_結婚で損する相手の見極め方.md",
+      "free_length": 3015,
+      "paid_length": 0,
+      "total_length": 3015,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 54,
+      "master_title": "【結婚で損する相手の見極め方】"
+    },
+    {
+      "title": "**【別れ話で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\055_別れ話で絶対やってはいけないこと.md",
+      "free_length": 2989,
+      "paid_length": 0,
+      "total_length": 2989,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 55,
+      "master_title": "【別れ話で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【友達関係で損する距離感】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\056_友達関係で損する距離感.md",
+      "free_length": 2974,
+      "paid_length": 0,
+      "total_length": 2974,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 56,
+      "master_title": "【友達関係で損する距離感】"
+    },
+    {
+      "title": "【LINE・SNSで嫌われるメッセージ】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\057_LINE・SNSで嫌われるメッセージ.md",
+      "free_length": 617,
+      "paid_length": 2307,
+      "total_length": 2933,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 57,
+      "master_title": "【LINE・SNSで嫌われるメッセージ】"
+    },
+    {
+      "title": "**【飲み会で絶対嫌われる行動】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\058_飲み会で絶対嫌われる行動.md",
+      "free_length": 3013,
+      "paid_length": 0,
+      "total_length": 3013,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 58,
+      "master_title": "【飲み会で絶対嫌われる行動】"
+    },
+    {
+      "title": "**【謝罪で逆に怒られるパターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\059_謝罪で逆に怒られるパターン.md",
+      "free_length": 2999,
+      "paid_length": 0,
+      "total_length": 2999,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 59,
+      "master_title": "【謝罪で逆に怒られるパターン】"
+    },
+    {
+      "title": "**【家族関係で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\061_家族関係で絶対やってはいけないこと.md",
+      "free_length": 3026,
+      "paid_length": 0,
+      "total_length": 3026,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 61,
+      "master_title": "【家族関係で絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【ママ友・パパ友で損する付き合い方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\062_ママ友・パパ友で損する付き合い方.md",
+      "free_length": 2991,
+      "paid_length": 0,
+      "total_length": 2991,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 62,
+      "master_title": "【ママ友・パパ友で損する付き合い方】"
+    },
+    {
+      "title": "**【嫌いな人への対処で損する方法】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\063_嫌いな人への対処で損する方法.md",
+      "free_length": 2980,
+      "paid_length": 0,
+      "total_length": 2980,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 63,
+      "master_title": "【嫌いな人への対処で損する方法】"
+    },
+    {
+      "title": "【ご近所トラブルで絶対やってはいけないこと】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\064_ご近所トラブルで絶対やってはいけないこと.md",
+      "free_length": 619,
+      "paid_length": 2304,
+      "total_length": 2932,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 64,
+      "master_title": "【ご近所トラブルで絶対やってはいけないこと】"
+    },
+    {
+      "title": "**【会話で絶対嫌われる話し方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\065_会話で絶対嫌われる話し方.md",
+      "free_length": 3013,
+      "paid_length": 0,
+      "total_length": 3013,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 65,
+      "master_title": "【会話で絶対嫌われる話し方】"
+    },
+    {
+      "title": "**【家事で絶対にやってはいけない時短テク】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\066_家事で絶対にやってはいけない時短テク.md",
+      "free_length": 3005,
+      "paid_length": 0,
+      "total_length": 3005,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 66,
+      "master_title": "【家事で絶対にやってはいけない時短テク】"
+    },
+    {
+      "title": "**【子どものお小遣いで損しない渡し方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\067_子どものお小遣いで損しない渡し方.md",
+      "free_length": 3038,
+      "paid_length": 0,
+      "total_length": 3038,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 67,
+      "master_title": "【子どものお小遣いで損しない渡し方】"
+    },
+    {
+      "title": "**【掃除で逆に汚くなるNG習慣】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\068_掃除で逆に汚くなるNG習慣.md",
+      "free_length": 3021,
+      "paid_length": 0,
+      "total_length": 3021,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 68,
+      "master_title": "【掃除で逆に汚くなるNG習慣】"
+    },
+    {
+      "title": "**【光熱費で損する契約の落とし穴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\069_光熱費で損する契約の落とし穴.md",
+      "free_length": 2982,
+      "paid_length": 0,
+      "total_length": 2982,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 69,
+      "master_title": "【光熱費で損する契約の落とし穴】"
+    },
+    {
+      "title": "**【家計管理で絶対やってはいけないこと】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\070_家計管理で絶対やってはいけないこと.md",
+      "free_length": 2987,
+      "paid_length": 0,
+      "total_length": 2987,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 70,
+      "master_title": "【家計管理で絶対やってはいけないこと】"
+    },
+    {
+      "title": "【知らないと損する買い物の裏ワザ】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\071_知らないと損する買い物の裏ワザ.md",
+      "free_length": 614,
+      "paid_length": 2301,
+      "total_length": 2924,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 71,
+      "master_title": "【知らないと損する買い物の裏ワザ】"
+    },
+    {
+      "title": "**【家庭内トラブルを避ける心理テク】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\073_家庭内トラブルを避ける心理テク.md",
+      "free_length": 3001,
+      "paid_length": 0,
+      "total_length": 3001,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 73,
+      "master_title": "【家庭内トラブルを避ける心理テク】"
+    },
+    {
+      "title": "**【収納で逆に散らかる落とし穴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\074_収納で逆に散らかる落とし穴.md",
+      "free_length": 3031,
+      "paid_length": 0,
+      "total_length": 3031,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 74,
+      "master_title": "【収納で逆に散らかる落とし穴】"
+    },
+    {
+      "title": "**【時短家事でやりがちな損パターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\075_時短家事でやりがちな損パターン.md",
+      "free_length": 3025,
+      "paid_length": 0,
+      "total_length": 3025,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 75,
+      "master_title": "【時短家事でやりがちな損パターン】"
+    },
+    {
+      "title": "**【映画・漫画で知らないと損する裏設定】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\077_映画・漫画で知らないと損する裏設定.md",
+      "free_length": 2987,
+      "paid_length": 0,
+      "total_length": 2987,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 77,
+      "master_title": "【映画・漫画で知らないと損する裏設定】"
+    },
+    {
+      "title": "【音楽ストリーミングで損しない聴き方】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\078_音楽ストリーミングで損しない聴き方.md",
+      "free_length": 616,
+      "paid_length": 2305,
+      "total_length": 2930,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 78,
+      "master_title": "【音楽ストリーミングで損しない聴き方】"
+    },
+    {
+      "title": "**【スポーツ観戦で得する裏テク】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\079_スポーツ観戦で得する裏テク.md",
+      "free_length": 3017,
+      "paid_length": 0,
+      "total_length": 3017,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 79,
+      "master_title": "【スポーツ観戦で得する裏テク】"
+    },
+    {
+      "title": "**【旅行で絶対避けたい予約ミス】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\080_旅行で絶対避けたい予約ミス.md",
+      "free_length": 2999,
+      "paid_length": 0,
+      "total_length": 2999,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 80,
+      "master_title": "【旅行で絶対避けたい予約ミス】"
+    },
+    {
+      "title": "**【カフェや飲食で知らないと損する裏ワザ】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\081_カフェや飲食で知らないと損する裏ワザ.md",
+      "free_length": 3041,
+      "paid_length": 0,
+      "total_length": 3041,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 81,
+      "master_title": "【カフェや飲食で知らないと損する裏ワザ】"
+    },
+    {
+      "title": "**【ペット飼育で知らないと損する習慣】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\084_ペット飼育で知らないと損する習慣.md",
+      "free_length": 2989,
+      "paid_length": 0,
+      "total_length": 2989,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 84,
+      "master_title": "【ペット飼育で知らないと損する習慣】"
+    },
+    {
+      "title": "【趣味グッズ購入で損しないチェックリスト】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\085_趣味グッズ購入で損しないチェックリスト.md",
+      "free_length": 618,
+      "paid_length": 2306,
+      "total_length": 2933,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 85,
+      "master_title": "【趣味グッズ購入で損しないチェックリスト】"
+    },
+    {
+      "title": "**【政治ニュースで絶対騙される落とし穴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\086_政治ニュースで絶対騙される落とし穴.md",
+      "free_length": 3024,
+      "paid_length": 0,
+      "total_length": 3024,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 86,
+      "master_title": "【政治ニュースで絶対騙される落とし穴】"
+    },
+    {
+      "title": "**【詐欺メール・SMSの見抜き方】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\水曜_生活節約\\087_詐欺メール・SMSの見抜き方.md",
+      "free_length": 3001,
+      "paid_length": 0,
+      "total_length": 3001,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 87,
+      "master_title": "【詐欺メール・SMSの見抜き方】"
+    },
+    {
+      "title": "**【ネット広告で損するクリックパターン】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\088_ネット広告で損するクリックパターン.md",
+      "free_length": 3044,
+      "paid_length": 0,
+      "total_length": 3044,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 88,
+      "master_title": "【ネット広告で損するクリックパターン】"
+    },
+    {
+      "title": "**【アプリ課金で知らないと損する裏仕様】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\089_アプリ課金で知らないと損する裏仕様.md",
+      "free_length": 3030,
+      "paid_length": 0,
+      "total_length": 3030,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 89,
+      "master_title": "【アプリ課金で知らないと損する裏仕様】"
+    },
+    {
+      "title": "**【クラウドサービスで絶対避ける落とし穴】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\090_クラウドサービスで絶対避ける落とし穴.md",
+      "free_length": 2993,
+      "paid_length": 0,
+      "total_length": 2993,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 90,
+      "master_title": "【クラウドサービスで絶対避ける落とし穴】"
+    },
+    {
+      "title": "**【ネット上の人間関係で損しない心理テク】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\091_ネット上の人間関係で損しない心理テク.md",
+      "free_length": 2995,
+      "paid_length": 0,
+      "total_length": 2995,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 91,
+      "master_title": "【ネット上の人間関係で損しない心理テク】"
+    },
+    {
+      "title": "【SNS炎上で絶対やってはいけない返信】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\092_SNS炎上で絶対やってはいけない返信.md",
+      "free_length": 617,
+      "paid_length": 2303,
+      "total_length": 2929,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 92,
+      "master_title": "【SNS炎上で絶対やってはいけない返信】"
+    },
+    {
+      "title": "**【知らないと損する交通トラブルの裏ルール】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\火曜_ビジネスキャリア\\093_知らないと損する交通トラブルの裏ルール.md",
+      "free_length": 3024,
+      "paid_length": 0,
+      "total_length": 3024,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 93,
+      "master_title": "【知らないと損する交通トラブルの裏ルール】"
+    },
+    {
+      "title": "**【レビューに騙されない裏ワザ】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\木曜_社会ネット裏事情\\095_レビューに騙されない裏ワザ.md",
+      "free_length": 3035,
+      "paid_length": 0,
+      "total_length": 3035,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 95,
+      "master_title": "【レビューに騙されない裏ワザ】"
+    },
+    {
+      "title": "**【ネット副業で絶対やってはいけない案件】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\金曜_健康美容\\096_ネット副業で絶対やってはいけない案件.md",
+      "free_length": 3031,
+      "paid_length": 0,
+      "total_length": 3031,
+      "bottom_words": 10,
+      "target_words": 4,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 96,
+      "master_title": "【ネット副業で絶対やってはいけない案件】"
+    },
+    {
+      "title": "**【知らないと損する公共サービスの裏技】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\土曜_恋愛人間関係\\097_知らないと損する公共サービスの裏技.md",
+      "free_length": 2989,
+      "paid_length": 0,
+      "total_length": 2989,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 97,
+      "master_title": "【知らないと損する公共サービスの裏技】"
+    },
+    {
+      "title": "**【メルカリ・ラクマで損しない売買テク】******",
+      "file": "C:\\Repos\\note-articles\\gethnote\\日曜_趣味遊び\\098_メルカリ・ラクマで損しない売買テク.md",
+      "free_length": 2992,
+      "paid_length": 0,
+      "total_length": 2992,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 2,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 6,
+        "structure_score": 5,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）",
+        "有料部分が短い（0文字）"
+      ],
+      "id": 98,
+      "master_title": "【メルカリ・ラクマで損しない売買テク】"
+    },
+    {
+      "title": "【誰も教えてくれないポイント活用法】",
+      "file": "C:\\Repos\\note-articles\\gethnote\\月曜_ギャンブル金\\099_誰も教えてくれないポイント活用法.md",
+      "free_length": 615,
+      "paid_length": 2087,
+      "total_length": 2711,
+      "bottom_words": 10,
+      "target_words": 3,
+      "evidence_words": 1,
+      "score": {
+        "title_quality": 3,
+        "target_match": 0,
+        "evidence_level": 3,
+        "structure_score": 8,
+        "total": 3.5
+      },
+      "issues": [
+        "底辺語彙多数（10個）"
+      ],
+      "id": 99,
+      "master_title": "【誰も教えてくれないポイント活用法】"
+    }
+  ]
+}
