@@ -229,7 +229,7 @@
         },
   "sendBody": true,
   "specifyBody": "json",
-  "jsonBody": "={{ ({ replyToken: $json.replyToken, messages: $json.messages }) }}",
+  "jsonBody": "={{ ({ replyToken: $json.replyToken || $node['件数選択メッセージ作成'].json.replyToken || $node['テーマ選択メッセージ作成'].json.replyToken || $node['投稿表示メッセージ作成'].json.replyToken || $node['保存投稿メッセージ作成'].json.replyToken || $node['投稿アクションメッセージ作成'].json.replyToken || $node['破棄メッセージ作成'].json.replyToken || $node['ヘルプメッセージ作成'].json.replyToken, messages: $json.messages || $node['件数選択メッセージ作成'].json.messages || $node['テーマ選択メッセージ作成'].json.messages || $node['投稿表示メッセージ作成'].json.messages || $node['保存投稿メッセージ作成'].json.messages || $node['投稿アクションメッセージ作成'].json.messages || $node['破棄メッセージ作成'].json.messages || $node['ヘルプメッセージ作成'].json.messages }) }}",
         "options": {}
       },
       "id": "db6c5dc1-ae40-449c-a876-d1d84e7fbe9c",
