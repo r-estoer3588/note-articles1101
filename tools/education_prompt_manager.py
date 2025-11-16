@@ -496,26 +496,30 @@ def interactive_menu():
     else:
         # API未設定またはエラー: プロンプトのみ表示
         print("=" * 60)
-        print("  ℹ️  OpenAI API未設定 - システムプロンプトを表示")
+        print("  ℹ️  GitHub Copilot Chat用プロンプト")
         print("=" * 60 + "\n")
+        print("📋 以下をコピーして @workspace に貼り付けてください:\n")
+        print("-" * 60)
         print(filled)
+        print("-" * 60)
+        print("\n✨ 次に以下のメッセージを送信:\n")
+        print(f'   "{topic}についての投稿を3つ作って"')
         print("\n" + "=" * 60)
-        print("  💡 このプロンプトをChatGPTなどに貼り付けて、")
-        print(f"     「{topic}についての投稿を3つ作って」と指示してください。")
-        print("=" * 60 + "\n")
-        print("  🔑 自動生成を有効化するには:")
-        print("     1. OpenAI APIキーを取得")
-        print("     2. 環境変数を設定: $env:OPENAI_API_KEY='sk-...'")
-        print("     3. openaiライブラリをインストール: pip install openai")
+        print("  💡 VS Code内で完結！Copilot Chat活用")
         print("=" * 60 + "\n")
         
         # プロンプトをクリップボードにコピー
         try:
             import pyperclip  # type: ignore
-            pyperclip.copy(filled)
-            print("📋 プロンプトをクリップボードにコピーしました！\n")
+            # @workspace を先頭に付けてコピー
+            copilot_ready = f"@workspace\n\n{filled}"
+            pyperclip.copy(copilot_ready)
+            print("📋 プロンプトをクリップボードにコピーしました！")
+            print("   → Copilot Chatに貼り付けるだけ！")
+            print("   （@workspace 付きでコピー済み）\n")
         except ImportError:
-            print("💡 ヒント: 上記プロンプトを手動でコピーしてください\n")
+            print("💡 手動コピー: 上記プロンプトを選択してコピー\n")
+            print("   （先頭に @workspace を付けてください）\n")
         except Exception:
             pass
     

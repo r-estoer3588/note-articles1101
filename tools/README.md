@@ -38,6 +38,21 @@ cd prompt_manager
 # QUICKSTART.mdの手順に従ってセットアップ（15分）
 ```
 
+### スナップショット＆ダイジェスト自動化
+- `prompt_snapshot.py` : NotionのPrompt LibraryをJSON/CSVにエクスポート
+- `prompt_digest.py` : 2つのスナップショットを比較してLINE送信用文面を生成
+
+```powershell
+# 1) 日次でNotionをエクスポート
+python prompt_snapshot.py --format both --pretty --output-dir ..\data\prompt_snapshots
+
+# 2) 最新スナップショットの差分をLINEダイジェスト化
+python prompt_digest.py --mode daily --limit 5 --stale-days 30 \
+	--snapshot-dir ..\data\prompt_snapshots
+```
+
+`prompt_snapshot.py --input-file <existing.json> --format csv` のように既存スナップショットからCSVだけ再生成することもできます。
+
 ---
 
 ## X API分析ツール
