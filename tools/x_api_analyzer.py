@@ -341,20 +341,29 @@ if __name__ == '__main__':
     # アナライザー初期化
     analyzer = XAnalyzer(BEARER_TOKEN)
     
+    # 環境変数からアカウント情報取得
+    ai_narrative_username = os.getenv(
+        'X_USERNAME_AI_NARRATIVE', 'ai_narrative25'
+    )
+    gethinu_username = os.getenv('X_USERNAME_GETHINU', 'gethinu')
+    ai_narrative_followers = int(
+        os.getenv('X_FOLLOWERS_AI_NARRATIVE', '500')
+    )
+    gethinu_followers = int(os.getenv('X_FOLLOWERS_GETHINU', '200'))
+    
     # === AI Narrative Studio の分析例 ===
     print("📊 AI Narrative Studio の分析を開始...")
     try:
         # 投稿データ取得（過去30日、最大100件）
         ai_narrative_df = analyzer.fetch_user_tweets(
-            username='your_ai_narrative_username',  # ← 実際のユーザー名に変更
+            username=ai_narrative_username,
             max_results=100
         )
         
-        # フォロワー数（手動入力 or APIで取得）
-        ai_narrative_followers = 500  # ← 実際の数値に変更
-        
         # エンゲージメント率計算
-        ai_narrative_df = analyzer.calculate_engagement_rate(ai_narrative_df, ai_narrative_followers)
+        ai_narrative_df = analyzer.calculate_engagement_rate(
+            ai_narrative_df, ai_narrative_followers
+        )
         
         # 月次レポート生成
         analyzer.generate_monthly_report(
@@ -376,17 +385,18 @@ if __name__ == '__main__':
     print("\n\n📊 GETHNOTE の分析を開始...")
     try:
         gethnote_df = analyzer.fetch_user_tweets(
-            username='your_gethnote_username',  # ← 実際のユーザー名に変更
+            username=gethinu_username,
             max_results=100
         )
         
-        gethnote_followers = 200  # ← 実際の数値に変更
-        gethnote_df = analyzer.calculate_engagement_rate(gethnote_df, gethnote_followers)
+        gethnote_df = analyzer.calculate_engagement_rate(
+            gethnote_df, gethinu_followers
+        )
         
         analyzer.generate_monthly_report(
             df=gethnote_df,
             account_name='GETHNOTE',
-            follower_count=gethnote_followers
+            follower_count=gethinu_followers
         )
         
         print("\n【トップ10投稿】")
