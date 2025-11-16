@@ -113,7 +113,7 @@ def step1_ingest_social_stats() -> Dict:
     print(f"\n{Colors.BOLD}note{Colors.ENDC}")
     print("-" * 60)
     print("📝 note Analytics画面の直近記事指標を入力してください")
-    print("（不明な項目はスキップ: Enter）\n")
+    print(f"（{Colors.OKCYAN}スキップ: Enter{Colors.ENDC}）\n")
     
     views = input("  閲覧数（View）: ").strip()
     likes = input("  スキ数: ").strip()
@@ -137,7 +137,7 @@ def step1_ingest_social_stats() -> Dict:
     print(f"\n{Colors.BOLD}Threads{Colors.ENDC}")
     print("-" * 60)
     print("📝 Threads投稿の指標を入力してください")
-    print("（不明な項目はスキップ: Enter）\n")
+    print(f"（{Colors.OKCYAN}スキップ: Enter{Colors.ENDC}）\n")
     
     t_views = input("  閲覧数: ").strip()
     t_likes = input("  いいね数: ").strip()
@@ -227,16 +227,24 @@ def ingest_x_stats() -> Dict:
                 )
                 
                 if not df.empty:
+                    total_impressions = int(df["impression_count"].sum())
+                    total_engagements = int(df["engagement_total"].sum())
+                    
                     stats = {
-                        "impressions": int(df["impression_count"].sum()),
-                        "engagements": int(df["engagement_total"].sum()),
+                        "impressions": total_impressions,
+                        "engagements": total_engagements,
                         "likes": int(df["like_count"].sum()),
                         "retweets": int(df["retweet_count"].sum()),
                         "replies": int(df["reply_count"].sum()),
+                        "quotes": int(df["quote_count"].sum()),
                         "engagement_rate": (
-                            df["engagement_total"].sum() /
-                            df["impression_count"].sum() * 100
-                            if df["impression_count"].sum() > 0
+                            (total_engagements / total_impressions * 100)
+                            if total_impressions > 0
+                            else 0
+                        ),
+                        "avg_engagement_per_post": (
+                            total_engagements / len(df)
+                            if len(df) > 0
                             else 0
                         ),
                         "sample_size": len(df)
@@ -265,28 +273,33 @@ def ingest_x_stats() -> Dict:
                 df = pd.read_csv(csv_files[0])
                 
                 # TwExportly形式のカラム名
-                # favorite_count, retweet_count, reply_count, view_count
+                # favorite_count, retweet_count, reply_count, quote_count, view_count
+                total_likes = int(df["favorite_count"].sum()) if "favorite_count" in df.columns else 0
+                total_retweets = int(df["retweet_count"].sum()) if "retweet_count" in df.columns else 0
+                total_replies = int(df["reply_count"].sum()) if "reply_count" in df.columns else 0
+                total_quotes = int(df["quote_count"].sum()) if "quote_count" in df.columns else 0
+                total_impressions = int(df["view_count"].sum()) if "view_count" in df.columns else 0
+                total_engagements = total_likes + total_retweets + total_replies + total_quotes
+                
                 stats = {
-                    "impressions": int(df["view_count"].sum())
-                    if "view_count" in df.columns else 0,
-                    "engagements": int(
-                        df[["favorite_count", "retweet_count",
-                            "reply_count"]].sum().sum()
+                    "impressions": total_impressions,
+                    "engagements": total_engagements,
+                    "likes": total_likes,
+                    "retweets": total_retweets,
+                    "replies": total_replies,
+                    "quotes": total_quotes,
+                    "engagement_rate": (
+                        (total_engagements / total_impressions * 100)
+                        if total_impressions > 0
+                        else 0
                     ),
-                    "likes": int(df["favorite_count"].sum())
-                    if "favorite_count" in df.columns else 0,
-                    "retweets": int(df["retweet_count"].sum())
-                    if "retweet_count" in df.columns else 0,
-                    "replies": int(df["reply_count"].sum())
-                    if "reply_count" in df.columns else 0,
-                    "engagement_rate": 0,  # あとで計算
+                    "avg_engagement_per_post": (
+                        total_engagements / len(df)
+                        if len(df) > 0
+                        else 0
+                    ),
                     "sample_size": len(df)
                 }
-                
-                if stats["impressions"] > 0:
-                    stats["engagement_rate"] = (
-                        stats["engagements"] / stats["impressions"] * 100
-                    )
                 
                 print_success(f"CSV読み込み成功（{len(df)}投稿）")
                 return {"stats": stats, "source": "csv"}
@@ -296,25 +309,34 @@ def ingest_x_stats() -> Dict:
     
     # 優先度3: 手動入力
     print("\n📝 X指標を手動で入力してください")
-    print("（直近10投稿の合計値を推奨）\n")
+    print(f"（直近10投稿の合計値を推奨、{Colors.OKCYAN}スキップ: Enter{Colors.ENDC}）\n")
     
     impressions = input("  インプレッション数: ").strip()
-    engagements = input("  エンゲージメント数（合計）: ").strip()
     likes = input("  いいね数: ").strip()
     retweets = input("  リポスト数: ").strip()
     replies = input("  リプライ数: ").strip()
+    quotes = input("  引用RT数: ").strip()
+    
+    total_impressions = int(impressions) if impressions else 0
+    total_likes = int(likes) if likes else 0
+    total_retweets = int(retweets) if retweets else 0
+    total_replies = int(replies) if replies else 0
+    total_quotes = int(quotes) if quotes else 0
+    total_engagements = total_likes + total_retweets + total_replies + total_quotes
     
     stats = {
-        "impressions": int(impressions) if impressions else 0,
-        "engagements": int(engagements) if engagements else 0,
-        "likes": int(likes) if likes else 0,
-        "retweets": int(retweets) if retweets else 0,
-        "replies": int(replies) if replies else 0,
+        "impressions": total_impressions,
+        "engagements": total_engagements,
+        "likes": total_likes,
+        "retweets": total_retweets,
+        "replies": total_replies,
+        "quotes": total_quotes,
         "engagement_rate": (
-            (int(engagements) / int(impressions) * 100)
-            if impressions and engagements and int(impressions) > 0
+            (total_engagements / total_impressions * 100)
+            if total_impressions > 0
             else 0
         ),
+        "avg_engagement_per_post": 0,  # 手動入力では投稿数不明
         "sample_size": 1
     }
     

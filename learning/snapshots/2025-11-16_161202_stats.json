@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-11-16_161202",
+  "date": "2025-11-16",
+  "source": {
+    "x": "manual",
+    "note": "manual",
+    "threads": "manual"
+  },
+  "stats": {
+    "x": {
+      "impressions": 0,
+      "engagements": 0,
+      "likes": 0,
+      "retweets": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "sample_size": 1
+    },
+    "note": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "like_rate": 0
+    },
+    "threads": {
+      "views": 0,
+      "likes": 0,
+      "replies": 0,
+      "reposts": 0,
+      "engagement_rate": 0
+    }
+  }
+}

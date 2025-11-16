@@ -114,7 +114,12 @@ class XAnalyzer:
         df = pd.DataFrame(records)
         
         # 追加の計算フィールド
-        df['engagement_total'] = df['like_count'] + df['retweet_count'] + df['reply_count']
+        df['engagement_total'] = (
+            df['like_count'] + 
+            df['retweet_count'] + 
+            df['reply_count'] + 
+            df['quote_count']  # 引用RTを追加
+        )
         df['posting_hour'] = df['created_at'].dt.hour
         df['posting_day'] = df['created_at'].dt.day_name()
         df['rt_like_ratio'] = df['retweet_count'] / (df['like_count'] + 1)  # ゼロ除算回避
