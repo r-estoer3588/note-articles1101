@@ -256,7 +256,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.updateState) }}",
+  "jsonBody": "={{ $json.updateState || {} }}",
         "options": {}
       },
       "id": "400e01c0-8145-4c1a-ac12-a87b361fa3d5",
