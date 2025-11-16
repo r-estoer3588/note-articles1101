@@ -2,10 +2,11 @@
 
 ## 💡 3ヶ月後でも忘れない！超簡単スタート
 
-### 🎯 2つのツール
+### 🎯 3つのツール
 
 1. **Education Tool** - 教育カテゴリ別X投稿自動生成
 2. **BlushUp Tool** - プロンプト品質向上（GitHub Copilot Chat用）
+3. **Learning Tool** - 自動学習ループ（X/note/Threads指標→改善）
 
 ---
 
@@ -46,11 +47,32 @@ bu
 
 ---
 
+## 🤖 Learning Tool（自動学習ループ）
+
+### 使い方（どこからでも）
+
+```powershell
+learning
+# または短縮形
+le
+```
+
+### 動作フロー
+
+1. X/note/Threads指標を収集（-Ingest）
+2. 目的と成果物を設定（-Goal/-Deliverable）
+3. 前回成果を数値検証（-Review）
+4. AIへの改善指示を自動生成
+5. 過去の成功例で再教育（-Replay）
+
+---
+
 ## 🔧 初回セットアップ
 
 ```powershell
 education -Setup    # Education Tool
 blushup -Setup      # BlushUp Tool
+learning -Setup     # Learning Tool
 
 # または手動で
 pip install openai pyperclip
@@ -138,11 +160,18 @@ blushup
 → GitHub Copilot Chatに貼り付けて使用
 ```
 
+### Learning Tool
+```powershell
+learning -Ingest    # X/note/Threadsから指標収集
+learning -Review    # 前回投稿のKPI分析
+learning -Replay    # 成功例を元に再生成
+```
+
 ---
 
-## � PowerShellプロファイル設定済み
+## 🚀 PowerShellプロファイル設定済み
 
-どこからでも `education` / `edu` / `blushup` / `bu` で起動できます！
+どこからでも `education` / `edu` / `blushup` / `bu` / `learning` / `le` で起動できます！
 
 再起動後も有効です。
 
@@ -159,4 +188,5 @@ https://github.com/r-estoer3588/note-articles1101/blob/master/QUICKSTART.md
 **最終更新**: 2025-11-16  
 **Education**: `education` または `edu`  
 **BlushUp**: `blushup` または `bu`  
-**困ったら**: `education -Help` / `blushup -Help`
+**Learning**: `learning` または `le`  
+**困ったら**: `education -Help` / `blushup -Help` / `learning -Help`

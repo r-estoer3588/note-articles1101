@@ -28,7 +28,13 @@
 param(
     [switch]$Help,
     [switch]$Setup,
-    [switch]$List
+    [switch]$List,
+    [switch]$History,
+    [int]$Reuse,
+    [switch]$Stats,
+    [switch]$Quick,
+    [switch]$Reset,
+    [string[]]$Preset
 )
 
 $ErrorActionPreference = "Stop"
@@ -73,22 +79,29 @@ if ($Help) {
     Write-Host "  6. 行動   - 即時アクション誘発"
     Write-Host ""
     Write-Host "🚀 基本的な使い方"
-    Write-Host "  .\education.ps1"
-    Write-Host "  ↓"
-    Write-Host "  1. カテゴリ番号を入力（1〜6）"
-    Write-Host "  2. ゴール入力（例: フォロワー獲得）"
-    Write-Host "  3. ペルソナ入力（例: 30代会社員/副業中）"
-    Write-Host "  4. 問題点入力（例: 時間がない）"
-    Write-Host "  5. トーン入力（例: 共感的）"
-    Write-Host "  6. テーマ入力（例: 1日15分でできる副業習慣）"
-    Write-Host "  ↓"
-    Write-Host "  ✨ AIが3つの投稿案を自動生成！"
+    Write-Host "  education                # 対話モード（2回目以降は前回の設定を自動提案）"
+    Write-Host "  education -Quick         # 最速起動（前回の設定を即適用）"
     Write-Host ""
-    Write-Host "🔧 コマンド一覧"
-    Write-Host "  .\education.ps1          # 対話モードで投稿生成"
-    Write-Host "  .\education.ps1 -Help    # このヘルプを表示"
-    Write-Host "  .\education.ps1 -Setup   # 初回セットアップ"
-    Write-Host "  .\education.ps1 -List    # カテゴリ一覧表示"
+    Write-Host "📋 履歴管理"
+    Write-Host "  education -History       # 過去の生成履歴を表示"
+    Write-Host "  education -Reuse 3       # 履歴ID 3番を再利用"
+    Write-Host "  education -Reset         # 履歴をクリア"
+    Write-Host ""
+    Write-Host "💾 プリセット管理"
+    Write-Host "  education -Preset list              # 保存済みプリセット一覧"
+    Write-Host "  education -Preset save,名前         # 前回の設定をプリセット保存"
+    Write-Host "  education -Preset load,名前         # プリセット読み込み"
+    Write-Host ""
+    Write-Host "� 統計・その他"
+    Write-Host "  education -Stats         # 使用統計（カテゴリ別使用回数等）"
+    Write-Host "  education -List          # カテゴリ一覧表示"
+    Write-Host "  education -Help          # このヘルプ"
+    Write-Host "  education -Setup         # 初回セットアップ"
+    Write-Host ""
+    Write-Host "💡 スマート機能"
+    Write-Host "  - 履歴は自動保存されます（覚える必要なし）"
+    Write-Host "  - 2回目以降は前回の設定が自動提案されます"
+    Write-Host "  - プリセットでよく使う設定を保存できます"
     Write-Host ""
     Write-Host "📄 詳細ドキュメント"
     Write-Host "  tools\README_education_prompt.md"
@@ -149,6 +162,48 @@ if ($List) {
 }
 
 # メイン実行
+# カテゴリ一覧表示
+if ($List) {
+    python tools\education_prompt_manager.py --list
+    exit 0
+}
+
+# 履歴表示
+if ($History) {
+    python tools\education_prompt_manager.py --history
+    exit 0
+}
+
+# 履歴再利用
+if ($Reuse -gt 0) {
+    python tools\education_prompt_manager.py --reuse $Reuse
+    exit 0
+}
+
+# 履歴クリア
+if ($Reset) {
+    python tools\education_prompt_manager.py --reset
+    exit 0
+}
+
+# 統計表示
+if ($Stats) {
+    python tools\education_prompt_manager.py --stats
+    exit 0
+}
+
+# クイック起動
+if ($Quick) {
+    python tools\education_prompt_manager.py --quick
+    exit 0
+}
+
+# プリセット管理
+if ($Preset) {
+    python tools\education_prompt_manager.py --preset $Preset
+    exit 0
+}
+
 Write-Header "教育カテゴリ別投稿生成ツール"
 
 # Python環境チェック

@@ -8,7 +8,6 @@
 tools/
 ├── prompt_manager/          # 🆕 プロンプト自動管理システム
 ├── x_api_analyzer.py        # X API分析ツール
-├── line_bot_api.py          # LINEボット状態管理APIサーバー
 ├── generate_articles.py     # AI記事生成支援
 └── ...（その他ツール）
 ```
@@ -75,25 +74,9 @@ python x_api_analyzer.py
 
 ---
 
-## LINEボット状態管理APIサーバー
+## 📦 アーカイブ済み（LINE Bot関連）
 
-### 概要
-n8n連携用のLINEボット状態管理Flask APIサーバー（ポート5679）。
-
-### 機能
-- ユーザー状態の保存・取得
-- n8nからのWebhook受信
-- SQLiteデータベース管理
-
-### 起動方法
-```powershell
-python line_bot_api.py
-# → http://localhost:5679/health でヘルスチェック
-```
-
-### 詳細
-- [LINE_BOT_HANDOVER.md](LINE_BOT_HANDOVER.md)
-- [N8N_WORKFLOW_GUIDE.md](N8N_WORKFLOW_GUIDE.md)
+LINE Bot メニュー/LINE連携ワークフロー一式は 2025-11-16 に撤去され、`archive/line_bot/` に移動しました。再開する場合はそちらの README を参照してください。
 
 ---
 
@@ -160,12 +143,6 @@ python -m venv venv
 pip install -r ../requirements.txt
 ```
 
-### LINEボットスタック起動
-```powershell
-# note-articlesルートから
-.\run-line-bot-stack.ps1
-```
-
 ### X API分析実行
 ```powershell
 python x_api_analyzer.py
@@ -177,7 +154,6 @@ python x_api_analyzer.py
 
 ### セットアップガイド
 - [QUICK_START_GUIDE.md](QUICK_START_GUIDE.md) - 全体クイックスタート
-- [SMARTPHONE_SETUP.md](SMARTPHONE_SETUP.md) - スマホ環境セットアップ
 
 ### ワークフローガイド
 - [N8N_WORKFLOW_GUIDE.md](N8N_WORKFLOW_GUIDE.md) - n8nワークフロー設計

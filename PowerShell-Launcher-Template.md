@@ -60,6 +60,43 @@
 
 ---
 
+## 📝 実践例2：自動学習ツール
+
+```
+以下の要件でPowerShellランチャースクリプトを作成してください：
+
+【ツール名】: 自動学習ループツール
+【スクリプトパス】: tools\learning_manager.py
+【機能】:
+- ヘルプ表示（-Help）
+- 初回セットアップ（-Setup）
+- 指標収集（-Ingest）: X/note/Threads API統合
+- 前回検証（-Review）: KPIダッシュボード表示
+- 成功例再生（-Replay）: 過去3件の高成果投稿を参照
+
+【要件】:
+1. どのディレクトリからでも実行可能にする
+   - エイリアス: learning, le
+2. エラー時に次のステップを明示
+   - API未接続 → 各チャネル接続ガイド
+   - データ不足 → 最低収集期間の提示
+3. 依存関係の自動チェック
+   - pandas, matplotlib（グラフ生成）
+   - requests（API呼び出し）
+4. カラフルな出力（絵文字使用）
+   - 成功率の色分け表示（緑/黄/赤）
+5. PowerShellプロファイルへの自動追加
+   - Push-Location/Pop-Location で元のディレクトリに戻る
+6. 短縮エイリアス: le
+
+【追加要件】:
+- `-Goal "noteリード10件" -Deliverable "2600文字記事"` のようなCLIオプション
+- 改善指示を `learning/prompts/{date}.md` に自動保存
+- 前回比±10%以上の変動を強調表示
+```
+
+---
+
 ## 🔧 応用例1: データベースバックアップツール
 
 ```
@@ -209,6 +246,71 @@ Set-Alias [エイリアス] Start-[ツール名]
 
 ---
 
+## 🤖 自動学習ループの組み込み
+
+ランチャースクリプトに「自動学習」の観点を足すと、AIエージェントに毎回同じ指示を書く手間が減り、X／note／Threadsなど複数チャネルの成果で自己改善できるようになります。以下の5ステップをテンプレに組み込むのがおすすめです。
+
+### 1. マルチチャネル現状インプット
+- `-Ingest` や `-Sync` オプションで直近投稿の指標を収集（例: impressions, saves, CTR）。
+- ランチャー側で `data/social_stats/latest.json` などに保存し、プラットフォームごとの偏りを可視化。
+- 取得できないチャネルは「⛔ 未接続: Threads」のように次のアクションを表示。
+
+### 2. 目的と成果物の明示
+- `-Goal "noteでリード10件" -Deliverable "2600文字記事"` のようにCLIオプションを定義。
+- ランチャーは受け取った目的をAIプロンプトのヘッダに自動挿入し、実行前にチェックリストを表示。
+
+### 3. 成果の数値検証フック
+- `-Review` 実行で前回の投稿結果を呼び出し、KPIラダー（例: View→Engagement→Conversion）を表にしてWrite-Host。
+- 指標が閾値未満なら `Write-Warning` で改善優先度を提示し、Next Stepを3件まで明示。
+
+### 4. AIへの改善指示生成
+- ランチャーがメトリクス差分から「改善プロンプト」を自動生成し、AIに渡すテンプレを `logs/ai_learning_prompts/{date}.md` として保存。
+- 例: クリック率が低い場合に `CTAの強化案を3つ出す` などの命令文を付与。
+
+### 5. 過去出力フィードバックで再教育
+- `-Replay` で過去の成功例／失敗例をまとめたスニペットをAIに先頭で読み込ませる。
+- メタデータ（日時、ターゲット、反応値）をJSONに保持しておき、ランチャーが最新3件を自動添付。
+
+#### 実装サンプル断片
+```powershell
+param(
+      [switch]$Ingest,
+      [switch]$Review,
+      [string]$Goal,
+      [string]$Deliverable,
+      [switch]$Replay
+)
+
+if ($Ingest) {
+      Write-Header "📥 X/note/Threads 指標を収集中"
+      # TODO: API呼び出し or CSV読み込み
+      Save-SocialSnapshot -Output "data/social_stats/latest.json"
+}
+
+$learningContext = Get-LearningPacket -Goal $Goal -Deliverable $Deliverable -Replay:$Replay
+Invoke-AITool -Context $learningContext
+```
+
+#### データ保存のおすすめ構造
+```
+learning/
+   snapshots/
+      2025-11-14_x_metrics.json
+      2025-11-14_note_metrics.json
+   prompts/
+      2025-11-14_goal_note_lead.md
+   feedback/
+      2025-11-14_summary.csv
+```
+
+- `snapshots`: 各チャネルKPIをISO日付で保存（impressions, engagements, saves, conversions など）
+- `prompts`: 目的・成果物・改善指示を記録し、AIへの入力再利用に備える
+- `feedback`: 実績値＋気づきメモ（例: CTAを変えたら保存率+12%）を表形式で残す
+
+上記をテンプレの「追加要件」として盛り込むことで、どのランチャーでも同じ学習ループを再利用できます。
+
+---
+
 ## 🎨 カスタマイズポイント
 
 ### 1. 絵文字の選択
@@ -303,7 +405,50 @@ Pythonスクリプト tools/deploy.py を実行するPowerShellランチャー�
 
 ---
 
-## 📦 応用例4: パッケージビルドツール
+## � 応用例4: SNSマネタイズプランツール
+
+```
+以下の要件でPowerShellランチャースクリプトを作成してください：
+
+【ツール名】: SNSマネタイズプラン生成ツール
+【スクリプトパス】: tools\monetize_planner.py
+【機能】:
+- ヘルプ表示（-Help）
+- 初回セットアップ（-Setup）: pip install, API設定ガイド
+- 対話型質問（引数なし）: STEP1の20以上の質問に回答
+- OpenAI API自動生成（-Api）
+- プロンプトのみ生成（-PromptOnly）
+- 保存済み回答読み込み（-Load [ファイルパス]）
+
+【要件】:
+1. どのディレクトリからでも実行可能にする
+   - エイリアス: monetize, mz
+2. エラー時に次のステップを明示
+   - Pythonなし → インストールガイド
+   - 依存パッケージなし → セットアップ提案
+   - API Key未設定 → GitHub Copilot Chat統合推奨
+3. 依存関係の自動チェック
+   - Python存在確認
+   - openai, pyperclip パッケージ確認
+4. カラフルな出力（絵文字使用）
+   - STEP1: 対話型で質問を1つずつ表示
+   - STEP2: プロンプト生成完了を明示
+5. PowerShellプロファイルへの自動追加
+   - Push-Location/Pop-Location で元のディレクトリに戻る
+   - 起動時メッセージ表示
+6. 短縮エイリアス: mz
+
+【追加要件】:
+- STEP1の回答をJSON形式で保存・再利用可能
+- 生成されたプロンプトをクリップボードにコピー
+- OpenAI API使用時は1万文字以上の詳細プラン生成
+- GitHub Copilot Chat統合モードをデフォルトで推奨
+- 出力ディレクトリ: outputs/monetize/
+```
+
+---
+
+## 🔧 応用例5: パッケージビルドツール
 
 ```
 【ツール名】: パッケージビルドツール

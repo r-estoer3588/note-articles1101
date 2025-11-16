@@ -6,31 +6,240 @@
   - 6つの教育カテゴリプロンプトを一元管理
   - CLIから一覧表示 / 個別テンプレ表示 / プレースホルダ事前埋め込み
   - OpenAI API統合でワンストップ投稿生成
+  - 履歴管理・プリセット・統計機能
   - 今後のカテゴリ追加が容易な構造
 
 使い方 (PowerShell):
   python tools/education_prompt_manager.py --list
   python tools/education_prompt_manager.py --show 信用
   python tools/education_prompt_manager.py --show 1
-    python tools/education_prompt_manager.py --prefill 信用 \
+  python tools/education_prompt_manager.py --prefill 信用 \
         --goal "無料相談登録" \
         --persona "30代後半 BtoB営業" \
         --pain "努力が数字に反映されない" \
         --tone "共感的かつ静かな自信"
   python tools/education_prompt_manager.py            # 対話メニュー（投稿自動生成）
+  python tools/education_prompt_manager.py --history  # 履歴一覧
+  python tools/education_prompt_manager.py --reuse 3  # 履歴3番目を再利用
+  python tools/education_prompt_manager.py --stats    # 使用統計
+  python tools/education_prompt_manager.py --preset list
+  python tools/education_prompt_manager.py --preset save "名前"
+  python tools/education_prompt_manager.py --preset load "名前"
 
 設計メモ:
   - EDUCATION_PROMPTS は key=内部識別子, value dict
   - 各 dict: {"number": int, "label": str, "template": str}
   - 追加時は README(education_prompts.md)にも反映
   - OPENAI_API_KEY 環境変数があれば自動生成、なければプロンプト表示
+  - SQLiteで履歴自動保存（~/.education_history.db）
+  - JSONでプリセット管理（~/.education_presets.json）
 """
 from __future__ import annotations
 import argparse
 import os
 import sys
+import sqlite3
+import json
+from datetime import datetime
+from pathlib import Path
 from textwrap import dedent
-from typing import TypedDict, Dict
+from typing import TypedDict, Dict, Optional, List
+
+# --- 履歴管理 ---------------------------------------------------------------
+
+# 履歴DBのパス
+HISTORY_DB_PATH = Path.home() / ".education_history.db"
+PRESETS_JSON_PATH = Path.home() / ".education_presets.json"
+
+
+def init_history_db():
+    """履歴DBを初期化（テーブル作成）"""
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            category_number INTEGER,
+            category_label TEXT,
+            goal TEXT,
+            persona TEXT,
+            pain TEXT,
+            tone TEXT,
+            theme TEXT,
+            generated_posts TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+def save_to_history(
+    category_number: int,
+    category_label: str,
+    goal: str,
+    persona: str,
+    pain: str,
+    tone: str,
+    theme: str,
+    generated_posts: str
+):
+    """履歴を保存"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO history 
+        (category_number, category_label, goal, persona, pain, tone, theme, generated_posts)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (category_number, category_label, goal, persona, pain, tone, theme, generated_posts))
+    conn.commit()
+    conn.close()
+
+
+def get_last_session() -> Optional[Dict]:
+    """最後のセッション設定を取得"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT category_number, category_label, goal, persona, pain, tone, theme, created_at
+        FROM history
+        ORDER BY id DESC
+        LIMIT 1
+    """)
+    row = cursor.fetchone()
+    conn.close()
+    
+    if not row:
+        return None
+    
+    return {
+        "category_number": row[0],
+        "category_label": row[1],
+        "goal": row[2],
+        "persona": row[3],
+        "pain": row[4],
+        "tone": row[5],
+        "theme": row[6],
+        "created_at": row[7]
+    }
+
+
+def list_history(limit: int = 10) -> List[Dict]:
+    """履歴一覧を取得"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, category_label, theme, created_at
+        FROM history
+        ORDER BY id DESC
+        LIMIT ?
+    """, (limit,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    return [
+        {"id": row[0], "category": row[1], "theme": row[2], "created_at": row[3]}
+        for row in rows
+    ]
+
+
+def get_history_by_id(history_id: int) -> Optional[Dict]:
+    """IDで履歴を取得"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT category_number, category_label, goal, persona, pain, tone, theme, generated_posts
+        FROM history
+        WHERE id = ?
+    """, (history_id,))
+    row = cursor.fetchone()
+    conn.close()
+    
+    if not row:
+        return None
+    
+    return {
+        "category_number": row[0],
+        "category_label": row[1],
+        "goal": row[2],
+        "persona": row[3],
+        "pain": row[4],
+        "tone": row[5],
+        "theme": row[6],
+        "generated_posts": row[7]
+    }
+
+
+def clear_history():
+    """履歴をクリア"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM history")
+    conn.commit()
+    conn.close()
+
+
+def get_stats() -> Dict:
+    """使用統計を取得"""
+    init_history_db()
+    conn = sqlite3.connect(HISTORY_DB_PATH)
+    cursor = conn.cursor()
+    
+    # カテゴリ別使用回数
+    cursor.execute("""
+        SELECT category_label, COUNT(*) as count
+        FROM history
+        GROUP BY category_label
+        ORDER BY count DESC
+    """)
+    category_stats = cursor.fetchall()
+    
+    # 総生成数
+    cursor.execute("SELECT COUNT(*) FROM history")
+    total_count = cursor.fetchone()[0]
+    
+    conn.close()
+    
+    return {
+        "total_count": total_count,
+        "category_stats": [(row[0], row[1]) for row in category_stats]
+    }
+
+
+# --- プリセット管理 ---------------------------------------------------------
+
+def load_presets() -> Dict:
+    """プリセット一覧を読み込み"""
+    if not PRESETS_JSON_PATH.exists():
+        return {}
+    with open(PRESETS_JSON_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_preset(name: str, config: Dict):
+    """プリセットを保存"""
+    presets = load_presets()
+    presets[name] = config
+    with open(PRESETS_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(presets, f, ensure_ascii=False, indent=2)
+
+
+def get_preset(name: str) -> Optional[Dict]:
+    """プリセットを取得"""
+    presets = load_presets()
+    return presets.get(name)
+
+
+def list_preset_names() -> List[str]:
+    """プリセット名一覧を取得"""
+    presets = load_presets()
+    return list(presets.keys())
+
 
 # --- テンプレ定義 -----------------------------------------------------------
 CREDIT_TEMPLATE = dedent(
@@ -398,66 +607,107 @@ def interactive_menu():
     print("  📝 教育カテゴリ別 投稿生成プロンプト作成ツール")
     print("=" * 60 + "\n")
     
-    print("【利用可能なカテゴリ】")
-    print(list_categories())
-    print()
+    # 前回のセッションを取得
+    last_session = get_last_session()
+    use_last = False
     
-    # Step 1: カテゴリ選択
-    try:
-        choice = input(
-            "📌 使いたいカテゴリの番号を入力してください (1〜6): "
-        ).strip()
-    except (EOFError, KeyboardInterrupt):
-        print("\n\n中断されました。")
-        return 1
+    if last_session:
+        print("💡 前回の設定が見つかりました:")
+        print(f"   カテゴリ: {last_session['category_number']}. {last_session['category_label']}")
+        print(f"   ゴール: {last_session['goal']}")
+        print(f"   ペルソナ: {last_session['persona']}")
+        print(f"   テーマ: {last_session['theme']}")
+        print(f"   日時: {last_session['created_at']}")
+        print()
+        
+        try:
+            reuse = input("前回と同じ設定で続けますか？ (Y/n): ").strip().lower()
+            use_last = reuse != 'n'
+        except (EOFError, KeyboardInterrupt):
+            print("\n\n中断されました。")
+            return 1
+        print()
     
-    if not choice:
-        print("入力なし。終了します。")
-        return 0
-    
-    try:
-        key = resolve_category(choice)
-    except SystemExit as e:
-        print(f"\n❌ {e}")
-        return 1
-    
-    meta = EDUCATION_PROMPTS[key]
-    category_name = meta["label"]
-    
-    print(f"\n✅ 【{category_name}の教育】を選択しました\n")
-    print("-" * 60)
-    
-    # Step 2: プレースホルダ入力（ガイド付き）
-    print(
-        "\n📝 以下の項目を入力してください"
-        "（Enter でスキップ → 既定値使用）\n"
-    )
-    
-    print(
-        "1️⃣  最終ゴール"
-        "（例: 無料相談に登録、note記事を読む、メルマガ購読）"
-    )
-    goal = input("   ➤ ゴール: ").strip() or DEFAULTS["goal"]
-    
-    print("\n2️⃣  ターゲット（ペルソナ）の属性")
-    print("   （例: 30代会社員/副業に挑戦中/情報収集は済んでいる）")
-    persona = input("   ➤ ペルソナ: ").strip() or DEFAULTS["persona"]
-    
-    print("\n3️⃣  ターゲットが抱える問題・悩み・心理的障壁")
-    print("   （例: 努力が数字に反映されない、先延ばし癖がある）")
-    pain = input("   ➤ 問題点: ").strip() or DEFAULTS["pain"]
-    
-    print("\n4️⃣  投稿のトーン（語り口）")
-    print("   （例: 共感的、論理的、緊急性を醸成、力強く背中を押す）")
-    tone = input("   ➤ トーン: ").strip() or DEFAULTS["tone"]
-    
-    print("\n5️⃣  投稿テーマ（何について書くか）")
-    print("   （例: 副業で月5万円稼ぐ方法、時間管理術、AI活用事例）")
-    topic = input("   ➤ テーマ: ").strip()
-    
-    if not topic:
-        print("\n❌ テーマが未入力です。終了します。")
-        return 1
+    if use_last and last_session:
+        # 前回の設定を使用、テーマのみ入力
+        key = resolve_category(str(last_session['category_number']))
+        meta = EDUCATION_PROMPTS[key]
+        category_name = meta["label"]
+        goal = last_session['goal']
+        persona = last_session['persona']
+        pain = last_session['pain']
+        tone = last_session['tone']
+        
+        print(f"✅ 【{category_name}の教育】で続けます\n")
+        print("5️⃣  投稿テーマ（何について書くか）")
+        print("   （例: 副業で月5万円稼ぐ方法、時間管理術、AI活用事例）")
+        topic = input("   ➤ テーマ: ").strip()
+        
+        if not topic:
+            print("\n❌ テーマが未入力です。終了します。")
+            return 1
+    else:
+        # 通常フロー
+        print("【利用可能なカテゴリ】")
+        print(list_categories())
+        print()
+        
+        # Step 1: カテゴリ選択
+        try:
+            choice = input(
+                "📌 使いたいカテゴリの番号を入力してください (1〜6): "
+            ).strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n\n中断されました。")
+            return 1
+        
+        if not choice:
+            print("入力なし。終了します。")
+            return 0
+        
+        try:
+            key = resolve_category(choice)
+        except SystemExit as e:
+            print(f"\n❌ {e}")
+            return 1
+        
+        meta = EDUCATION_PROMPTS[key]
+        category_name = meta["label"]
+        
+        print(f"\n✅ 【{category_name}の教育】を選択しました\n")
+        print("-" * 60)
+        
+        # Step 2: プレースホルダ入力（ガイド付き）
+        print(
+            "\n📝 以下の項目を入力してください"
+            "（Enter でスキップ → 既定値使用）\n"
+        )
+        
+        print(
+            "1️⃣  最終ゴール"
+            "（例: 無料相談に登録、note記事を読む、メルマガ購読）"
+        )
+        goal = input("   ➤ ゴール: ").strip() or DEFAULTS["goal"]
+        
+        print("\n2️⃣  ターゲット（ペルソナ）の属性")
+        print("   （例: 30代会社員/副業に挑戦中/情報収集は済んでいる）")
+        persona = input("   ➤ ペルソナ: ").strip() or DEFAULTS["persona"]
+        
+        print("\n3️⃣  ターゲットが抱える問題・悩み・心理的障壁")
+        print("   （例: 努力が数字に反映されない、先延ばし癖がある）")
+        pain = input("   ➤ 問題点: ").strip() or DEFAULTS["pain"]
+        
+        print("\n4️⃣  投稿のトーン（語り口）")
+        print("   （例: 共感的、論理的、緊急性を醸成、力強く背中を押す）")
+        tone = input("   ➤ トーン: ").strip() or DEFAULTS["tone"]
+        
+        print("\n5️⃣  投稿テーマ（何について書くか）")
+        print("   （例: 副業で月5万円稼ぐ方法、時間管理術、AI活用事例）")
+        topic = input("   ➤ テーマ: ").strip()
+        
+        if not topic:
+            print("\n❌ テーマが未入力です。終了します。")
+            return 1
     
     # Step 3: テンプレ生成
     print("\n" + "=" * 60)
@@ -484,6 +734,18 @@ def interactive_menu():
         print(generated)
         print("\n" + "=" * 60)
         
+        # 履歴に保存
+        save_to_history(
+            category_number=meta["number"],
+            category_label=category_name,
+            goal=goal,
+            persona=persona,
+            pain=pain,
+            tone=tone,
+            theme=topic,
+            generated_posts=generated
+        )
+        
         # クリップボードコピー試行
         try:
             import pyperclip  # type: ignore
@@ -507,6 +769,18 @@ def interactive_menu():
         print("\n" + "=" * 60)
         print("  💡 VS Code内で完結！Copilot Chat活用")
         print("=" * 60 + "\n")
+        
+        # 履歴に保存（プロンプトのみ）
+        save_to_history(
+            category_number=meta["number"],
+            category_label=category_name,
+            goal=goal,
+            persona=persona,
+            pain=pain,
+            tone=tone,
+            theme=topic,
+            generated_posts=""
+        )
         
         # プロンプトをクリップボードにコピー
         try:
@@ -537,12 +811,145 @@ def main(argv=None):
     parser.add_argument("--persona")
     parser.add_argument("--pain")
     parser.add_argument("--tone")
+    
+    # 履歴管理
+    parser.add_argument("--history", nargs='?', const=10, type=int, metavar="N",
+                       help="履歴一覧を表示 (デフォルト10件)")
+    parser.add_argument("--reuse", type=int, metavar="ID",
+                       help="履歴IDを再利用")
+    parser.add_argument("--reset", action="store_true",
+                       help="履歴をクリア")
+    
+    # プリセット管理
+    parser.add_argument("--preset", nargs='+', metavar=("ACTION", "NAME"),
+                       help="プリセット管理: list/save <名前>/load <名前>")
+    
+    # 統計
+    parser.add_argument("--stats", action="store_true",
+                       help="使用統計を表示")
+    
+    # その他
+    parser.add_argument("--quick", action="store_true",
+                       help="最後の設定で即起動")
+    parser.add_argument("--dry-run", action="store_true",
+                       help="プロンプトのみ表示（API呼び出しなし）")
 
     # 対話モード: 引数なし
     if argv is None and len(sys.argv) == 1:
         return interactive_menu()
 
     args = parser.parse_args(argv)
+    
+    # 履歴表示
+    if args.history is not None:
+        histories = list_history(args.history)
+        if not histories:
+            print("📭 履歴がありません")
+            return 0
+        print("\n📜 生成履歴:\n")
+        for h in histories:
+            print(f"  {h['id']:3d} | {h['category']:6s} | {h['theme'][:30]:30s} | {h['created_at']}")
+        print(f"\n💡 再利用: education --reuse <ID>\n")
+        return 0
+    
+    # 履歴再利用
+    if args.reuse:
+        history = get_history_by_id(args.reuse)
+        if not history:
+            print(f"❌ 履歴ID {args.reuse} が見つかりません")
+            return 1
+        print(f"\n📝 履歴 {args.reuse} を再利用します\n")
+        print(f"カテゴリ: {history['category_label']}")
+        print(f"テーマ: {history['theme']}\n")
+        if history['generated_posts']:
+            print(history['generated_posts'])
+        else:
+            # プロンプトのみ再表示
+            key = resolve_category(str(history['category_number']))
+            tpl = EDUCATION_PROMPTS[key]["template"]
+            filled = build_prefilled(
+                tpl,
+                goal=history['goal'],
+                persona=history['persona'],
+                pain=history['pain'],
+                tone=history['tone']
+            )
+            print(filled)
+        return 0
+    
+    # 履歴クリア
+    if args.reset:
+        clear_history()
+        print("✅ 履歴をクリアしました")
+        return 0
+    
+    # 統計表示
+    if args.stats:
+        stats = get_stats()
+        print("\n📊 使用統計:\n")
+        print(f"  総生成数: {stats['total_count']} 回\n")
+        if stats['category_stats']:
+            print("  カテゴリ別使用回数:")
+            for cat, count in stats['category_stats']:
+                print(f"    {cat:10s}: {count:3d} 回")
+        print()
+        return 0
+    
+    # プリセット管理
+    if args.preset:
+        action = args.preset[0].lower()
+        if action == "list":
+            names = list_preset_names()
+            if not names:
+                print("📭 プリセットがありません")
+                return 0
+            print("\n💾 保存済みプリセット:\n")
+            for name in names:
+                print(f"  - {name}")
+            print(f"\n💡 読み込み: education --preset load <名前>\n")
+            return 0
+        elif action == "save":
+            if len(args.preset) < 2:
+                print("❌ 名前を指定してください: --preset save <名前>")
+                return 1
+            name = " ".join(args.preset[1:])
+            # 最後のセッションを保存
+            last = get_last_session()
+            if not last:
+                print("❌ 保存する履歴がありません")
+                return 1
+            save_preset(name, last)
+            print(f"✅ プリセット '{name}' を保存しました")
+            return 0
+        elif action == "load":
+            if len(args.preset) < 2:
+                print("❌ 名前を指定してください: --preset load <名前>")
+                return 1
+            name = " ".join(args.preset[1:])
+            preset = get_preset(name)
+            if not preset:
+                print(f"❌ プリセット '{name}' が見つかりません")
+                return 1
+            print(f"\n💾 プリセット '{name}' を読み込みました\n")
+            print(f"カテゴリ: {preset['category_label']}")
+            print(f"ゴール: {preset['goal']}")
+            print(f"ペルソナ: {preset['persona']}")
+            print("\n💡 このプリセットで生成: education (対話モードで自動適用)")
+            return 0
+        else:
+            print(f"❌ 不明なアクション: {action}")
+            print("💡 使用可能: list / save <名前> / load <名前>")
+            return 1
+    
+    # クイック起動
+    if args.quick:
+        last = get_last_session()
+        if not last:
+            print("❌ 前回の履歴がありません")
+            return 1
+        print("\n🚀 クイック起動: 前回の設定を使用\n")
+        # 対話モードを呼び出し（前回の設定を自動提案）
+        return interactive_menu()
 
     if args.list:
         print(list_categories())
