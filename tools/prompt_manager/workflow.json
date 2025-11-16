@@ -1,0 +1,466 @@
+{
+  "name": "プロンプト自動管理システム",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "line-prompt",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "LINE Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "生成される"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.events[0].message.text }}",
+                    "operation": "startsWith",
+                    "value2": "プロンプト:"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "save"
+            },
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.events[0].message.text }}",
+                    "operation": "startsWith",
+                    "value2": "検索"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "search"
+            },
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.events[0].message.text }}",
+                    "operation": "equals",
+                    "value2": "一覧"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "list"
+            },
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.events[0].message.text }}",
+                    "operation": "startsWith",
+                    "value2": "タグ"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "tag_search"
+            },
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.events[0].message.text }}",
+                    "operation": "startsWith",
+                    "value2": "お気に入り"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "favorite"
+            }
+          ]
+        },
+        "fallbackOutput": "extra"
+      },
+      "name": "コマンド判定",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// プロンプトテキスト抽出\nconst text = $input.item.json.events[0].message.text;\nconst prompt = text.replace(/^プロンプト:\\s*/, '').trim();\n\n// 簡易的なカテゴリ自動判定\nlet category = 'その他';\nconst tags = [];\n\nif (prompt.match(/マーケティング|SEO|広告|集客/)) {\n  category = 'マーケティング';\n  tags.push('マーケティング');\n}\nif (prompt.match(/プログラミング|コード|Python|JavaScript|開発/)) {\n  category = 'プログラミング';\n  tags.push('プログラミング');\n}\nif (prompt.match(/ライティング|記事|文章|コピー/)) {\n  category = 'ライティング';\n  tags.push('ライティング');\n}\nif (prompt.match(/ビジネス|戦略|経営|分析/)) {\n  category = 'ビジネス';\n  tags.push('ビジネス');\n}\nif (prompt.match(/データ|分析|統計/)) {\n  tags.push('データ分析');\n}\nif (prompt.match(/AI|ChatGPT|Claude/)) {\n  tags.push('AI');\n}\n\nreturn {\n  json: {\n    prompt: prompt,\n    category: category,\n    tags: tags,\n    replyToken: $input.item.json.events[0].replyToken\n  }\n};"
+      },
+      "name": "プロンプト解析",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": "={{ $env.NOTION_DATABASE_ID }}",
+        "simple": false,
+        "properties": {
+          "property": [
+            {
+              "key": "プロンプト",
+              "type": "rich_text",
+              "richTextValue": "={{ $json.prompt }}"
+            },
+            {
+              "key": "カテゴリ",
+              "type": "select",
+              "selectValue": "={{ $json.category }}"
+            },
+            {
+              "key": "タグ",
+              "type": "multi_select",
+              "multiSelectValue": "={{ $json.tags }}"
+            },
+            {
+              "key": "メモ",
+              "type": "rich_text",
+              "richTextValue": "LINEから自動保存"
+            }
+          ]
+        }
+      },
+      "name": "Notion保存",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [850, 200],
+      "credentials": {
+        "notionApi": {
+          "id": "認証情報ID",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "lineApi",
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "messages": {
+          "message": [
+            {
+              "type": "text",
+              "text": "✅ プロンプトを保存しました！\n\nカテ�ゴリ: {{ $json.category }}\nタグ: {{ $json.tags.join(', ') }}\n\nNotionで確認できます。"
+            }
+          ]
+        }
+      },
+      "name": "保存完了通知",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1050, 200],
+      "credentials": {
+        "lineApi": {
+          "id": "認証情報ID",
+          "name": "LINE API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// 検索キーワード抽出\nconst text = $input.item.json.events[0].message.text;\nconst keyword = text.replace(/^検索\\s*/, '').trim();\n\nreturn {\n  json: {\n    keyword: keyword,\n    replyToken: $input.item.json.events[0].replyToken\n  }\n};"
+      },
+      "name": "検索キーワード抽出",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 350]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": "={{ $env.NOTION_DATABASE_ID }}",
+        "returnAll": false,
+        "limit": 10,
+        "filters": {
+          "conditions": [
+            {
+              "key": "プロンプト",
+              "type": "text",
+              "condition": "contains",
+              "value": "={{ $json.keyword }}"
+            }
+          ]
+        }
+      },
+      "name": "Notion検索",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [850, 350],
+      "credentials": {
+        "notionApi": {
+          "id": "認証情報ID",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// 検索結果フォーマット\nconst results = $input.all();\n\nif (results.length === 0) {\n  return {\n    json: {\n      message: '該当するプロンプトが見つかりませんでした。',\n      replyToken: results[0].json.replyToken\n    }\n  };\n}\n\nlet message = `🔍 検索結果: ${results.length}件\\n\\n`;\n\nresults.forEach((item, index) => {\n  const props = item.json.properties;\n  const prompt = props.プロンプト.rich_text[0]?.plain_text || '';\n  const category = props.カテゴリ?.select?.name || 'なし';\n  const preview = prompt.length > 50 ? prompt.substring(0, 50) + '...' : prompt;\n  \n  message += `${index + 1}. [${category}]\\n${preview}\\n\\n`;\n});\n\nmessage += 'Notionで詳細を確認できます。';\n\nreturn {\n  json: {\n    message: message,\n    replyToken: results[0].json.replyToken\n  }\n};"
+      },
+      "name": "検索結果整形",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "authentication": "lineApi",
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "messages": {
+          "message": [
+            {
+              "type": "text",
+              "text": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "name": "検索結果返信",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1250, 350],
+      "credentials": {
+        "lineApi": {
+          "id": "認証情報ID",
+          "name": "LINE API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": "={{ $env.NOTION_DATABASE_ID }}",
+        "returnAll": false,
+        "limit": 10,
+        "sort": {
+          "sortValue": [
+            {
+              "key": "保存日時",
+              "type": "created_time",
+              "direction": "descending"
+            }
+          ]
+        }
+      },
+      "name": "Notion最新取得",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [850, 500],
+      "credentials": {
+        "notionApi": {
+          "id": "認証情報ID",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// 一覧フォーマット\nconst results = $input.all();\nconst replyToken = $input.item.json.events[0].replyToken;\n\nif (results.length === 0) {\n  return {\n    json: {\n      message: 'まだプロンプトが保存されていません。',\n      replyToken: replyToken\n    }\n  };\n}\n\nlet message = `📋 最新プロンプト ${results.length}件\\n\\n`;\n\nresults.forEach((item, index) => {\n  const props = item.json.properties;\n  const prompt = props.プロンプト.rich_text[0]?.plain_text || '';\n  const category = props.カテゴリ?.select?.name || 'なし';\n  const preview = prompt.length > 40 ? prompt.substring(0, 40) + '...' : prompt;\n  \n  message += `${index + 1}. [${category}]\\n${preview}\\n\\n`;\n});\n\nmessage += 'Notionで詳細を確認できます。';\n\nreturn {\n  json: {\n    message: message,\n    replyToken: replyToken\n  }\n};"
+      },
+      "name": "一覧整形",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "authentication": "lineApi",
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.replyToken }}",
+        "messages": {
+          "message": [
+            {
+              "type": "text",
+              "text": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "name": "一覧返信",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [1250, 500],
+      "credentials": {
+        "lineApi": {
+          "id": "認証情報ID",
+          "name": "LINE API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "lineApi",
+        "resource": "message",
+        "operation": "reply",
+        "replyToken": "={{ $json.events[0].replyToken }}",
+        "messages": {
+          "message": [
+            {
+              "type": "text",
+              "text": "使い方:\\n\\n📝 プロンプト保存\\n「プロンプト: あなたの文章...」\\n\\n🔍 検索\\n「検索 キーワード」\\n\\n📋 一覧\\n「一覧」\\n\\n🏷️ タグ検索\\n「タグ マーケティング」\\n\\n⭐ お気に入り\\n「お気に入り 3」(3番目を登録)"
+            }
+          ]
+        }
+      },
+      "name": "ヘルプ返信",
+      "type": "n8n-nodes-base.line",
+      "typeVersion": 1,
+      "position": [650, 600],
+      "credentials": {
+        "lineApi": {
+          "id": "認証情報ID",
+          "name": "LINE API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "LINE Webhook": {
+      "main": [
+        [
+          {
+            "node": "コマンド判定",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "コマンド判定": {
+      "main": [
+        [
+          {
+            "node": "プロンプト解析",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "検索キーワード抽出",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion最新取得",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "node": "ヘルプ返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "プロンプト解析": {
+      "main": [
+        [
+          {
+            "node": "Notion保存",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion保存": {
+      "main": [
+        [
+          {
+            "node": "保存完了通知",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "検索キーワード抽出": {
+      "main": [
+        [
+          {
+            "node": "Notion検索",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion検索": {
+      "main": [
+        [
+          {
+            "node": "検索結果整形",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "検索結果整形": {
+      "main": [
+        [
+          {
+            "node": "検索結果返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion最新取得": {
+      "main": [
+        [
+          {
+            "node": "一覧整形",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "一覧整形": {
+      "main": [
+        [
+          {
+            "node": "一覧返信",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-16T00:00:00.000Z",
+  "versionId": "1"
+}

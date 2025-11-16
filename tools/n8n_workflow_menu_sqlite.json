@@ -32,7 +32,7 @@
     },
     {
       "parameters": {
-        "url": "http://host.docker.internal:5679/api/state/={{ $json.userId }}",
+        "url": "http://localhost:5679/api/state/={{ $json.userId }}",
         "options": {}
       },
       "id": "4bee573c-6d42-40fe-8025-aa5ff0794ace",
@@ -244,7 +244,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://host.docker.internal:5679/api/state/={{ $json.userId }}",
+        "url": "http://localhost:5679/api/state/={{ $json.userId }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
