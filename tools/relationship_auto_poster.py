@@ -3,6 +3,7 @@ import json
 import os
 from datetime import datetime
 import argparse
+import requests
 
 # Configuration
 SCHEDULE_FILE = (
@@ -11,6 +12,55 @@ SCHEDULE_FILE = (
 )
 STATE_FILE = r"c:\Repos\note-articles\tools\posting_state.json"
 START_DATE_FILE = r"c:\Repos\note-articles\tools\start_date.json"
+ENV_FILE = r"c:\Repos\note-articles\tools\.env"
+
+
+def load_env():
+    """Load environment variables from .env file manually"""
+    if os.path.exists(ENV_FILE):
+        with open(ENV_FILE, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    os.environ[key.strip()] = value.strip()
+
+
+def send_line_notify(message):
+    """Send notification to LINE Notify"""
+    token = os.environ.get("LINE_NOTIFY_TOKEN")
+    if not token:
+        print("LINE_NOTIFY_TOKEN not found. Skipping notification.")
+        return
+
+    url = "https://notify-api.line.me/api/notify"
+    headers = {"Authorization": f"Bearer {token}"}
+    data = {"message": message}
+
+    try:
+        response = requests.post(url, headers=headers, data=data)
+        response.raise_for_status()
+        print("LINE notification sent.")
+    except Exception as e:
+        print(f"Failed to send LINE notification: {e}")
+
+
+def send_discord_notify(message):
+    """Send notification to Discord Webhook"""
+    webhook_url = os.environ.get("DISCORD_WEBHOOK_URL")
+    if not webhook_url:
+        # Silent return if not configured
+        return
+
+    data = {"content": message}
+    try:
+        response = requests.post(webhook_url, json=data)
+        response.raise_for_status()
+        print("Discord notification sent.")
+    except Exception as e:
+        print(f"Failed to send Discord notification: {e}")
 
 
 def load_schedule():
@@ -63,10 +113,22 @@ def post_content(row):
 
     # Here you would add the actual API call
     # e.g., threads_api.post(content)
+    
+    # Send LINE notification
+    notify_msg = (
+        f"\n[Threads Auto Post]\n"
+        f"Time: {time_slot}\n"
+        f"Type: {post_type}\n"
+        f"Content: {content[:50]}..."
+    )
+    send_line_notify(notify_msg)
+    send_discord_notify(notify_msg)
+    
     return True
 
 
 def main():
+    load_env()
     parser = argparse.ArgumentParser(
         description="Auto-poster for Relationship Threads Account"
     )

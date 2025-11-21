@@ -11,11 +11,31 @@ function Start-EducationTool {
     }
 }
 
+# 品質向上ツールのエイリアス
+function Start-BlushUpTool {
+    Push-Location C:\Repos\note-articles
+    try {
+        .\blushup.ps1 @args
+    } finally {
+        Pop-Location
+    }
+}
+
 # げすいぬ化記事改善ツールのエイリアス
 function Start-GesuinuTool {
     Push-Location C:\Repos\note-articles
     try {
         .\gesuinu.ps1 @args
+    } finally {
+        Pop-Location
+    }
+}
+
+# マネタイズプラン生成ツールのエイリアス
+function Start-MonetizeTool {
+    Push-Location C:\Repos\note-articles
+    try {
+        .\monetize.ps1 @args
     } finally {
         Pop-Location
     }
@@ -31,27 +51,44 @@ function Start-RenkinTool {
     }
 }
 
+# SNS統合分析ツールのエイリアス
+function Update-SnsStats {
+    Push-Location C:\Repos\note-articles
+    try {
+        python tools/sns_integrated_analyzer.py @args
+    } finally {
+        Pop-Location
+    }
+}
+
 # エイリアス設定
 Set-Alias education Start-EducationTool
 Set-Alias edu Start-EducationTool
+Set-Alias blushup Start-BlushUpTool
+Set-Alias bu Start-BlushUpTool
 Set-Alias gesuinu Start-GesuinuTool
 Set-Alias gn Start-GesuinuTool
+Set-Alias monetize Start-MonetizeTool
+Set-Alias mz Start-MonetizeTool
 Set-Alias renkin Start-RenkinTool
 Set-Alias rk Start-RenkinTool
+Set-Alias sns Update-SnsStats
+
+# バナー表示
+Write-Host "PowerShell $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
+Write-Host "📝 教育ツール: education または edu" -ForegroundColor Green
+Write-Host "🎯 品質向上: blushup または bu" -ForegroundColor Yellow
+Write-Host "🐕 げすいぬ化: gesuinu または gn" -ForegroundColor Red
+Write-Host "💰 マネタイズ: monetize または mz" -ForegroundColor DarkYellow
+Write-Host "🔱 錬金王note: renkin または rk" -ForegroundColor Magenta
+Write-Host "📊 SNS分析: sns" -ForegroundColor Cyan
 
 # 使い方:
 # どのディレクトリからでも以下のコマンドで起動:
 #   education / edu      # 教育カテゴリ別投稿生成
+#   blushup / bu         # プロンプト品質向上
 #   gesuinu / gn         # げすいぬ化記事改善
+#   monetize / mz        # マネタイズプラン生成
 #   renkin / rk          # 錬金王スタイル記事リライト
-#
-# 例:
-#   education -Help
-#   education -Setup
-#   gesuinu -Help
-#   gesuinu -Show
-#   gesuinu -File "articles/sample.md"
-#   renkin -Help
-#   renkin -Template
-#   renkin -Examples
-#   renkin "articles/my-article.md"
+#   sns                  # SNS統合分析
+
