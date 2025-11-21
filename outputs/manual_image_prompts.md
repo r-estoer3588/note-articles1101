@@ -1,81 +1,81 @@
-# Threads画像生成用プロンプト一覧
+# Threads画像生成用プロンプト一覧（人物・表情重視）
 
 ブラウザ版 Gemini (Nano Banana Pro) や Imagen 3 で画像生成を行うためのプロンプト集です。
-各投稿の「時間帯」と「感情」に合わせて生成されています。
+**「30代〜40代の日本人女性」**の表情にフォーカスし、アイキャッチとして惹きつける構図になっています。
 
 ## Day 1
 
 ### [07:00] 喧嘩してないのに なぜか遠い。
-> A muted, slightly desaturated image of two steaming mugs of coffee sitting on a wooden table bathed in soft morning light filtering through sheer curtains. Focus on the steam rising and the negative space around the mugs. Film grain effect.
+> A melancholic portrait of a Japanese woman in her late 30s, gazing pensively to the side, avoiding direct eye contact, suggesting unspoken tension. Shot in a cinematic style, reminiscent of a film still, with a shallow depth of field. Early morning light (07:00) softly illuminating her face, casting subtle shadows that emphasize her contemplative expression. The left side of the frame is intentionally left with negative space. High-quality film photography, emotional, realistic.
 
 ### [12:00] 「疲れたね」を「ありがとう」に。
-> A serene, sun-drenched midday scene featuring a minimalist desk with a single, slightly wilted flower in a simple vase. Soft, diffused light casting subtle shadows. Focus on the texture of the wooden desk and the delicate petals. Film photography aesthetic, muted colors. Ample blank space above for text.
+> A melancholic Japanese woman in her late 30s to early 40s, looking slightly downward, subtle exhaustion in her eyes, gentle midday sunlight casting soft shadows on her face, cinematic film photography, shallow depth of field, face slightly off-center leaving space for text on the right, Fujifilm Superia 400, grainy texture, emotional, natural lighting, midday, peaceful, a hint of a weary smile.
 
 ### [20:00] 離婚したいわけじゃない。ただ昔みたいに笑い合いたいだけ。
-> A quiet, dimly lit living room at 8 PM, soft focus. The warm glow of a table lamp illuminates a worn wooden coffee table. A half-empty mug of tea sits beside a closed book. Focus on the textures of the wood grain and the gentle shadows. Film grain effect.
+> A melancholic portrait of a Japanese woman in her late 30s, looking away with a subtle expression of longing, captured at 8 PM. The dim, warm light of a nearby streetlamp casts soft shadows on her face. Shallow depth of field, mimicking a cinematic still from a film. Grainy, high-quality film photography. Ample negative space on the left side for text overlay.
 
 ## Day 2
 
 ### [07:00] 子供が巣立ったら 私たち 何話すんだろう。
-> A quiet, sun-drenched living room at dawn, soft light filtering through sheer curtains, dust motes dancing in the air. A comfortable, slightly worn armchair sits empty, a knitted blanket draped over the back. The subtle textures of linen and wood create a sense of warmth and nostalgia.
+> A melancholic portrait of a Japanese woman in her late 30s to early 40s, captured in the soft, diffused morning light (around 7:00 AM) filtering through a window. She gazes slightly off-camera with a gentle, wistful expression, hinting at both sadness and a quiet anticipation. The composition leaves ample negative space on the right side for text. Shot on film, emulating a cinematic, emotional still. Soft focus, shallow depth of field.
 
 ### [12:00] 未来の予約が 不安を消す 特効薬になる。
-> A sunlit, empty desk with a planner open to a future date. A cup of tea is steaming slightly beside it. The scene is bathed in warm, inviting light from a window. Soft focus, shallow depth of field. Lots of clear space above the planner. Film grain.
+> A cinematic, emotional film photograph of a Japanese woman in her late 30s, midday, bathed in the soft, diffused sunlight filtering through a window. She gazes slightly off-camera, her expression a subtle blend of hope and lingering worry. The composition leaves ample negative space on the right side for text. Sharp focus on her eyes, gentle bokeh in the background. 35mm lens, shallow depth of field, Fujifilm Superia 400 film simulation.
 
 ### [20:00] 「子供のために」仮面夫婦。それ、全部バレてます。
-> A dimly lit, empty living room at 8 PM, a half-empty glass of red wine on a wooden table, the soft glow of a distant city lights visible through a sheer curtain, shallow depth of field, film grain, melancholic atmosphere.
+> A melancholic Japanese woman in her late 30s, cinematic film photography, 20:00, subtle anxiety and hidden sadness in her eyes, slightly averted gaze, dramatic lighting highlighting the side of her face, deep shadows creating a sense of unease, ample negative space on the left side for text overlay, reminiscent of a poignant scene from a classic film.
 
 ## Day 3
 
 ### [07:00] 会話の9割が「子供」と「ゴミ出し」。
-> A quiet morning scene, focus on a steaming cup of coffee on a wooden table near a window. Soft, diffused light from the early morning sun illuminates the steam and dust particles in the air. Shallow depth of field. Film grain. Emotional, melancholic tone. Negative space above the cup for text overlay.
+> A melancholic portrait of a Japanese woman in her late 30s to early 40s, gazing slightly downwards with a subtle sense of resignation, captured in the soft, diffused morning light of 7:00 AM. The composition favors the right side of the frame, leaving ample negative space on the left for text. Shot on film, evoking a cinematic, emotional atmosphere with muted colors and gentle grain.
 
 ### [12:00] 1日5分。スマホを置いて向き合うだけ。
-> A softly blurred image of a sunlit wooden table at noon, a single cup of tea steaming gently, a woman's hands resting beside it, shallow depth of field, warm and muted tones, film grain.
+> A melancholic, cinematic-style close-up film photograph of a Japanese woman in her late 30s to early 40s, looking away with a gentle sadness in her eyes, sunlight caressing her face at noon, creating soft shadows, captured with shallow depth of field, leaving space on the right side of the frame for text overlay, Fujifilm Superia film.
 
 ### [20:00] 今さら何を話せばいいかわからない。
-> Empty park bench under a dim street light at 8 PM, autumn leaves scattered around, creating a melancholic atmosphere, film photography style, soft focus, muted colors, ample negative space above the bench.
+> A melancholic portrait of a Japanese woman in her late 30s to early 40s, her face partially obscured by shadow, gazing slightly downward with a subtle expression of loneliness and resignation. The background is blurred, depicting a dimly lit urban scene at 8 PM, perhaps a rainy street reflecting neon lights. Dramatic lighting emphasizing the contrast between light and shadow, creating a cinematic, film-like aesthetic. Ample negative space on the right side of the frame for text placement.
 
 ## Day 4
 
 ### [07:00] 同じ部屋なのにイヤホンで別世界。
-> A sunlit room at 7:00 AM, casting a warm glow on a minimalist desk with a pair of headphones resting on it. The scene evokes a sense of serene isolation, with soft shadows adding depth. Film grain texture, quiet and emotional.
+> A melancholic Japanese woman in her late 30s sits on a couch, wearing headphones, her face partially illuminated by soft morning light streaming through a window at 7:00 AM. Her expression is one of quiet isolation, a subtle sadness in her eyes. The composition leaves space on the right side for text. Shot on film, grainy texture, cinematic, emotional.
 
 ### [12:00] 無理に話さなくていい。ただ「同じもの」を見るだけでいい。
-> A serene, sun-drenched field of tall grass at noon, gently swaying in the breeze. Soft, warm light filtering through the blades, creating subtle shadows and highlights. Focus on depth of field with a blurred background, emphasizing the vastness and tranquility of the scene. Film grain effect.
+> A melancholic yet comforting close-up portrait of a Japanese woman in her early 40s. She gazes softly to the right, creating negative space on the left for text. Her expression conveys a gentle understanding and shared empathy. Shot at noon, natural sunlight bathes her face, highlighting subtle shadows under her eyes. Grainy, high-quality film photography style, reminiscent of a poignant film still. The focus is sharp on her eyes, blurring slightly towards her hair. Emotional, intimate, and quietly powerful.
 
 ### [20:00] 放置すると「同居人」で固定されます。
-> A dimly lit, cozy living room at 8 PM, soft focus, a vintage armchair slightly out of frame, a half-empty teacup on a wooden side table, warm light from a vintage lamp casting long shadows, film grain, emotional, quiet, nostalgic.
+> A melancholic Japanese woman in her late 30s, with a slightly worried expression, looking sideways in a dimly lit, cozy living room at 8 PM. Soft, warm light from a table lamp casts long shadows, emphasizing the solitude. The composition leaves space on the left for text. Emulate a high-quality film photograph, focusing on emotional depth and cinematic lighting.
 
 ## Day 5
 
 ### [07:00] 夫の悩み知ってますか？「知らない」と気づいてゾッとした。
-> A quiet, sun-drenched morning scene in a minimalist bedroom. Soft light streams through sheer curtains, casting gentle shadows on a rumpled linen duvet. Focus on the texture of the fabric and the subtle play of light and shadow. Empty space in the upper portion of the frame. Film photography style.
+> A melancholic Japanese woman in her late 30s gazes slightly off-camera, her expression a mix of worry and introspection, early morning light casting long shadows on her face, cinematic film photography, grain, soft focus on the background, plenty of negative space on the right side for text overlay, emotional, natural skin texture, 07:00 AM, realistic.
 
 ### [12:00] 「もし1億円当たったら？」魔法の質問で恋を取り戻す。
-> A quiet, sun-drenched cafe interior at noon, dappled sunlight filtering through sheer curtains, illuminating an empty wooden table. Focus on the warm wood grain and subtle shadows. Soft, film-like quality. Space for text overlay at the top.
+> A cinematic film still of a Japanese woman in her late 30s to early 40s, bathed in soft midday light (12:00), glancing slightly upwards and to the left with a hopeful, dreamy expression. Her face is partially in focus, with gentle bokeh in the background suggesting a bustling urban environment. The composition leaves ample negative space on the right side for text. Soft, diffused lighting creates a nostalgic, film-like quality.
 
 ### [20:00] 好きの反対は嫌いじゃなく無関心。
-> Empty city street at night, wet asphalt reflecting streetlights, soft focus, shallow depth of field, bokeh lights in the distance, film grain, muted blues and grays, a sense of solitude and quiet contemplation, 20:00.
+> a melancholic Japanese woman in her late 30s, gazing slightly to the right, her expression conveying a subtle sense of loneliness and introspection, a single soft light illuminating her face from above, casting a gentle shadow on her left side, creating a dramatic chiaroscuro effect, reminiscent of a poignant scene from a film, bokeh background, shallow depth of field, cinematic, film photography, 20mm, shot at 8pm, Fujifilm Superia 400
 
 ## Day 6
 
 ### [07:00] 「どうせわかってくれない」そう思って飲み込んだ言葉。
-> A quiet morning scene, a cup of coffee sits on a wooden table, steam gently rising, soft light streaming through a sheer curtain, casting long shadows, film grain effect, melancholic atmosphere, muted colors.
+> A melancholic Japanese woman in her late 30s with long, dark hair, gazing out of a rain-streaked window at dawn. Soft, diffused light illuminates her face, highlighting the subtle lines of worry around her eyes. Her expression is a mixture of resignation and suppressed sadness. Shallow depth of field, with the blurred cityscape visible through the rain. Film photography aesthetic, reminiscent of a Wong Kar-wai film. Ample negative space on the right side of the frame for text placement. 35mm lens, Fujifilm Superia film.
 
 ### [12:00] 主語を「私」に変えるだけ。相手の耳が劇的に開く。
-> A close-up of a person writing in a journal, focus on the hand and pen, soft natural light, minimalist, film grain, emotional atmosphere.
+> A close-up portrait of a Japanese woman in her late 30s, looking directly at the camera with a gentle, confident smile. Soft, natural light illuminates her face, highlighting her eyes. The background is blurred, suggesting a comfortable home environment. Film photography style, warm tones, emotional connection.
 
 ### [20:00] まだ諦めたくない。その気持ちがあれば大丈夫。
-> A single small plant growing through a crack in the pavement, illuminated by a street lamp at night, soft focus, resilience, hope, film photography style.
+> A Japanese woman in her late 30s, standing on a balcony at night, looking out at the city lights with a determined expression. The wind blows her hair slightly. Cinematic lighting, shallow depth of field, emotional, hopeful atmosphere.
 
 ## Day 7
 
 ### [07:00] 「いってらっしゃい」のハグだけ。夜は布団が別世界。
-> A softly blurred, warm-toned photograph of a slightly rumpled, empty queen-sized bed in a dimly lit bedroom at dawn (7:00 AM). The soft light streams in through a window, casting long shadows. Focus on the texture of the linens and the subtle interplay of light and shadow. Film grain.
+> A melancholic portrait of a Japanese woman in her late 30s, sitting on the edge of a bed at dawn. She looks down at her hands with a sad expression. Soft, cool morning light filters through the window. Film grain, emotional, sense of loneliness.
 
 ### [12:00] 「肩凝ってない？」は断られない魔法の言葉。
-> A sunlit, minimalist workspace with a blurred, shallow depth of field. A warm cup of tea sits on a light wooden desk, with gentle light streaming in from a window. Focus on the texture of the wood and the steam rising from the tea. Soft, diffused daylight. Film grain.
+> A Japanese woman in her late 30s, smiling gently while holding a cup of tea. She looks towards the camera as if offering the tea. Soft, warm midday light. Comfortable, inviting atmosphere. Film photography style.
 
 ### [20:00] セックスレスは日常のスキンシップ消滅から始まる。
-> A dimly lit, minimalist bedroom interior at 8 PM, soft shadows cast by a bedside lamp, focus on a rumpled linen sheet with subtle textures, evoking a sense of quiet emptiness, shot with a film camera, muted tones, shallow depth of field, grain.
+> A close-up of a Japanese woman in her late 30s, looking away with a pensive expression. The lighting is dim and moody, suggesting evening. Her face is partially in shadow. Film grain, emotional, serious tone.
