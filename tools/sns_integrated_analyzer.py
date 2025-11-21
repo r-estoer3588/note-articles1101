@@ -75,20 +75,17 @@ class SNSIntegratedAnalyzer:
             "records": [],
             "goals": {
                 "1month": {
-                    "x_followers": 300,
                     "note_sales": 20,
                     "note_revenue": 50000,
                     "threads_followers": 200
                 },
                 "3month": {
-                    "x_followers": 1000,
                     "note_sales": 80,
                     "note_revenue": 150000,
                     "magazine_subscribers": 30,
                     "threads_followers": 800
                 },
                 "6month": {
-                    "x_followers": 2500,
                     "community_members": 50,
                     "monthly_revenue": 300000
                 },
@@ -117,15 +114,6 @@ class SNSIntegratedAnalyzer:
         print_info("現在のデータを入力してください（Enter で スキップ）\n")
         
         record = {}
-        
-        # X (Twitter)
-        x_followers = input(f"{Color.CYAN}X フォロワー数: {Color.END}").strip()
-        if x_followers:
-            record["x_followers"] = int(x_followers)
-        
-        x_posts = input(f"{Color.CYAN}X 今日の投稿数: {Color.END}").strip()
-        if x_posts:
-            record["x_posts_today"] = int(x_posts)
         
         # note
         note_pv = input(f"{Color.CYAN}note 総PV数: {Color.END}").strip()
@@ -186,11 +174,6 @@ class SNSIntegratedAnalyzer:
         
         print_header("📊 現在の進捗状況")
         
-        # X
-        if "x_followers" in latest:
-            x_progress = (latest["x_followers"] / goals_1m["x_followers"]) * 100
-            print(f"X フォロワー: {latest['x_followers']} / {goals_1m['x_followers']} ({x_progress:.1f}%)")
-        
         # note
         if "note_total_sales" in latest:
             note_progress = (latest["note_total_sales"] / goals_1m["note_sales"]) * 100
@@ -232,10 +215,6 @@ class SNSIntegratedAnalyzer:
         # 成長率計算
         print("## 週間成長率\n")
         
-        if "x_followers" in first and "x_followers" in latest:
-            x_growth = latest["x_followers"] - first["x_followers"]
-            print(f"X フォロワー: +{x_growth} 人")
-        
         if "note_total_sales" in first and "note_total_sales" in latest:
             sales_growth = latest["note_total_sales"] - first["note_total_sales"]
             print(f"note 販売: +{sales_growth} 部")
@@ -249,11 +228,9 @@ class SNSIntegratedAnalyzer:
             print(f"Threads フォロワー: +{threads_growth} 人")
         
         # 投稿頻度分析
-        total_x_posts = sum(r.get("x_posts_today", 0) for r in recent_records)
         total_threads_posts = sum(r.get("threads_posts_today", 0) for r in recent_records)
         
         print(f"\n## 投稿頻度\n")
-        print(f"X: {total_x_posts} 投稿（平均 {total_x_posts/7:.1f} 投稿/日）")
         print(f"Threads: {total_threads_posts} 投稿（平均 {total_threads_posts/7:.1f} 投稿/日）")
         
         # メモまとめ
@@ -291,11 +268,6 @@ class SNSIntegratedAnalyzer:
         # 目標達成率
         print("## 1ヶ月目標 達成状況\n")
         
-        if "x_followers" in latest:
-            x_achievement = (latest["x_followers"] / goals["x_followers"]) * 100
-            status = "✅" if x_achievement >= 100 else "🔄"
-            print(f"{status} X フォロワー: {latest['x_followers']} / {goals['x_followers']} ({x_achievement:.1f}%)")
-        
         if "note_total_sales" in latest:
             sales_achievement = (latest["note_total_sales"] / goals["note_sales"]) * 100
             status = "✅" if sales_achievement >= 100 else "🔄"
@@ -314,10 +286,6 @@ class SNSIntegratedAnalyzer:
         # 月間成長率
         print("\n## 月間成長\n")
         
-        if "x_followers" in first and "x_followers" in latest:
-            x_growth = latest["x_followers"] - first["x_followers"]
-            print(f"X フォロワー: +{x_growth} 人")
-        
         if "note_total_sales" in first and "note_total_sales" in latest:
             sales_growth = latest["note_total_sales"] - first["note_total_sales"]
             revenue_growth = latest.get("note_total_revenue", 0) - first.get("note_total_revenue", 0)
@@ -326,12 +294,8 @@ class SNSIntegratedAnalyzer:
         # 次月への提案
         print("\n## 次月への改善提案\n")
         
-        if "x_followers" in latest and latest["x_followers"] < goals["x_followers"]:
-            print("🔄 X投稿頻度を週7回 → 週10回に増やす")
-            print("🔄 スレッド投稿を週1回追加")
-        
         if "note_total_sales" in latest and latest["note_total_sales"] < goals["note_sales"]:
-            print("🔄 X宣伝スレッドを週2回に増やす")
+            print("🔄 Threads宣伝スレッドを週2回に増やす")
             print("🔄 無料記事を1本追加して集客強化")
         
         print()

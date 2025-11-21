@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "note_total_pv": 0,
+      "note_total_sales": 0,
+      "note_total_revenue": 0,
+      "magazine_subscribers": 0,
+      "threads_followers": 0,
+      "threads_posts_today": 0,
+      "community_members": 0,
+      "other_revenue": 0,
+      "memo": "Initial setup",
+      "timestamp": "2025-11-21T16:16:16.561553"
+    }
+  ],
+  "goals": {
+    "1month": {
+      "note_sales": 20,
+      "note_revenue": 50000,
+      "threads_followers": 200
+    },
+    "3month": {
+      "note_sales": 80,
+      "note_revenue": 150000,
+      "magazine_subscribers": 30,
+      "threads_followers": 800
+    },
+    "6month": {
+      "community_members": 50,
+      "monthly_revenue": 300000
+    },
+    "12month": {
+      "monthly_revenue": 500000
+    }
+  }
+}

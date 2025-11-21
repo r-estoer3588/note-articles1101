@@ -58,7 +58,7 @@ class ThreadsImageGenerator:
         if HAS_GEMINI and self.api_key:
             genai.configure(api_key=self.api_key)
             # テキスト生成用モデル (プロンプト作成用)
-            self.text_model = genai.GenerativeModel('gemini-1.5-flash')
+            self.text_model = genai.GenerativeModel('gemini-2.0-flash')
             # 画像生成用モデル (Imagen 3) - 利用可能な場合
             self.image_model_name = 'imagen-3.0-generate-001' 
 
