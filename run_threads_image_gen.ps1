@@ -56,4 +56,9 @@ if (-not $HasApiKey) {
 python tools/generate_threads_images.py --input $InputFile --out-dir $OutputDir
 
 Write-Host "✅ 完了しました。出力フォルダを確認してください: $OutputDir"
-Start-Process $OutputDir
+    # Open output folder
+    if (Test-Path $OutputDir) {
+        Invoke-Item (Resolve-Path $OutputDir)
+    } else {
+        Write-Host "⚠️ Output directory not found: $OutputDir" -ForegroundColor Yellow
+    }
