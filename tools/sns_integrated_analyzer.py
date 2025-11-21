@@ -442,6 +442,25 @@ def select_project() -> tuple[str, str]:
         print_warning("無効な選択です。もう一度入力してください。")
 
 
+def select_action() -> str:
+    """アクション選択"""
+    print_header("🚀 アクション選択")
+    print("1. 📝 データ入力 (今日の記録)")
+    print("2. 📊 現在の進捗確認")
+    print("3. 📋 週次レポート (分析)")
+    print("4. 📅 月次レポート (分析)")
+    print("5. 💾 CSV出力")
+    print("0. 🚪 終了")
+
+    while True:
+        choice = input(
+            f"\n{Color.CYAN}アクションを選択してください (0-5): {Color.END}"
+        ).strip()
+        if choice in ["0", "1", "2", "3", "4", "5"]:
+            return choice
+        print_warning("無効な選択です")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="SNS統合分析ツール",
@@ -459,42 +478,42 @@ def main():
   3. 毎月1日: --report monthly で目標確認
         """
     )
-    
+
     parser.add_argument(
         '--update-manual',
         action='store_true',
         help='手動でデータを入力'
     )
-    
+
     parser.add_argument(
         '--report',
         choices=['weekly', 'monthly'],
         help='レポート生成（weekly or monthly）'
     )
-    
+
     parser.add_argument(
         '--export-csv',
         action='store_true',
         help='CSVファイルに出力'
     )
-    
+
     parser.add_argument(
         '--show-progress',
         action='store_true',
         help='現在の進捗を表示'
     )
-    
+
     parser.add_argument(
         '--project',
         help='プロジェクトIDを指定（対話モードをスキップ）'
     )
-    
+
     args = parser.parse_args()
-    
+
     # プロジェクト決定
     project_id = None
     project_name = None
-    
+
     if args.project:
         # 引数で指定された場合
         for p in PROJECTS.values():
@@ -508,9 +527,9 @@ def main():
     else:
         # 対話モードで選択
         project_id, project_name = select_project()
-    
+
     analyzer = SNSIntegratedAnalyzer(project_id, project_name)
-    
+
     if args.update_manual:
         analyzer.manual_update()
     elif args.report == 'weekly':
@@ -522,9 +541,24 @@ def main():
     elif args.show_progress:
         analyzer.show_latest_progress()
     else:
-        # デフォルト: 進捗表示
-        analyzer.show_latest_progress()
-        print_info("\nヘルプを表示: python tools/sns_integrated_analyzer.py --help")
+        # デフォルト: アクション選択メニュー
+        while True:
+            action = select_action()
+            if action == "0":
+                print_info("終了します")
+                break
+            elif action == "1":
+                analyzer.manual_update()
+            elif action == "2":
+                analyzer.show_latest_progress()
+            elif action == "3":
+                analyzer.generate_weekly_report()
+            elif action == "4":
+                analyzer.generate_monthly_report()
+            elif action == "5":
+                analyzer.export_csv()
+
+            input(f"\n{Color.GREEN}Enterキーでメニューに戻ります...{Color.END}")
 
 
 if __name__ == "__main__":
