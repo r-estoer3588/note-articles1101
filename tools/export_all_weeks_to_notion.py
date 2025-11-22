@@ -103,13 +103,10 @@ def export_week_to_buffer(data_file, start_date_str, week_label, day_offset=0):
         # Buffer用の日時フォーマット (YYYY-MM-DD HH:MM)
         datetime_str = f"{post_date.strftime('%Y-%m-%d')} {time_str}"
         
-        # タグ（Day番号を含める）
-        tags = f"Day{day_num}"
-        
         rows.append({
             "Text": post_text,
             "Image URL": "",  # 空欄（後で手動追加想定）
-            "Tags": tags,
+            "Tags": "",  # 空欄（Bufferは既存タグのみ）
             "Posting Time": datetime_str
         })
     
