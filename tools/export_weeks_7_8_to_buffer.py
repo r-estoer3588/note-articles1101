@@ -33,7 +33,7 @@ def parse_post_content(raw_text):
 
 def generate_csv(start_date_str="2025-11-15"):
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-    output_file = os.path.join("outputs", "weeks_7_8_buffer_import.csv")
+    output_file = os.path.join("outputs", "weeks_7_8_notion_import.csv")
     
     # Ensure output directory exists
     os.makedirs("outputs", exist_ok=True)
@@ -60,7 +60,9 @@ def generate_csv(start_date_str="2025-11-15"):
         # So offset is day_num - 43
         offset = day_num - 43
         post_date = start_date + timedelta(days=offset)
-        date_str = post_date.strftime("%Y-%m-%d")
+        
+        # Notion format: YYYY/MM/DD
+        date_str = post_date.strftime("%Y/%m/%d")
         
         # Parse content
         raw_content = updates[key]
@@ -70,23 +72,34 @@ def generate_csv(start_date_str="2025-11-15"):
         # Format: day43_0700.png
         image_filename = f"{day_str.lower()}_{time_str.replace(':', '')}.png"
         
+        # Notion-friendly datetime
+        datetime_str = f"{post_date.strftime('%Y/%m/%d')} {time_str}"
+        
         rows.append({
-            "Date": date_str,
-            "Time": time_str,
-            "Text": post_text,
-            "Image Filename": image_filename
+            "投稿日時": datetime_str,
+            "日付": date_str,
+            "時刻": time_str,
+            "本文": post_text,
+            "画像ファイル名": image_filename,
+            "ステータス": "未投稿",
+            "Day": day_num,
+            "タグ": "Week7-8"
         })
         
-    # Write to CSV
-    with open(output_file, 'w', newline='', encoding='utf-8') as f:
+    # Write to CSV (Notion-compatible with BOM)
+    with open(output_file, 'w', newline='', encoding='utf-8-sig') as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["Date", "Time", "Text", "Image Filename"]
+            fieldnames=[
+                "投稿日時", "日付", "時刻", "本文", "画像ファイル名",
+                "ステータス", "Day", "タグ"
+            ]
         )
         writer.writeheader()
         writer.writerows(rows)
         
     print(f"Successfully exported {len(rows)} posts to {output_file}")
+    print("Notion互換形式（UTF-8 BOM付き）で出力しました")
 
 
 if __name__ == "__main__":

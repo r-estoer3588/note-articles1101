@@ -1,0 +1,5 @@
+# 使用したプロンプト
+
+## 記事リライト
+- weeks_7_8_article_plan.mdから自動分割
+- PASONA構造：Problem → Affinity → Solution → Offer → Narrow down → Action

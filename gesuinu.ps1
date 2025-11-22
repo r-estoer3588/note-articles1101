@@ -136,7 +136,7 @@ if ($Help) {
     
     Write-Host "【関連ファイル】" -ForegroundColor Yellow
     Write-Host "  • プロンプト: prompt/article_quality_evaluation_prompt_v3_gesuinu.txt"
-    Write-Host "  • GPT用: prompt/gesuinu_gpt_persona_v2.txt"
+    Write-Host "  • GPT用: archive/prompt/gesuinu_gpt_persona_v2.txt (廃止済み)"
     Write-Host "  • 記事生成: gethnote/prompt/geth_prompt.txt"
     Write-Host ""
     
