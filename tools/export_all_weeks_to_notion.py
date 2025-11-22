@@ -103,8 +103,8 @@ def export_week_to_buffer(data_file, start_date_str, week_label, day_offset=0):
         # Buffer用の日時フォーマット (YYYY-MM-DD HH:MM)
         datetime_str = f"{post_date.strftime('%Y-%m-%d')} {time_str}"
         
-        # タグ（Week番号をタグとして使用）
-        tags = week_label
+        # タグ（Day番号を含める）
+        tags = f"Day{day_num}"
         
         rows.append({
             "Text": post_text,
@@ -123,7 +123,7 @@ def export_week_to_buffer(data_file, start_date_str, week_label, day_offset=0):
         writer.writeheader()
         writer.writerows(rows)
     
-    print(f"✅ {week_label}: {len(rows)}投稿を {output_file} に出力")
+    print(f"[OK] {week_label}: {len(rows)}投稿を {output_file} に出力")
     return len(rows)
 
 
@@ -167,7 +167,7 @@ if __name__ == "__main__":
         )
         total_posts += count
     
-    print(f"\n🎉 合計 {total_posts} 投稿をBuffer用CSVに出力しました")
-    print("📅 データ範囲: Day 1-60 (60日間・完全版)")
-    print("📌 BufferのCSVインポート機能で各ファイルを取り込んでください")
+    print(f"\n[OK] 合計 {total_posts} 投稿をBuffer用CSVに出力しました")
+    print("データ範囲: Day 1-60 (60日間・完全版)")
+    print("BufferのCSVインポート機能で各ファイルを取り込んでください")
 
