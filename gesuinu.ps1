@@ -4,7 +4,7 @@
     Gesuinu - げすいぬ化記事改善ツールランチャー
 
 .DESCRIPTION
-    既存の記事をげすいぬスタイル（月収30万円層向け）に変換するツール。
+    既存の記事をげすいぬ構造設計士スタイル（月収30万円層向け）に変換するツール。
     article_quality_evaluation_prompt_v3_gesuinu.txt に基づいて、
     4つの成功指標（Trust/Empathy/Values/Encouragement）すべて4.0以上を目指します。
 
@@ -92,8 +92,13 @@ function Write-Error-Custom {
 if ($Help) {
     Write-Header "🐕 Gesuinu - げすいぬ化記事改善ツール"
     
-    Write-Host "既存の記事をげすいぬスタイル（月収30万円層向け）に変換します。" -ForegroundColor White
+    Write-Host "既存の記事をげすいぬ構造設計士スタイル（月収30万円層向け）に変換します。" -ForegroundColor White
     Write-Host "4つの成功指標すべてで4.0以上を目指します。" -ForegroundColor White
+    Write-Host ""
+    Write-Host "【構造設計士シグネチャ】" -ForegroundColor Yellow
+    Write-Host "  • 共感→実体験→構造アドバイス→応援の4ステップ" -ForegroundColor White
+    Write-Host "  • 回答ごとに最低1つの表（比較/ロードマップ）" -ForegroundColor White
+    Write-Host "  • 必須フレーズ: お疲れ様です！/マジでわかる/心の設計図 etc." -ForegroundColor White
     Write-Host ""
     
     Write-Host "【4つの成功指標】" -ForegroundColor Yellow

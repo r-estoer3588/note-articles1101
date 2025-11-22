@@ -27,14 +27,14 @@
 
 ---
 
-#### 2. **`article_quality_evaluation_prompt_v3_gesuinu.txt`** 📖 詳細マニュアル
-- **用途**: げすいぬ版の評価基準・改善パターン集（完全版）
+#### 2. **`article_quality_evaluation_prompt_v3_gesuinu.txt`** 📖 詳細マニュアル（構造設計士版）
+- **用途**: げすいぬ構造設計士ペルソナの評価基準・改善パターン集（完全版）
 - **内容**:
   - 4指標の5段階定量評価基準
   - 改善パターン12種（Before/After例付き）
   - 正規表現パターン（Python）
-  - 評価テンプレート
-- **使用シーン**: 評価基準の詳細を確認したい時
+  - 評価テンプレート + 構造設計士シグネチャチェック（表/フレーズ/フロー）
+- **使用シーン**: 評価基準やペルソナ要件を詳細確認したい時
 
 ---
 
@@ -93,7 +93,7 @@
 |-----------|------|------|--------|
 | geth_prompt.txt | 1139行 | 記事生成 | ⭐⭐⭐⭐⭐ |
 | gesuinu_article_review_prompts.txt | 330行 | げすいぬ版レビュー | ⭐⭐⭐⭐⭐ |
-| article_quality_evaluation_prompt_v3_gesuinu.txt | 600行 | げすいぬ版詳細 | ⭐⭐⭐⭐ |
+| article_quality_evaluation_prompt_v3_gesuinu.txt | 680行 | げすいぬ構造設計士詳細 | ⭐⭐⭐⭐ |
 | article_quality_evaluation_prompt_v2.txt | 846行 | 無難版詳細 | ⭐⭐⭐ |
 | article_quality_prompt_templates.txt | 200行 | 無難版コピペ | ⭐⭐⭐ |
 | article_quality_prompt_simple.txt | 50行 | 簡易チェック | ⭐⭐⭐⭐ |
@@ -127,5 +127,5 @@ gesuinu_article_review_prompts.txt の「Pythonスクリプト生成プロンプ
 
 ---
 
-**更新日**: 2025年11月9日  
+**更新日**: 2025年11月17日  
 **管理者**: げすいぬ品質管理チーム

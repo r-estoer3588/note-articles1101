@@ -45,8 +45,8 @@ def get_scheduled_time(post_date, post_index_in_day):
     return time_slots[post_index_in_day]
 
 
-def export_week_to_notion(data_file, start_date_str, week_label, day_offset=0):
-    """指定されたWeekのデータをNotion用CSVにエクスポート
+def export_week_to_buffer(data_file, start_date_str, week_label, day_offset=0):
+    """指定されたWeekのデータをBuffer用CSVにエクスポート
     
     Args:
         data_file: データファイル名
@@ -62,7 +62,7 @@ def export_week_to_notion(data_file, start_date_str, week_label, day_offset=0):
     updates = module.updates
     
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-    output_file = os.path.join("outputs", f"{week_label}_notion_import.csv")
+    output_file = os.path.join("outputs", f"{week_label}_buffer_import.csv")
     
     os.makedirs("outputs", exist_ok=True)
     
@@ -100,32 +100,24 @@ def export_week_to_notion(data_file, start_date_str, week_label, day_offset=0):
         raw_content = updates[key]
         post_text = parse_post_content(raw_content)
         
-        # 画像ファイル名
-        image_filename = f"{day_str.lower()}_{time_str.replace(':', '')}.png"
+        # Buffer用の日時フォーマット (YYYY-MM-DD HH:MM)
+        datetime_str = f"{post_date.strftime('%Y-%m-%d')} {time_str}"
         
-        # Notion用の日付フォーマット
-        date_str = post_date.strftime("%Y/%m/%d")
-        datetime_str = f"{date_str} {time_str}"
+        # タグ（Week番号をタグとして使用）
+        tags = week_label
         
         rows.append({
-            "投稿日時": datetime_str,
-            "日付": date_str,
-            "時刻": time_str,
-            "本文": post_text,
-            "画像ファイル名": image_filename,
-            "ステータス": "未投稿",
-            "Day": day_num,
-            "タグ": week_label
+            "Text": post_text,
+            "Image URL": "",  # 空欄（後で手動追加想定）
+            "Tags": tags,
+            "Posting Time": datetime_str
         })
     
     # CSV出力（UTF-8 BOM）
     with open(output_file, 'w', newline='', encoding='utf-8-sig') as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=[
-                "投稿日時", "日付", "時刻", "本文", "画像ファイル名",
-                "ステータス", "Day", "タグ"
-            ]
+            fieldnames=["Text", "Image URL", "Tags", "Posting Time"]
         )
         writer.writeheader()
         writer.writerows(rows)
@@ -135,25 +127,29 @@ def export_week_to_notion(data_file, start_date_str, week_label, day_offset=0):
 
 
 if __name__ == "__main__":
-    # Week別のエクスポート設定
-    # Day 1-28は存在しない（Week 1-4のデータは未作成）
-    # 実際のデータ: Day 29-60
+    # Week別のエクスポート設定（Day 1-60完全版）
     exports = [
         {
-            "data_file": "manual_refine_week5.py",
+            "data_file": "manual_refine_week1_4.py",
             "start_date": "2025-11-23",
+            "week_label": "Week1-4_Day1-28",
+            "day_offset": 0  # Day 1から開始
+        },
+        {
+            "data_file": "manual_refine_week5.py",
+            "start_date": "2025-12-21",  # Week 5は Week 4の28日後
             "week_label": "Week5_Day29-35",
             "day_offset": 28  # Day 29から開始
         },
         {
             "data_file": "manual_refine_week6.py",
-            "start_date": "2025-11-30",  # Week 6は Week 5の7日後
+            "start_date": "2025-12-28",  # Week 6は Week 5の7日後
             "week_label": "Week6_Day36-42",
             "day_offset": 35  # Day 36から開始
         },
         {
             "data_file": "manual_refine_weeks_7_8_enriched.py",
-            "start_date": "2025-12-07",  # Week 7は Week 6の7日後
+            "start_date": "2026-01-04",  # Week 7は Week 6の7日後
             "week_label": "Week7-8_Day43-60",
             "day_offset": 42  # Day 43から開始
         }
@@ -162,7 +158,7 @@ if __name__ == "__main__":
     total_posts = 0
     
     for config in exports:
-        count = export_week_to_notion(
+        count = export_week_to_buffer(
             config["data_file"],
             config["start_date"],
             config["week_label"],
@@ -170,7 +166,7 @@ if __name__ == "__main__":
         )
         total_posts += count
     
-    print(f"\n🎉 合計 {total_posts} 投稿をNotion用CSVに出力しました")
-    print("📅 データ範囲: Day 29-60 (32日間)")
-    print("📌 Notionの「CSVをインポート」で各ファイルを取り込んでください")
+    print(f"\n🎉 合計 {total_posts} 投稿をBuffer用CSVに出力しました")
+    print("📅 データ範囲: Day 1-60 (60日間・完全版)")
+    print("📌 BufferのCSVインポート機能で各ファイルを取り込んでください")
 
