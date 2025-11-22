@@ -117,7 +117,8 @@ def export_week_to_buffer(data_file, start_date_str, week_label, day_offset=0):
     with open(output_file, 'w', newline='', encoding='utf-8-sig') as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["Text", "Image URL", "Tags", "Posting Time"]
+            fieldnames=["Text", "Image URL", "Tags", "Posting Time"],
+            quoting=csv.QUOTE_ALL  # 全フィールドをダブルクォートで囲む
         )
         writer.writeheader()
         writer.writerows(rows)
