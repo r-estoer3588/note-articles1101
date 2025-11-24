@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buffer投稿モニタリングダッシュボード</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1em;
+        }
+
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .file-name {
+            margin-left: 15px;
+            color: #4a5568;
+            font-style: italic;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            color: #718096;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-change {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .card-change.positive {
+            color: #48bb78;
+        }
+
+        .card-change.negative {
+            color: #f56565;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            color: #2d3748;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        .weekly-summary {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .weekly-summary h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .week-card {
+            background: linear-gradient(135deg, #667eea22 0%, #764ba222 100%);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .week-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .week-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .week-stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #4a5568;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .no-data-message {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+            font-size: 1.1em;
+        }
+
+        /* Form Styles */
+        .input-mode-switch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #e2e8f0;
+            color: #4a5568;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .data-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.9em;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .x-btn {
+            background: #000;
+            color: white;
+        }
+
+        .x-btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-text {
+            margin-left: 10px;
+            font-size: 0.9em;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Buffer投稿モニタリングダッシュボード</h1>
+            <p class="subtitle">21日間キャンペーン（2025年11月24日〜12月14日）</p>
+        </header>
+
+        <div class="upload-section">
+            <div class="input-mode-switch">
+                <button id="showUploadBtn" class="mode-btn">📁 CSVファイル読込</button>
+                <button id="showFormBtn" class="mode-btn active">✏️ データ直接入力</button>
+            </div>
+
+            <div id="uploadArea" style="display: none; margin-top: 20px;">
+                <div class="file-input-wrapper">
+                    <input type="file" id="csvFile" accept=".csv">
+                    <label for="csvFile" class="file-input-label">📁 CSVファイルを選択</label>
+                    <span class="file-name" id="fileName">ファイルが選択されていません</span>
+                </div>
+            </div>
+
+            <div id="inputFormArea" style="margin-top: 20px;">
+                <div class="api-actions" style="margin-bottom: 20px;">
+                    <button id="fetchXBtn" class="action-btn x-btn">
+                        <span class="icon">𝕏</span> Xからデータを取得
+                    </button>
+                    <span id="apiStatus" class="status-text"></span>
+                </div>
+
+                <form id="dataEntryForm" class="data-form">
+                    <div class="form-group">
+                        <label>日付</label>
+                        <input type="date" id="inputDate" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>総フォロワー数</label>
+                            <input type="number" id="inputFollowers" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>note PV</label>
+                            <input type="number" id="inputNotePV" required min="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>いいね</label>
+                            <input type="number" id="inputLikes" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>リポスト</label>
+                            <input type="number" id="inputReposts" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>返信</label>
+                            <input type="number" id="inputReplies" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>クリック</label>
+                            <input type="number" id="inputClicks" required min="0">
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">💾 データを保存して更新</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="dashboard" style="display: none;">
+            <div class="summary-cards" id="summaryCards"></div>
+
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">フォロワー成長</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="followersChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">エンゲージメント推移</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="engagementChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">トラフィック分析</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">日次フォロワー増減</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="dailyChangeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weekly-summary">
+                <h2>週次サマリー</h2>
+                <div class="week-grid" id="weeklySummary"></div>
+            </div>
+        </div>
+
+        <div class="no-data-message" id="noDataMessage">
+            CSVファイルを読み込んでダッシュボードを表示してください
+        </div>
+    </div>
+
+    <script>
+        let charts = {};
+        let data = null;
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', function() {
+            // Set today's date in form
+            document.getElementById('inputDate').valueAsDate = new Date();
+            
+            // Load initial data
+            fetchData();
+
+            // Setup UI tabs
+            document.getElementById('showUploadBtn').addEventListener('click', () => toggleMode('upload'));
+            document.getElementById('showFormBtn').addEventListener('click', () => toggleMode('form'));
+            
+            // X API Fetch
+            document.getElementById('fetchXBtn').addEventListener('click', fetchXData);
+        });
+
+        function fetchXData() {
+            const btn = document.getElementById('fetchXBtn');
+            const status = document.getElementById('apiStatus');
+            
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            status.textContent = '取得中...';
+            status.style.color = '#718096';
+
+            fetch('/api/fetch_x', { method: 'POST' })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.error) {
+                        throw new Error(result.error);
+                    }
+                    
+                    // Fill form with fetched data
+                    const d = result.data;
+                    document.getElementById('inputFollowers').value = d.followers;
+                    document.getElementById('inputLikes').value = d.likes;
+                    document.getElementById('inputReposts').value = d.reposts;
+                    document.getElementById('inputReplies').value = d.replies;
+                    
+                    status.textContent = '✅ 取得成功！保存ボタンを押して確定してください';
+                    status.style.color = '#48bb78';
+                })
+                .catch(err => {
+                    console.error(err);
+                    let msg = '取得失敗';
+                    if (err.message.includes('configured')) {
+                        msg = '⚠️ config.jsonの設定が必要です';
+                    } else if (err.message.includes('metrics')) {
+                        msg = '⚠️ データ取得エラー (Basicプランが必要かも)';
+                    }
+                    status.textContent = msg;
+                    status.style.color = '#f56565';
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
+        }
+
+        function toggleMode(mode) {
+            const uploadArea = document.getElementById('uploadArea');
+            const formArea = document.getElementById('inputFormArea');
+            const uploadBtn = document.getElementById('showUploadBtn');
+            const formBtn = document.getElementById('showFormBtn');
+
+            if (mode === 'upload') {
+                uploadArea.style.display = 'block';
+                formArea.style.display = 'none';
+                uploadBtn.classList.add('active');
+                formBtn.classList.remove('active');
+            } else {
+                uploadArea.style.display = 'none';
+                formArea.style.display = 'block';
+                uploadBtn.classList.remove('active');
+                formBtn.classList.add('active');
+            }
+        }
+
+        function fetchData() {
+            // Try to fetch from server API first
+            fetch('/api/data')
+                .then(response => {
+                    if (!response.ok) throw new Error('Server API not available');
+                    return response.json();
+                })
+                .then(jsonData => {
+                    data = jsonData;
+                    processData(data);
+                    renderDashboard(data);
+                    
+                    // Pre-fill form with today's data if exists
+                    const today = new Date().toISOString().split('T')[0];
+                    const todayData = data.find(d => d.Date === today);
+                    if (todayData) {
+                        document.getElementById('inputFollowers').value = todayData.Followers;
+                        document.getElementById('inputLikes').value = todayData.Likes;
+                        document.getElementById('inputReposts').value = todayData.Reposts;
+                        document.getElementById('inputReplies').value = todayData.Replies;
+                        document.getElementById('inputClicks').value = todayData.Profile_Clicks;
+                        document.getElementById('inputNotePV').value = todayData.Note_PV;
+                    }
+                })
+                .catch(err => {
+                    console.log('Falling back to CSV file load', err);
+                    // Fallback to direct CSV file read (for static hosting)
+                    fetch('monitoring_data.csv')
+                        .then(r => r.text())
+                        .then(csvText => {
+                            Papa.parse(csvText, {
+                                header: true,
+                                skipEmptyLines: true,
+                                complete: function(results) {
+                                    data = results.data;
+                                    processData(data);
+                                    renderDashboard(data);
+                                }
+                            });
+                        });
+                });
+        }
+
+        // Handle Form Submit
+        document.getElementById('dataEntryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                date: document.getElementById('inputDate').value,
+                followers: document.getElementById('inputFollowers').value,
+                likes: document.getElementById('inputLikes').value,
+                reposts: document.getElementById('inputReposts').value,
+                replies: document.getElementById('inputReplies').value,
+                clicks: document.getElementById('inputClicks').value,
+                notepv: document.getElementById('inputNotePV').value
+            };
+
+            fetch('/api/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('✅ データが保存されました！');
+                fetchData(); // Reload dashboard
+            })
+            .catch(error => {
+                alert('❌ 保存に失敗しました。サーバーが起動しているか確認してください。');
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('fileName').textContent = file.name;
+                
+                Papa.parse(file, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        data = results.data;
+                        processData(data);
+                        renderDashboard(data);
+                    }
+                });
+            }
+        });
+
+        function processData(rawData) {
+            return rawData.map(row => ({
+                date: row.Date,
+                followers: parseInt(row.Followers) || 0,
+                followersChange: parseInt(row.Followers_Change) || 0,
+                likes: parseInt(row.Likes) || 0,
+                reposts: parseInt(row.Reposts) || 0,
+                replies: parseInt(row.Replies) || 0,
+                profileClicks: parseInt(row.Profile_Clicks) || 0,
+                notePV: parseInt(row.Note_PV) || 0
+            }));
+        }
+
+        function renderDashboard(rawData) {
+            const data = processData(rawData);
+            
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('noDataMessage').style.display = 'none';
+
+            renderSummaryCards(data);
+            renderFollowersChart(data);
+            renderEngagementChart(data);
+            renderTrafficChart(data);
+            renderDailyChangeChart(data);
+            renderWeeklySummary(data);
+        }
+
+        function renderSummaryCards(data) {
+            const totalFollowers = data[data.length - 1].followers;
+            const totalFollowersChange = data.reduce((sum, d) => sum + d.followersChange, 0);
+            const totalLikes = data.reduce((sum, d) => sum + d.likes, 0);
+            const totalReposts = data.reduce((sum, d) => sum + d.reposts, 0);
+            const totalReplies = data.reduce((sum, d) => sum + d.replies, 0);
+            const totalProfileClicks = data.reduce((sum, d) => sum + d.profileClicks, 0);
+            const totalNotePV = data.reduce((sum, d) => sum + d.notePV, 0);
+            const avgEngagement = ((totalLikes + totalReposts + totalReplies) / data.length).toFixed(1);
+
+            const cards = [
+                { title: '総フォロワー数', value: totalFollowers.toLocaleString(), change: `+${totalFollowersChange}` },
+                { title: '総いいね数', value: totalLikes.toLocaleString() },
+                { title: '総リポスト数', value: totalReposts.toLocaleString() },
+                { title: '総返信数', value: totalReplies.toLocaleString() },
+                { title: 'プロフィールクリック', value: totalProfileClicks.toLocaleString() },
+                { title: 'note PV', value: totalNotePV.toLocaleString() },
+                { title: '1日平均エンゲージメント', value: avgEngagement },
+                { title: '配信日数', value: data.length }
+            ];
+
+            const container = document.getElementById('summaryCards');
+            container.innerHTML = cards.map(card => `
+                <div class="card">
+                    <div class="card-title">${card.title}</div>
+                    <div class="card-value">${card.value}</div>
+                    ${card.change ? `<div class="card-change positive">${card.change}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderFollowersChart(data) {
+            const ctx = document.getElementById('followersChart').getContext('2d');
+            
+            if (charts.followers) charts.followers.destroy();
+            
+            charts.followers = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'フォロワー数',
+                        data: data.map(d => d.followers),
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderEngagementChart(data) {
+            const ctx = document.getElementById('engagementChart').getContext('2d');
+            
+            if (charts.engagement) charts.engagement.destroy();
+            
+            charts.engagement = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })),
+                    datasets: [
+                        {
+                            label: 'いいね',
+                            data: data.map(d => d.likes),
+                            borderColor: '#f56565',
+                            backgroundColor: 'rgba(245, 101, 101, 0.2)',
+                            borderWidth: 2,
+                            fill: true
+                        },
+                        {
+                            label: 'リポスト',
+                            data: data.map(d => d.reposts),
+                            borderColor: '#48bb78',
+                            backgroundColor: 'rgba(72, 187, 120, 0.2)',
+                            borderWidth: 2,
+                            fill: true
+                        },
+                        {
+                            label: '返信',
+                            data: data.map(d => d.replies),
+                            borderColor: '#4299e1',
+                            backgroundColor: 'rgba(66, 153, 225, 0.2)',
+                            borderWidth: 2,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stacked: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTrafficChart(data) {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            
+            if (charts.traffic) charts.traffic.destroy();
+            
+            charts.traffic = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })),
+                    datasets: [
+                        {
+                            label: 'プロフィールクリック',
+                            data: data.map(d => d.profileClicks),
+                            backgroundColor: 'rgba(237, 137, 54, 0.8)',
+                            borderColor: '#ed8936',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'note PV',
+                            data: data.map(d => d.notePV),
+                            backgroundColor: 'rgba(159, 122, 234, 0.8)',
+                            borderColor: '#9f7aea',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderDailyChangeChart(data) {
+            const ctx = document.getElementById('dailyChangeChart').getContext('2d');
+            
+            if (charts.dailyChange) charts.dailyChange.destroy();
+            
+            const colors = data.map(d => d.followersChange >= 0 ? 'rgba(72, 187, 120, 0.8)' : 'rgba(245, 101, 101, 0.8)');
+            
+            charts.dailyChange = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: '日次フォロワー増減',
+                        data: data.map(d => d.followersChange),
+                        backgroundColor: colors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderWeeklySummary(data) {
+            const weeks = [
+                { name: 'Week 1', start: 0, end: 7 },
+                { name: 'Week 2', start: 7, end: 14 },
+                { name: 'Week 3', start: 14, end: 21 }
+            ];
+
+            const container = document.getElementById('weeklySummary');
+            
+            container.innerHTML = weeks.map(week => {
+                const weekData = data.slice(week.start, Math.min(week.end, data.length));
+                
+                if (weekData.length === 0) return '';
+                
+                const totalLikes = weekData.reduce((sum, d) => sum + d.likes, 0);
+                const totalReposts = weekData.reduce((sum, d) => sum + d.reposts, 0);
+                const totalReplies = weekData.reduce((sum, d) => sum + d.replies, 0);
+                const totalEngagement = totalLikes + totalReposts + totalReplies;
+                const followersGrowth = weekData.reduce((sum, d) => sum + d.followersChange, 0);
+                const avgEngagement = (totalEngagement / weekData.length).toFixed(1);
+                
+                return `
+                    <div class="week-card">
+                        <h3>${week.name} (${weekData.length}日)</h3>
+                        <div class="week-stat">
+                            <span class="stat-label">フォロワー増加</span>
+                            <span class="stat-value">+${followersGrowth}</span>
+                        </div>
+                        <div class="week-stat">
+                            <span class="stat-label">総エンゲージメント</span>
+                            <span class="stat-value">${totalEngagement}</span>
+                        </div>
+                        <div class="week-stat">
+                            <span class="stat-label">1日平均</span>
+                            <span class="stat-value">${avgEngagement}</span>
+                        </div>
+                        <div class="week-stat">
+                            <span class="stat-label">いいね</span>
+                            <span class="stat-value">${totalLikes}</span>
+                        </div>
+                        <div class="week-stat">
+                            <span class="stat-label">リポスト</span>
+                            <span class="stat-value">${totalReposts}</span>
+                        </div>
+                        <div class="week-stat">
+                            <span class="stat-label">返信</span>
+                            <span class="stat-value">${totalReplies}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
