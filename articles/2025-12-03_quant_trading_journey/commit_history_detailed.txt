@@ -1,0 +1,727 @@
+# コミット統計サマリー
+
+## 全体統計
+- 総コミット数: 691
+- 総追加行数: 7,263,077
+- 総削除行数: 7,026,126
+- 変更ファイル数: 11,304
+- ネット増加行数: 236,951
+
+## コミットタイプ別
+- 修正(FIX): 137 (19.8%)
+- 新機能(FEAT): 338 (48.9%)
+- リファクタリング(REFACTOR): 220 (31.8%)
+- テスト(TEST): 82 (11.9%)
+
+## 月別コミット数
+- 2025-08: 68 commits
+- 2025-09: 442 commits
+- 2025-10: 144 commits
+- 2025-11: 35 commits
+- 2025-12: 2 commits
+
+## 最大変更コミット
+- 日時: 2025-08-16 12:37
+- ハッシュ: 70193c1
+- メッセージ: 0816
+- 変更: +4532466/-0 (1460 files)
+
+
+================================================================================
+# 詳細コミット履歴
+# Format: TIMESTAMP|HASH|TAGS|CHANGES|MESSAGE|REPO
+# TAGS: FIX(修正), FEAT(新機能), REFACTOR(リファクタ), TEST(テスト)
+# CHANGES: +追加行/-削除行 (変更ファイル数)
+================================================================================
+
+2025-08-16 12:37:20 +0900|70193c1||+4532466/-0 (1460files)|0816|early_quant_repo
+2025-08-16 12:49:38 +0900|1b402db||+229/-0 (1files)|0816-2|early_quant_repo
+2025-08-16 16:43:03 +0900|c5901d9||+11246/-22 (5files)|0816-3|early_quant_repo
+2025-08-16 16:54:33 +0900|547a11e|[FEAT]|+2071/-241 (11files)|Add System2 trading strategy implementation and related files|early_quant_repo
+2025-08-16 20:09:08 +0900|5278279||+10045/-50 (8files)|0816-3|early_quant_repo
+2025-08-16 21:07:01 +0900|1f965f8||+29/-14 (3files)|0816-4|early_quant_repo
+2025-08-16 21:24:23 +0900|84af5bf||+1/-11 (3files)|0816-5 システム1,2安定板|early_quant_repo
+2025-08-16 23:53:59 +0900|269f911||+911/-272 (9files)|0816-5システム3安定|early_quant_repo
+2025-08-17 09:35:02 +0900|d663f54||+2144326/-16 (795files)|0817-1|early_quant_repo
+2025-08-17 11:47:42 +0900|f734ffc||+4382/-394 (5files)|0817|early_quant_repo
+2025-08-17 12:05:02 +0900|0705974||+35/-34 (1files)|0817-2|early_quant_repo
+2025-08-17 12:22:17 +0900|9fc1eef||+8/-8 (1files)|0817-3|early_quant_repo
+2025-08-17 14:19:49 +0900|1d83036||+1358/-397 (6files)|0817system1安定版|early_quant_repo
+2025-08-17 15:02:23 +0900|5780ab0||+443/-289 (7files)|0817-2system4開始|early_quant_repo
+2025-08-17 15:17:08 +0900|09acb19||+312/-11743 (6files)|0817-3|early_quant_repo
+2025-08-17 15:24:21 +0900|503d5a3||+11436/-0 (1files)|?|early_quant_repo
+2025-08-17 15:24:51 +0900|b9c90cc||+6/-6 (3files)|0817-3|early_quant_repo
+2025-08-17 23:25:51 +0900|94179ab||+7686/-3373 (41files)|0817-6system7まで安定板|early_quant_repo
+2025-08-20 08:49:46 +0900|3e472dc||+299/-333 (18files)|0820 08:49版|early_quant_repo
+2025-08-20 08:50:41 +0900|efa5e9b||+278/-0 (1files)|0820|early_quant_repo
+2025-08-20 18:21:01 +0900|b237cfb||+12738/-114 (8files)|0820 18:20開始|early_quant_repo
+2025-08-20 19:14:30 +0900|cd9fda3||+40831/-1442 (4files)|0820 autopep8前|early_quant_repo
+2025-08-20 19:17:38 +0900|78cd836||+1139/-484 (41files)|0820-2 autopep8実施後|early_quant_repo
+2025-08-20 19:22:22 +0900|53058c5||+9614/-957 (41files)|0820-3 Black実施後|early_quant_repo
+2025-08-20 19:36:43 +0900|4d354b5|[FEAT]|+2193/-0 (1files)|0820-3 ignore追加|early_quant_repo
+2025-08-20 19:55:46 +0900|332e171|[REFACTOR]|+3653/-40862 (4files)|0820-4 system1リファクタリング前|early_quant_repo
+2025-08-20 20:06:58 +0900|9b25750||+2196/-0 (2files)|0820-5|early_quant_repo
+2025-08-20 23:30:55 +0900|587489c||+2760/-24 (11files)|0820-6 ui_components導入1|early_quant_repo
+2025-08-20 23:31:46 +0900|14c3292||+0/-2145581 (788files)|del|early_quant_repo
+2025-08-24 23:08:18 +0900|83e26d3||+23494/-756 (47files)|0824 やっと|early_quant_repo
+2025-08-24 23:13:24 +0900|d1221d1||+2/-38450 (1files)|0824 gitignore|early_quant_repo
+2025-08-24 23:19:11 +0900|302d28f||+0/-293957 (24files)|Stop tracking results_csv directory|early_quant_repo
+2025-08-24 23:22:40 +0900|192d3ea||+0/-4149481 (1428files)|Stop tracking data_cache and results_csv|early_quant_repo
+2025-08-25 22:04:25 +0900|40e66b2||+3/-0 (1files)|0825gitignore|early_quant_repo
+2025-08-25 23:58:20 +0900|e486ab7||+450/-338 (10files)|0825codexその1|early_quant_repo
+2025-08-27 00:21:38 +0900|f36a29b||+275/-88 (6files)|0826codex_2|early_quant_repo
+2025-08-27 00:22:39 +0900|b6c38fd||+19/-1 (1files)|env更新|early_quant_repo
+2025-08-27 00:22:43 +0900|e491b23||+0/-19 (1files)|12|early_quant_repo
+2025-08-27 00:45:21 +0900|b1fb455||+0/-2945 (7files)|0826del|early_quant_repo
+2025-08-27 01:21:38 +0900|1456502||+301/-193 (20files)|0827codex_3|early_quant_repo
+2025-08-27 22:51:26 +0900|d700150||+1171/-316 (19files)|0827codex-1|early_quant_repo
+2025-08-27 23:24:49 +0900|1255cee||+531/-30 (20files)|0287codex-2|early_quant_repo
+2025-08-28 00:47:13 +0900|367b48c||+663/-434 (20files)|0828CODEX-3|early_quant_repo
+2025-08-28 01:48:11 +0900|ac90718||+1401/-1037 (46files)|0827-4|early_quant_repo
+2025-08-28 18:03:19 +0900|3bc0191||+871/-858 (43files)|0828codex-1|early_quant_repo
+2025-08-28 18:51:13 +0900|387472a||+3948/-24 (37files)|0828codex-2|early_quant_repo
+2025-08-28 19:05:54 +0900|55e6edd||+785/-0 (7files)|0828-3|early_quant_repo
+2025-08-28 19:16:36 +0900|84e2876||+0/-2974 (20files)|0828-4|early_quant_repo
+2025-08-28 20:13:51 +0900|a139aae||+301/-101 (5files)|0828xcodex-5|early_quant_repo
+2025-08-28 20:49:53 +0900|7ba0198||+277/-19 (9files)|0828-6|early_quant_repo
+2025-08-28 21:32:56 +0900|b470f61||+1749/-10 (8files)|0828-7codex|early_quant_repo
+2025-08-28 21:59:46 +0900|0f430b2||+873/-18 (8files)|0828|early_quant_repo
+2025-08-28 22:49:16 +0900|0ed7008||+19/-23 (2files)|0828-8end|early_quant_repo
+2025-08-29 23:13:48 +0900|7a89475|[REFACTOR]|+223/-303 (5files)|refactor: reexport system core and update docs|early_quant_repo
+2025-08-30 09:05:42 +0900|6c614f7|[FIX]|+3115/-2271 (4files)|0830cache_daily_data_fix|early_quant_repo
+2025-08-30 23:40:42 +0900|23f6851||+7704/-8 (9files)|0830codex-1|early_quant_repo
+2025-08-30 23:41:39 +0900|ce01c31||+2/-1 (1files)|0830-2|early_quant_repo
+2025-08-30 23:44:08 +0900|13194db||+47/-25 (2files)|0830-3|early_quant_repo
+2025-08-30 23:44:11 +0900|7206330||+213/-0 (1files)|0830-3|early_quant_repo
+2025-08-30 23:44:28 +0900|6355c6e||+3/-0 (1files)|0830-3|early_quant_repo
+2025-08-30 23:45:05 +0900|953ff32||+32/-14 (3files)|0830-4|early_quant_repo
+2025-08-30 23:47:28 +0900|b5dd9d0||+0/-140152 (42files)|Remove ignored files from tracking|early_quant_repo
+2025-08-31 12:39:46 +0900|193ecc7||+119/-4 (2files)|0831chat-1|early_quant_repo
+2025-08-31 12:53:31 +0900|6ec13f4||+233/-14 (3files)|0831patch適用前|early_quant_repo
+2025-08-31 13:01:42 +0900|13fb2a3||+2/-2 (1files)|0831 bak before i18n_apply_patch|early_quant_repo
+2025-08-31 14:53:38 +0900|69aed34||+1261/-97 (9files)|0831chat-1|early_quant_repo
+2025-08-31 16:35:02 +0900|a95470a||+87/-7 (1files)|0831claude1|early_quant_repo
+2025-08-31 16:38:47 +0900|1879974||+37/-30 (1files)|0831calude2|early_quant_repo
+2025-09-01 00:07:01 +0900|d6f10a4||+108/-75 (8files)|0831codex-1|early_quant_repo
+2025-09-01 00:39:58 +0900|b62b427||+171/-51 (11files)|0831codex-2|early_quant_repo
+2025-09-01 00:42:51 +0900|7036b2d||+3/-3 (1files)|0831_coment|early_quant_repo
+2025-09-01 09:26:19 +0900|f0148e1|[FEAT]|+117/-60 (2files)|feat(ui): add i18n toggle to integrated app|early_quant_repo
+2025-09-01 21:53:38 +0900|ec05dc5|[FEAT]|+14/-24 (9files)|feat(ui): switch language selector to checkbox|early_quant_repo
+2025-09-02 00:13:31 +0900|99ebb41||+0/-826 (6files)|0901-1|early_quant_repo
+2025-09-02 01:14:57 +0900|01b501a||+1424/-1909 (34files)|0901-2big change|early_quant_repo
+2025-09-02 01:40:12 +0900|19c416e||+613/-39 (12files)|0901-3|early_quant_repo
+2025-09-02 01:41:31 +0900|31f061a||+25/-95 (2files)|0901-3|early_quant_repo
+2025-09-02 01:46:40 +0900|21d0114|[FIX]|+0/-1 (1files)|fix(common): remove redundant try in ui_bridge|early_quant_repo
+2025-09-02 08:43:47 +0900|be4a4a8|[FEAT]|+46/-8 (3files)|feat(signals): notify via webhooks and use full universe|early_quant_repo
+2025-09-02 20:44:38 +0900|9a3de0b|[FEAT]|+493/-1 (11files)|feat(common): implement webhook notifier|early_quant_repo
+2025-09-02 21:38:48 +0900|865233f|[FEAT]|+798/-711 (14files)|docs: add contribution guidelines|early_quant_repo
+2025-09-02 21:40:42 +0900|9a680a5||+98/-5 (5files)|chore: integrate daily scheduler and data updates|early_quant_repo
+2025-09-02 21:49:57 +0900|15e075e|[FEAT]|+185/-0 (4files)|feat(common): merge signals by priority and score|early_quant_repo
+2025-09-03 01:01:37 +0900|0743dc5|[FIX]|+11/-8 (1files)|fix(common): guard Notifier when webhook is unset|early_quant_repo
+2025-09-03 07:48:52 +0900|71fcd80|[TEST]|+135/-8 (7files)|test: cover system1-7 backtest placeholders|early_quant_repo
+2025-09-03 14:34:49 +0900|847b0bd|[TEST]|+77/-0 (1files)|test: ensure integrated app main runs|early_quant_repo
+2025-09-03 15:13:11 +0900|a3399c2|[REFACTOR]|+100/-709 (33files)|refactor: consolidate modules and organize scripts|early_quant_repo
+2025-09-03 15:51:34 +0900|94ac646||+16/-17 (5files)|0903|early_quant_repo
+2025-09-03 16:58:24 +0900|3e28c87||+16/-3 (1files)|0903-2|early_quant_repo
+2025-09-03 18:31:43 +0900|4f4c142||+50/-0 (2files)|0903-3|early_quant_repo
+2025-09-03 19:40:06 +0900|fbfeeba||+108/-61 (11files)|0903-4|early_quant_repo
+2025-09-03 19:55:17 +0900|2f160cb||+34/-14 (2files)|0903-4|early_quant_repo
+2025-09-03 20:34:28 +0900|c0d3336||+38/-29 (3files)|0903-5|early_quant_repo
+2025-09-03 20:42:36 +0900|212dd78||+18/-2 (1files)|0903-6|early_quant_repo
+2025-09-03 22:15:36 +0900|5eff3fe|[FEAT,TEST]|+0/-0 (1files)|add test image for GitHub Pages|early_quant_repo
+2025-09-03 22:16:25 +0900|1eda1b3||+937/-162 (29files)|0903-6_codex|early_quant_repo
+2025-09-03 22:16:36 +0900|ca7a241||+0/-0 (1files)|0903-7|early_quant_repo
+2025-09-03 22:45:17 +0900|d9302c7|[FEAT,TEST]|+0/-0 (1files)|add image for GitHub Pages test|early_quant_repo
+2025-09-03 22:55:21 +0900|dd3efe0||+49/-22 (6files)|0903-7|early_quant_repo
+2025-09-03 23:15:58 +0900|c1bd465||+9/-1 (6files)|0903-8|early_quant_repo
+2025-09-03 23:51:11 +0900|ee785cb|[FIX]|+25/-36 (1files)|fix(common): group trade logs in expander|early_quant_repo
+2025-09-04 00:15:30 +0900|cb364e1|[FIX,FEAT]|+78/-50 (2files)|fix(common): add fallback text for slack|early_quant_repo
+2025-09-04 01:03:30 +0900|ad0260d||+37/-8 (3files)|chore(app): restore today signals app|early_quant_repo
+2025-09-04 01:14:34 +0900|ee7e336|[TEST]|+113/-0 (4files)|docs: instruct codex to run tests after each task|early_quant_repo
+2025-09-04 09:10:07 +0900|0185fb9|[FIX]|+28/-24 (1files)|fix(app_system1): show negative max drawdown with percent|early_quant_repo
+2025-09-04 09:27:18 +0900|b65b94f|[TEST]|+30/-49 (6files)|chore: drop pytest cache from repo|early_quant_repo
+2025-09-04 23:23:24 +0900|9bccd6d|[TEST]|+3/-1 (2files)|chore(pytest): enable coverage reporting|early_quant_repo
+2025-09-05 02:47:08 +0900|049a604||+353/-53 (21files)|0904codex-1|early_quant_repo
+2025-09-05 10:31:27 +0900|57644e1|[FIX]|+29/-2 (2files)|fix(common): enforce UTF-8 stdout|early_quant_repo
+2025-09-05 10:54:41 +0900|54bf127|[FEAT,TEST]|+100/-45 (1files)|feat(common): notify and summarize integrated backtest|early_quant_repo
+2025-09-05 11:40:27 +0900|2f9d765||+1/-1 (1files)|0905webhook|early_quant_repo
+2025-09-05 11:40:43 +0900|89f82d2||+0/-0 (3files)|0905-2|early_quant_repo
+2025-09-05 11:42:06 +0900|3819d18||+36/-33 (1files)|0905-3|early_quant_repo
+2025-09-05 11:53:56 +0900|109d1b6||+1/-1 (1files)|0905-4|early_quant_repo
+2025-09-05 12:17:46 +0900|6885863|[FIX]|+147/-83 (2files)|fix(app_system1): Slack/Discord通知を両対応化|early_quant_repo
+2025-09-05 15:05:27 +0900|532cb9f||+207/-320 (12files)|0905-6|early_quant_repo
+2025-09-05 15:09:03 +0900|3495467||+1/-3 (1files)|0905-7|early_quant_repo
+2025-09-05 15:29:00 +0900|fe25444|[REFACTOR]|+17/-30 (2files)|refactor(app_system1): consolidate ui_components import|early_quant_repo
+2025-09-05 15:44:28 +0900|9442123||+0/-0 (6files)|0903-9|early_quant_repo
+2025-09-05 15:47:15 +0900|ee1dda0||+0/-1 (1files)|0905-10|early_quant_repo
+2025-09-05 20:13:59 +0900|9350214||+96/-36 (6files)|0905-1|early_quant_repo
+2025-09-05 21:26:31 +0900|5bb611a||+15/-2 (2files)|0950-2|early_quant_repo
+2025-09-06 17:06:17 +0900|8ca57a7||+13135/-0 (121files)|Initial clean commit|quant_trading_system
+2025-09-06 17:11:03 +0900|f106e68|[FEAT]|+0/-0 (1files)|Add .env to .gitignore|quant_trading_system
+2025-09-06 17:13:22 +0900|ed2092a|[FEAT]|+0/-0 (1files)|0906-new_repo|quant_trading_system
+2025-09-06 21:31:06 +0900|c2a0788||+488/-1200 (18files)|0906-2|quant_trading_system
+2025-09-06 22:07:49 +0900|f48c236||+1338/-37 (2files)|0906-2|quant_trading_system
+2025-09-06 22:34:02 +0900|e17ddf1||+149/-153 (2files)|0906-3|quant_trading_system
+2025-09-06 23:21:11 +0900|5e4252c||+617/-167 (11files)|0906-4|quant_trading_system
+2025-09-06 23:33:09 +0900|de2c0d6|[FIX,FEAT,REFACTOR]|+31/-9 (4files)|.editorconfigを追加し、コーディングスタイルの一貫性を確保。VSCode設定を更新し、EOLとエンコーディングを指定。system4.pyでATR計算のフォーマットを改善し、system7_strategy.pyのprepare_dataメソッドの引数を型ヒント付きで修正。|quant_trading_system
+2025-09-06 23:44:38 +0900|1eede4d|[FEAT,REFACTOR]|+34/-15 (2files)|run_tab関数からインジケーター確認機能を削除し、generate_candidatesメソッドの引数処理を柔軟に改善。ATRの計算時にNone/NaNを考慮し、リスク計算の条件を追加。|quant_trading_system
+2025-09-06 23:57:51 +0900|031f5de|[FIX,REFACTOR]|+122/-139 (8files)|型ヒントを改善し、辞書の値の型をAnyに変更。データフレームの年の抽出を堅牢にし、エラーハンドリングを強化。UIの数値入力を整形し、コードの可読性を向上。|quant_trading_system
+2025-09-07 00:04:52 +0900|5c51a14|[FEAT]|+115/-0 (1files)|資産推移と実行日数のチェック機能を追加し、資金不足の可能性を判定するロジックを実装。資金が0以下または初期資金の10%未満になった日を表示し、CSVダウンロード機能を追加。|quant_trading_system
+2025-09-07 00:43:03 +0900|bac3280|[FEAT,REFACTOR]|+444/-117 (5files)|資産推移と実行日数のチェック機能を追加し、資金不足の可能性を判定するロジックを実装。資金が0以下または初期資金の10%未満になった日を表示する機能を追加。Alpacaからの残高取得機能を実装し、UIの数値入力を改善。ログ表示機能を強化し、選択理由を表示する機能を追加。|quant_trading_system
+2025-09-07 01:19:32 +0900|6db9c26|[FEAT,REFACTOR,TEST]|+2424/-66 (6files)|Refactor input handling in app_today_signals.py and ui_tabs.py; enhance Alpaca client initialization in broker_alpaca.py; update universe_auto.txt with additional tickers; add alpaca_fetchtest.py for account and order retrieval.|quant_trading_system
+2025-09-07 13:07:15 +0900|75a345c|[FIX]|+95/-38 (3files)|fix(ui): resolve conflicts for today signals|quant_trading_system
+2025-09-07 14:32:22 +0900|2b1cebf|[FIX,FEAT]|+15/-6 (1files)|fix(app): add unique keys for download buttons|quant_trading_system
+2025-09-07 05:37:49 +0000|0bb9277||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-07 05:42:03 +0000|7c07065||+0/-0 (1files)|初期計画: branch0906をmainにマージするためのPR作成準備|quant_trading_system
+2025-09-07 05:45:53 +0000|0841112|[FIX,FEAT]|+9720/-331 (16files)|feat: branch0906をmainにマージ - 機能拡張とバグ修正の統合|quant_trading_system
+2025-09-07 18:24:14 +0900|ff8ea13|[REFACTOR]|+20/-8 (1files)|refactor(app): improve code readability and type hints in Alpaca account handling|quant_trading_system
+2025-09-07 19:20:40 +0900|c45e7ee|[FEAT,REFACTOR]|+80/-12 (2files)|feat: 資産管理機能の改善とシステム別シグナル表示の追加|quant_trading_system
+2025-09-07 19:27:22 +0900|9d55f80|[FEAT,REFACTOR]|+10/-2 (2files)|feat: 注文状況ポーリング機能の説明を追加し、成功・警告メッセージの処理を改善|quant_trading_system
+2025-09-07 19:49:37 +0900|805c7d5|[FEAT]|+44/-0 (2files)|feat: add UUID-safe JSON serialization helper|quant_trading_system
+2025-09-07 19:56:16 +0900|4c2fbc5|[FEAT]|+104/-0 (4files)|feat(app): add Alpaca status dashboard|quant_trading_system
+2025-09-07 20:18:12 +0900|d6fefa0|[FEAT]|+36/-9 (2files)|feat(ui): add cancel-all-orders button|quant_trading_system
+2025-09-07 21:16:13 +0900|db2e687|[FIX]|+1/-0 (1files)|fix(settings): ensure max line length is set to 88|quant_trading_system
+2025-09-07 21:37:44 +0900|9740308|[FIX,FEAT,REFACTOR,TEST]|+34/-19 (5files)|feat(slack): add test script for sending messages to Slack channels fix(settings): remove deprecated max_line_length setting and ensure proper formatting refactor(broker_alpaca): improve code readability and error handling chore(requirements): update alpaca-py dependency specification|quant_trading_system
+2025-09-07 22:01:30 +0900|96d3aed|[FEAT]|+110/-32 (4files)|feat(notifications): aggregate trade alerts with amounts|quant_trading_system
+2025-09-07 22:08:09 +0900|3eaf43f|[FEAT,TEST]|+92/-19 (5files)|feat(slack): add script for sending test messages to Slack channels|quant_trading_system
+2025-09-07 22:17:11 +0900|c2b006e|[FEAT]|+95/-15 (1files)|feat(dashboard): enhance UI with modern CSS and Japanese labels for metrics|quant_trading_system
+2025-09-07 22:36:45 +0900|080bd92|[FEAT]|+7/-1 (3files)|feat(linting): update flake8 configuration and add to pre-commit hooks|quant_trading_system
+2025-09-07 23:03:15 +0900|7cd028e|[FEAT]|+7/-1 (3files)|chore(dev): add flake8 formatting hooks|quant_trading_system
+2025-09-08 00:10:53 +0900|aea77cd|[FEAT,REFACTOR]|+223/-35 (4files)|feat(dashboard): improve data loading and caching for signal computation|quant_trading_system
+2025-09-08 08:50:26 +0900|0164e3b|[FIX]|+4/-0 (1files)|fix(app): reset DataFrame index in today signals|quant_trading_system
+2025-09-08 08:59:29 +0900|e61a6af|[FEAT]|+253/-4 (6files)|feat(cache): add two-tier cache management|quant_trading_system
+2025-09-08 09:00:47 +0900|4962684|[FEAT]|+49/-0 (1files)|docs: classify indicator implementations|quant_trading_system
+2025-09-08 09:30:44 +0900|9b79e4b|[REFACTOR]|+242/-48 (6files)|refactor(cache): use CacheManager in daily cache script|quant_trading_system
+2025-09-08 21:10:59 +0900|7eb194a|[REFACTOR]|+118/-105 (2files)|refactor(scripts): use rolling cache|quant_trading_system
+2025-09-08 22:12:07 +0900|dc4dbbb||+17/-0 (1files)|docs: record system allocations|quant_trading_system
+2025-09-08 22:28:16 +0900|ea02865|[FEAT]|+198/-13 (9files)|feat(strategies): define entry rules for systems2-7|quant_trading_system
+2025-09-09 00:09:18 +0900|65989c7|[REFACTOR]|+625/-302 (23files)|Refactor and enhance trading systems and indicators|quant_trading_system
+2025-09-09 00:17:05 +0900|183769b|[FEAT]|+156/-19 (3files)|feat(strategy): add StrategyProtocol for strategy methods and enhance base strategy class|quant_trading_system
+2025-09-09 00:36:25 +0900|2bfcdaf|[FIX,FEAT,REFACTOR]|+15/-3 (1files)|fix(cache): implement dummy function for _migrate_root_csv_to_full and improve path handling in cache_single|quant_trading_system
+2025-09-09 00:46:21 +0900|91414ce|[TEST]|+147/-4 (4files)|chore: revert coverage artifact|quant_trading_system
+2025-09-09 08:36:18 +0900|9772a4c||+270/-147 (10files)|chore: switch system4 volatility to HV50|quant_trading_system
+2025-09-09 08:47:57 +0900|1a7982f|[FIX]|+71/-9 (3files)|fix(cache): sync recent cache when file already up-to-date|quant_trading_system
+2025-09-09 08:51:49 +0900|b418196||+25/-34 (5files)|chore(system3): rename DropRate_3D to Drop3D and update docs|quant_trading_system
+2025-09-09 12:24:57 +0900|8906e86||+1/-0 (1files)|docs: note UI symbol data preload|quant_trading_system
+2025-09-09 20:53:46 +0900|76e7cc9|[FEAT]|+72/-8 (2files)|feat(dashboard): add system allocation pie charts|quant_trading_system
+2025-09-09 20:54:52 +0900|7464c86|[FEAT]|+15/-20 (2files)|feat(notifier): enrich slack signal message|quant_trading_system
+2025-09-09 21:22:26 +0900|ef73c26|[FEAT]|+72/-0 (3files)|feat(tools): include daily charts in signal notifications|quant_trading_system
+2025-09-09 22:12:59 +0900|aa321e7|[FIX]|+117/-46 (2files)|fix(signals): avoid streamlit rerun in parallel|quant_trading_system
+2025-09-10 00:08:06 +0000|0328550||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:09:21 +0000|d80c3db||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:09:42 +0000|5aebac0||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:11:05 +0000|cb67c51||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:11:54 +0000|eb55f7a||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:12:15 +0000|b309821||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 09:14:38 +0900|60d84c8|[FEAT]|+125/-51 (4files)|feat: add position age utilities|quant_trading_system
+2025-09-10 00:15:29 +0000|9e27bb2||+0/-0 (1files)|Initial plan: Define named constants for magic numbers in strategies|quant_trading_system
+2025-09-10 00:15:42 +0000|d151f90|[FIX]|+0/-0 (1files)|Initial plan to fix redundant getattr 'or 0' pattern|quant_trading_system
+2025-09-10 00:18:10 +0000|5eac03d|[FIX,REFACTOR]|+1/-3 (1files)|fix: simplify list comprehension for better readability in app_today_signals.py|quant_trading_system
+2025-09-10 00:18:23 +0000|7f49655||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 00:19:29 +0000|fb831ec|[REFACTOR]|+124/-1 (2files)|Optimize SPY max_70 calculation by avoiding redundant computation|quant_trading_system
+2025-09-10 00:21:13 +0000|949a8d6|[FIX,FEAT]|+109/-3 (3files)|Fix redundant 'or 0' patterns and create getattr redundancy fix tool|quant_trading_system
+2025-09-10 00:21:50 +0000|b9826e1||+40/-9 (4files)|Define named constants for magic numbers in strategy files|quant_trading_system
+2025-09-10 00:22:16 +0000|7ee9c87|[FIX,TEST]|+148/-0 (2files)|fix(tests): change zip() to use strict=True for DataFrame validation|quant_trading_system
+2025-09-10 00:26:43 +0000|471d576||+28/-9 (5files)|Replace magic numbers with named constants in strategy and core modules|quant_trading_system
+2025-09-10 03:38:48 +0000|75a33ef||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-10 12:54:01 +0900|48bd89a|[FIX]|+124/-68 (8files)|fix(strategies): centralize magic numbers into shared constants|quant_trading_system
+2025-09-10 12:56:00 +0900|5158e60|[FIX,REFACTOR]|+15/-4 (2files)|fix(scripts): simplify string concatenation in run_all_systems_today|quant_trading_system
+2025-09-10 22:12:28 +0900|1e5e815|[FEAT]|+203/-20 (14files)|feat(common): scale batch size for small universes|quant_trading_system
+2025-09-10 22:39:55 +0900|f729261|[FEAT]|+425/-168 (8files)|feat(core): cache incremental System2-7 indicators|quant_trading_system
+2025-09-10 22:41:37 +0900|7b82cd0|[FEAT]|+86/-10 (2files)|feat(common): add async prefetch loader|quant_trading_system
+2025-09-10 22:51:14 +0900|d62143d|[FEAT]|+231/-50 (9files)|feat(core): auto-tune batch size for systems2-7|quant_trading_system
+2025-09-10 23:22:53 +0900|8bb97c5|[REFACTOR]|+738/-205 (18files)|Refactor indicator computation across systems to support parallel processing|quant_trading_system
+2025-09-10 23:37:56 +0900|f4c6e14|[REFACTOR]|+0/-2 (2files)|refactor: remove obsolete cache_daily_data.py and today_signal.py files|quant_trading_system
+2025-09-10 23:56:32 +0900|b963629|[FIX]|+42/-3 (1files)|fix(cache): migrate legacy csv caches|quant_trading_system
+2025-09-11 06:16:01 +0900|efcaec2|[FEAT]|+49/-3 (1files)|feat(cache): implement legacy CSV migration to CacheManager structure|quant_trading_system
+2025-09-11 06:27:51 +0900|f51618f|[FIX,REFACTOR]|+12/-61 (1files)|fix(cache): refactor CSV migration logic in _migrate_root_csv_to_full function|quant_trading_system
+2025-09-11 06:49:15 +0900|edc956b|[FIX,FEAT]|+92/-1 (1files)|feat(ui): enhance integrated UI with additional settings display and error handling|quant_trading_system
+2025-09-11 07:53:44 +0900|1ee3174|[FEAT]|+29/-4 (1files)|feat(cache): implement dynamic cache directory resolution and update command-line arguments for SPY data fetching|quant_trading_system
+2025-09-11 08:00:45 +0900|bae6199|[FEAT]|+49/-9 (1files)|feat(cache): add group resolution and support for saving SPY data to multiple directories|quant_trading_system
+2025-09-11 08:15:33 +0900|e1d365b|[REFACTOR]|+20/-24 (1files)|refactor(scripts): deduplicate cache migration|quant_trading_system
+2025-09-11 08:21:17 +0900|d3334cc|[FIX]|+58/-4 (3files)|fix(cache): handle legacy Date column in cache|quant_trading_system
+2025-09-11 08:49:32 +0900|4f7b5a0|[FEAT]|+46/-21 (4files)|feat(app): show positions and profit checks|quant_trading_system
+2025-09-11 08:57:10 +0900|5098cb6|[FIX]|+56/-14 (1files)|fix(dashboard): compute holding days for positions|quant_trading_system
+2025-09-11 09:08:17 +0900|e3d1b17|[REFACTOR]|+18/-10 (2files)|refactor(core): simplify system7 for single symbol|quant_trading_system
+2025-09-11 09:10:09 +0900|34c4a30|[FIX]|+49/-7 (2files)|fix(common): handle 70-day high check failure|quant_trading_system
+2025-09-11 09:22:45 +0900|c82e881|[FIX]|+8/-26 (3files)|fix: make positions df resilient and preserve max_70|quant_trading_system
+2025-09-12 22:48:04 +0900|71c636b||+13/-32 (2files)|Checkpoint from VS Code for coding agent session|quant_trading_system
+2025-09-12 13:48:10 +0000|040ff48||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-12 22:54:27 +0900|68c1377|[FIX]|+97/-19 (2files)|fix(system1): ensure groupby keys are explicitly converted to string|quant_trading_system
+2025-09-12 23:05:17 +0900|769684d|[REFACTOR]|+5/-75 (1files)|refactor(system1): remove SPY data download functionality and streamline data retrieval|quant_trading_system
+2025-09-13 07:06:11 +0900|8eb3a2d|[REFACTOR]|+374/-22 (10files)|refactor(system1): remove SPY data download utility and enhance data handling in core logic|quant_trading_system
+2025-09-13 08:34:16 +0900|2e9c9d9|[REFACTOR]|+676/-228 (5files)|Refactor Alpaca order management and logging|quant_trading_system
+2025-09-13 09:40:58 +0900|bb5b5e7|[REFACTOR,TEST]|+15/-14 (1files)|refactor(app_today_signals): improve checkbox handling and streamline test mode options|quant_trading_system
+2025-09-13 09:55:39 +0900|f8ec95c|[REFACTOR,TEST]|+103/-79 (4files)|refactor(app_today_signals): enhance checkbox handling for test mode options refactor(common): improve logging and streamline order management in Alpaca integration|quant_trading_system
+2025-09-13 10:25:11 +0900|44ca642|[FIX,FEAT,REFACTOR]|+84/-27 (2files)|refactor(app_today_signals): improve checkbox handling and error management in unique checkbox implementation|quant_trading_system
+2025-09-13 10:32:09 +0900|011afc9|[REFACTOR,TEST]|+0/-1 (1files)|refactor(app_today_signals): remove duplicate checkbox for test mode symbol limit|quant_trading_system
+2025-09-13 10:35:40 +0900|2f3364e|[REFACTOR,TEST]|+11/-19 (1files)|refactor(app_today_signals): streamline test mode options for symbol selection|quant_trading_system
+2025-09-13 11:10:39 +0900|c262c17|[FEAT,REFACTOR]|+171/-57 (8files)|refactor: replace equity curve saving with price chart saving and add trade markers|quant_trading_system
+2025-09-13 11:51:57 +0900|2647488|[FEAT,REFACTOR]|+143/-112 (3files)|refactor(app_today_signals): add logging functionality and improve elapsed time display|quant_trading_system
+2025-09-13 11:58:56 +0900|d7bfa34|[REFACTOR]|+30/-90 (1files)|refactor(utils_spy): simplify SPY cache loading and remove automatic update logic|quant_trading_system
+2025-09-13 12:00:34 +0900|8842c63|[FIX,REFACTOR]|+106/-39 (2files)|refactor(utils): improve data caching logic and error handling in get_cached_data function refactor(update_from_bulk_last_day): enhance append_to_cache function with CacheManager integration and improve error handling|quant_trading_system
+2025-09-13 12:06:42 +0900|e17141a|[REFACTOR]|+2/-2 (1files)|refactor(system3): optimize DataFrame copying by using shallow copy for performance|quant_trading_system
+2025-09-13 12:07:27 +0900|36c80d1|[FIX,REFACTOR]|+45/-35 (1files)|refactor(utils): enhance get_cached_data function with improved date handling and error management|quant_trading_system
+2025-09-13 14:34:48 +0900|a2b56b7|[REFACTOR]|+489/-233 (15files)|Refactor cache management and improve data handling|quant_trading_system
+2025-09-13 15:05:54 +0900|2b1a7ba|[FEAT,REFACTOR]|+146/-27 (2files)|refactor(progress): add progress bar and logging for signal computation steps|quant_trading_system
+2025-09-13 15:59:33 +0900|747d173|[FEAT,REFACTOR]|+489/-416 (6files)|refactor(logging): enhance logging functionality and add progress callback for signal processing|quant_trading_system
+2025-09-13 17:17:21 +0900|e2baa85|[FEAT,REFACTOR]|+107/-6 (3files)|refactor(indicators): add precomputation of shared indicators and filter UI logs|quant_trading_system
+2025-09-13 17:29:09 +0900|3fd3107|[REFACTOR]|+42/-5 (3files)|refactor(logging): enhance logging function to control UI callback output|quant_trading_system
+2025-09-13 17:41:19 +0900|8a21aab|[FEAT,REFACTOR]|+102/-18 (2files)|refactor(indicators): add parallel processing option for shared indicators precomputation|quant_trading_system
+2025-09-13 17:46:23 +0900|09527b2|[REFACTOR]|+5/-6 (1files)|refactor(logging): update logging to include timestamp in UI and log start of signal detection|quant_trading_system
+2025-09-13 17:47:01 +0900|c89f812|[REFACTOR]|+43/-21 (2files)|refactor(logging): improve log messages for filtering and setup checks in signal processing|quant_trading_system
+2025-09-13 18:40:39 +0900|a7c55d7|[FEAT,REFACTOR]|+42/-0 (1files)|refactor(instructions): add comprehensive guidelines for tone, writing style, and output format|quant_trading_system
+2025-09-13 19:35:30 +0900|3b55e3a|[REFACTOR]|+156/-47 (3files)|refactor(signals): enhance signal processing with automatic buying power updates and improved filtering logic|quant_trading_system
+2025-09-13 19:37:44 +0900|f713f11|[FEAT,REFACTOR]|+60/-0 (1files)|refactor(account): enhance Alpaca account information handling with additional state variables and update functionality|quant_trading_system
+2025-09-13 19:43:33 +0900|bbed327|[REFACTOR]|+22/-21 (1files)|refactor(instructions): improve clarity and formatting in guidelines for tone and writing style|quant_trading_system
+2025-09-13 20:25:22 +0900|880078a|[REFACTOR]|+357/-191 (13files)|refactor: optimize code structure and improve performance across multiple files|quant_trading_system
+2025-09-13 20:55:06 +0900|4dd6412|[REFACTOR]|+92/-65 (4files)|refactor: enhance type annotations and improve function signatures in runner and strategy files|quant_trading_system
+2025-09-13 21:03:56 +0900|9056021|[REFACTOR]|+90/-28 (3files)|refactor: improve logging clarity and system order consistency in signal processing|quant_trading_system
+2025-09-13 21:32:09 +0900|5faa6af|[FEAT,REFACTOR]|+179/-41 (4files)|refactor: add per-system progress tracking and stage updates for signal execution|quant_trading_system
+2025-09-13 21:35:08 +0900|11c9446|[REFACTOR]|+17/-1 (2files)|refactor: enhance progress tracking and stage updates for system execution|quant_trading_system
+2025-09-13 22:35:51 +0900|715c63e|[REFACTOR]|+158/-43 (2files)|refactor: enhance logging format for better context in system execution|quant_trading_system
+2025-09-13 22:36:04 +0900|47c9503|[FEAT]|+60/-0 (1files)|docs: add initial Copilot instructions for AI coding agent usage|quant_trading_system
+2025-09-14 07:41:45 +0900|4bdb40f|[REFACTOR]|+65/-122 (3files)|refactor: streamline progress tracking and enhance filtering logic in signal processing|quant_trading_system
+2025-09-14 07:41:58 +0900|4e1b926|[REFACTOR]|+486/-86 (9files)|refactor: enhance signal processing and caching mechanisms, improve logging and progress tracking|quant_trading_system
+2025-09-14 10:21:45 +0900|206fcfd|[FEAT]|+809/-96 (13files)|feat: Add daily metrics tracking and reporting functionality|quant_trading_system
+2025-09-14 10:55:09 +0900|14d35d1|[FEAT,REFACTOR]|+41/-14 (3files)|refactor: improve logging in notifier and batch processing, add keyword filtering for log messages|quant_trading_system
+2025-09-14 11:06:35 +0900|b239b84|[FIX,REFACTOR]|+88/-20 (3files)|refactor: enhance Streamlit UI detection and error handling in utils_spy and i18n modules|quant_trading_system
+2025-09-14 11:06:57 +0900|2c15525|[FEAT,REFACTOR,TEST]|+0/-0 (1files)|feat: add coverage report file for improved test tracking|quant_trading_system
+2025-09-14 11:10:48 +0900|de2783d|[REFACTOR]|+4/-1 (2files)|refactor: update requirements to include alpaca-trade-api and adjust network stack dependencies|quant_trading_system
+2025-09-14 11:20:09 +0900|107949c|[FEAT,REFACTOR]|+74/-43 (2files)|feat: add Streamlit context detection and improve logging visibility|quant_trading_system
+2025-09-14 11:30:25 +0900|fe22e7c|[FEAT]|+49/-0 (2files)|feat: add Streamlit context check and display metrics for each system|quant_trading_system
+2025-09-14 11:31:08 +0900|07160c5|[FIX]|+23/-23 (10files)|fix: update yearly and monthly resampling frequency from 'Y' to 'YE' and 'M' to 'ME' for accurate data aggregation|quant_trading_system
+2025-09-14 13:40:51 +0900|d82ae12|[FEAT]|+448/-149 (3files)|feat: add symbol-system mapping persistence and implement exit order submission functionality|quant_trading_system
+2025-09-14 14:02:56 +0900|fc18c37|[FEAT]|+411/-19 (5files)|feat: implement positions tab and scheduled exit order functionality|quant_trading_system
+2025-09-14 15:25:39 +0900|9d699da|[FEAT]|+421/-105 (6files)|feat: add account summary and planned exits management to positions tab|quant_trading_system
+2025-09-14 16:37:38 +0900|08bafd2|[FEAT,REFACTOR]|+57/-21 (4files)|feat: 日本語でのメトリクス表示を追加し、対象銘柄数の表示を改善|quant_trading_system
+2025-09-14 17:14:49 +0900|392d520|[FEAT,REFACTOR]|+151/-79 (2files)|feat: Windows環境での並列実行オプションを追加し、System2フィルター内訳の可視化を改善|quant_trading_system
+2025-09-14 17:39:58 +0900|70a1d42|[FEAT,REFACTOR]|+82/-57 (1files)|feat: 並列実行オプションの設定をサイドバーに移動し、プロセスプールの設定を改善|quant_trading_system
+2025-09-14 17:47:07 +0900|6a76cfc|[FEAT,REFACTOR]|+25/-10 (3files)|feat: ユニバース件数を引数として追加し、ログ出力を改善|quant_trading_system
+2025-09-14 18:03:38 +0900|9869fcb|[FEAT,REFACTOR]|+9/-3 (3files)|Implement code changes to enhance functionality and improve performance|quant_trading_system
+2025-09-14 18:14:21 +0900|de834ae|[FEAT]|+76/-154 (5files)|（（復元した））feat: 不要なユニバース件数引数を削除し、ログ出力を簡素化|quant_trading_system
+2025-09-14 18:34:27 +0900|f15459a|[FEAT,REFACTOR]|+120/-63 (1files)|feat: 並列実行オプションのデフォルト設定を改善し、Windows環境でのプロセスプール設定を追加|quant_trading_system
+2025-09-14 18:36:31 +0900|88e4495|[FEAT,REFACTOR]|+45/-34 (1files)|feat: ログ出力を改善し、CLI 出力に経過時間を追加|quant_trading_system
+2025-09-14 18:40:40 +0900|0ed1fdf|[FIX,FEAT,REFACTOR]|+93/-82 (3files)|feat: コードの整理と可読性向上のためのインポート順序の修正|quant_trading_system
+2025-09-14 18:59:56 +0900|8a2c891|[FEAT]|+192/-90 (2files)|feat: 並列実行の詳細設定を削除し、システムフィルター内訳を追加|quant_trading_system
+2025-09-14 19:54:44 +0900|212eb3d|[FIX,FEAT]|+87/-25 (3files)|feat: Notifierのインポートを修正し、create_notifierを使用するように変更|quant_trading_system
+2025-09-14 20:24:51 +0900|360b3fc|[FEAT,REFACTOR]|+312/-20 (4files)|feat: フェーズ表示の改善とシステム別セットアップ内訳のログ出力を追加|quant_trading_system
+2025-09-14 21:46:29 +0900|08a12b2|[FEAT]|+346/-33 (5files)|feat: システム別のメトリクス表示を追加し、CLI バナーを強化|quant_trading_system
+2025-09-14 22:29:21 +0900|3aa113b|[FEAT,REFACTOR]|+128/-67 (2files)|feat: メトリクス表示の改善とデータ抽出ヘルパーを追加|quant_trading_system
+2025-09-14 22:51:46 +0900|f51bf2e|[FEAT,REFACTOR]|+49/-52 (3files)|feat: メトリクス表示の改善とログ出力の重複防止を実装|quant_trading_system
+2025-09-14 22:52:52 +0900|22fa815|[FEAT,REFACTOR]|+4/-4 (1files)|feat: システムの進行状況表示を改善し、テキストを短縮|quant_trading_system
+2025-09-14 22:54:08 +0900|0662c22|[FEAT]|+0/-0 (1files)|feat: カバレッジ情報を保存するための新しいファイルを追加|quant_trading_system
+2025-09-14 23:07:12 +0900|db70efa|[TEST]|+34/-14 (1files)|chore: restore coverage data|quant_trading_system
+2025-09-15 05:48:13 +0900|fe85dfe|[FEAT,REFACTOR]|+205/-19 (7files)|feat: OHLCV列名の大小文字を統一するヘルパー関数を追加し、データフレームの整形を改善|quant_trading_system
+2025-09-15 05:58:56 +0900|1471013|[FIX]|+3/-18 (1files)|fix: 重複インポートを削除し、キャッシュの読み込み処理を簡素化|quant_trading_system
+2025-09-15 07:10:35 +0900|52698af|[FEAT,REFACTOR]|+224/-15 (3files)|feat: 共有指標の前計算ログを表示対象に追加し、データ補完処理を改善|quant_trading_system
+2025-09-15 07:54:15 +0900|eeae6c9|[FEAT]|+362/-586 (1files)|feat: 新しいデータローダーを追加し、OHLCV列名の正規化を実装|quant_trading_system
+2025-09-15 07:59:57 +0900|c217a8b|[FEAT,REFACTOR]|+620/-545 (1files)|Implement code changes to enhance functionality and improve performance|quant_trading_system
+2025-09-15 08:00:06 +0900|a063e24|[FEAT]|+0/-0 (1files)|feat: カバレッジレポート用の新しいバイナリファイルを追加|quant_trading_system
+2025-09-15 08:19:09 +0900|5b77717|[FEAT,REFACTOR]|+53/-11 (2files)|feat: 補完処理のログ出力を改善し、プロセスプールの使用条件を明確化|quant_trading_system
+2025-09-15 08:41:03 +0900|44e1ce7|[FEAT,REFACTOR]|+1435/-1273 (2files)|Implement code changes to enhance functionality and improve performance|quant_trading_system
+2025-09-15 08:41:17 +0900|fd56f01|[FEAT]|+0/-0 (1files)|feat: 新しいカバレッジレポート用のバイナリファイルを追加|quant_trading_system
+2025-09-15 09:56:31 +0900|3c57a38|[FEAT]|+323/-28 (4files)|feat: システムログのクリア処理を追加し、SMA50の計算を実装|quant_trading_system
+2025-09-15 11:15:08 +0900|6469983|[FEAT,REFACTOR]|+163/-118 (3files)|feat: UI ログ出力の改善と Exit 件数の即時反映機能を追加|quant_trading_system
+2025-09-15 11:59:08 +0900|416809c|[FEAT,REFACTOR]|+50/-4 (3files)|feat: シグナル表示のメトリクス改善と候補生成のログメッセージを明確化|quant_trading_system
+2025-09-15 12:14:55 +0900|c3a36a0|[FEAT,REFACTOR]|+101/-45 (6files)|feat: 当日のトレード候補件数の取得ロジックを改善し、最も近い未来日の候補を考慮|quant_trading_system
+2025-09-15 12:15:07 +0900|ff4a175|[FEAT]|+0/-0 (1files)|feat: 新しいカバレッジレポート用のバイナリファイルを追加|quant_trading_system
+2025-09-15 12:48:43 +0900|ff6fcfe|[FEAT,REFACTOR]|+18/-10 (2files)|feat: メトリクス通知のフォーマットを改善し、テーブル形式で表示|quant_trading_system
+2025-09-15 13:04:24 +0900|a68681b|[FEAT,REFACTOR]|+62/-12 (3files)|feat: システム別のTop10を個別に出力し、フィルタ条件を改善|quant_trading_system
+2025-09-15 13:11:50 +0900|efe7805|[FEAT,REFACTOR]|+15/-6 (5files)|feat: system7のロジックを改善し、コメントを明確化|quant_trading_system
+2025-09-15 13:13:23 +0900|e07bab2|[FEAT,REFACTOR]|+14/-17 (2files)|feat: メトリクス通知のフォーマットを改善し、フィールド形式で表示|quant_trading_system
+2025-09-15 13:26:35 +0900|5eb7009|[FEAT]|+19/-11 (1files)|feat: 日本語ラベルを追加し、進捗表示を統一|quant_trading_system
+2025-09-15 13:54:19 +0900|1b534a3|[FIX,FEAT,REFACTOR]|+15/-16 (2files)|feat: get_today_signals_for_strategy関数のエラーハンドリングを改善し、ターゲット日付の設定を修正|quant_trading_system
+2025-09-15 13:58:31 +0900|fadce51|[FEAT]|+1/-0 (1files)|feat: compute_today_signals関数にEODHDの計算方法に関する注記を追加|quant_trading_system
+2025-09-15 14:17:03 +0900|b90103a|[FEAT,REFACTOR]|+53/-10 (3files)|feat: Slack通知のメッセージ送信を改善し、ブロック形式をサポート|quant_trading_system
+2025-09-15 14:30:27 +0900|87aacb4|[FEAT]|+42/-11 (3files)|feat: get_today_signals_for_strategy関数の候補キーの正規化を追加し、TRDlist件数の即時通知を実装|quant_trading_system
+2025-09-15 14:50:06 +0900|1d8f64b|[FEAT,REFACTOR]|+66/-75 (9files)|feat: Slack Web APIへの移行に伴う通知機能の改善と設定の更新|quant_trading_system
+2025-09-15 15:32:52 +0900|b8efe43|[FIX,FEAT]|+84/-18 (3files)|feat: get_today_signals_for_strategy関数の前営業日取得方法をNYSEカレンダーに基づくように修正し、TRDlistの候補件数通知を追加|quant_trading_system
+2025-09-15 15:33:04 +0900|a6888af|[FEAT,TEST]|+0/-0 (1files)|feat: .coverageファイルを新規作成し、カバレッジ情報を管理|quant_trading_system
+2025-09-15 16:40:57 +0900|1f3df63|[FEAT,REFACTOR]|+215/-42 (3files)|feat: Streamlitのチェックボックスにセッションステートを追加し、Alpaca自動発注の設定を改善|quant_trading_system
+2025-09-15 16:41:12 +0900|aa53d4a|[FEAT,TEST]|+0/-0 (1files)|feat: .coverageファイルを新規作成し、カバレッジ情報を管理|quant_trading_system
+2025-09-15 17:03:47 +0900|9241998|[FEAT,REFACTOR]|+45/-3 (4files)|feat: CSV保存機能の改善とファイル名形式の選択肢を追加|quant_trading_system
+2025-09-15 17:58:26 +0900|600a485|[FEAT]|+248/-80 (9files)|feat: Slack通知機能を追加し、未約定注文の表示機能を実装|quant_trading_system
+2025-09-15 18:01:29 +0900|fbdbc84|[FEAT,REFACTOR]|+90/-20 (1files)|feat: Slack通知設定の改善と再表示機能を追加|quant_trading_system
+2025-09-15 18:16:36 +0900|7869698|[FEAT,REFACTOR,TEST]|+105/-13 (6files)|feat: データフレームの列名を小文字化し、重複を除去する機能を追加 feat: Slack通知の送信時にテキストブロックを追加 feat: 注文IDをUUID形式から文字列に変換する処理を追加 feat: 画像を縦に結合する機能を追加し、通知に送信するチャートを改善 test: Slack通知の送信が一度だけ行われることを確認するテストを追加|quant_trading_system
+2025-09-15 18:18:12 +0900|7a5ced3|[FEAT]|+24/-35 (1files)|feat: リラン後の結果再表示を有効にするフラグをリセットする機能を追加|quant_trading_system
+2025-09-15 18:23:45 +0900|7c6038d|[FEAT]|+42/-1 (3files)|feat: CSV自動保存機能を追加し、保存先とファイル名形式を選択可能に|quant_trading_system
+2025-09-15 18:27:40 +0900|0646f1b|[FIX,FEAT]|+17/-1 (3files)|feat: システム別CSVの自動保存機能を追加し、空のデータフレームはスキップするように修正|quant_trading_system
+2025-09-15 18:27:52 +0900|5351be5|[FEAT]|+0/-0 (1files)|feat: カバレッジ情報を保存するための新しいファイルを追加|quant_trading_system
+2025-09-15 22:04:39 +0900|bdee954|[FEAT]|+397/-61 (12files)|feat: 自動保存機能を追加し、手動保存ボタンを残す。手仕舞い計画の自動実行オプションを追加。エントリーキャッシュ機能を実装し、通知機能を強化。|quant_trading_system
+2025-09-15 22:22:01 +0900|0edc606|[FEAT]|+15/-22 (4files)|feat: Slack通知を有効化するデフォルト設定を変更し、ドライランオプションのデフォルトを実発注に変更|quant_trading_system
+2025-09-15 22:22:14 +0900|300e123|[FEAT]|+0/-0 (1files)|feat: カバレッジ情報を保存するための新しいファイルを追加|quant_trading_system
+2025-09-16 12:45:26 +0900|f78203d|[FEAT,REFACTOR,TEST]|+394/-64 (8files)|feat: シンボルとシステムのマッピングをロードする機能を追加し、キャッシュマネージャーのデータ処理を改善。Plotlyを使用したグラフ表示を実装し、テストを追加。|quant_trading_system
+2025-09-16 12:45:38 +0900|8729a4e|[FEAT]|+0/-0 (1files)|feat: カバレッジ情報のバイナリファイルを更新|quant_trading_system
+2025-09-16 13:31:29 +0900|37d47fc|[FEAT]|+58/-17 (1files)|feat: plotlyのインポートをオプショナルにし、_safe_float関数を追加して値を安全に変換する機能を実装|quant_trading_system
+2025-09-16 14:32:13 +0900|ace7d0d|[FEAT]|+33/-2 (1files)|feat(scripts): include run summary details in notifications|quant_trading_system
+2025-09-16 14:37:28 +0900|b5a2512|[FIX,FEAT]|+41/-4 (3files)|feat: 経過日手仕切りの上限日数を定義し、表示機能を追加。コードの可読性を向上させるためにインデントを修正|quant_trading_system
+2025-09-16 15:13:28 +0900|05a277f|[FEAT,REFACTOR]|+154/-25 (1files)|feat: 現在のアクティブポジション数をシステム名ごとに取得する機能を追加し、資金配分のロジックを改善。ログ出力を強化し、利用可能スロットを表示する機能を実装|quant_trading_system
+2025-09-16 15:59:32 +0900|6bfa51d|[FEAT]|+380/-3 (8files)|feat: 各システムのデータ処理において、必須列の存在チェックを追加し、スキップ理由を詳細に記録する機能を実装|quant_trading_system
+2025-09-16 17:17:30 +0900|7e8fa87|[FEAT]|+565/-57 (6files)|feat: システムのグループ化ユーティリティを追加し、スキップ理由の収集機能を実装。データ処理の安定性を向上させるための型強制を追加|quant_trading_system
+2025-09-16 19:07:44 +0900|14b4f57|[FEAT]|+108/-15 (3files)|feat: データフレームのインデックスを正規化し、昇順・重複除去を実施。キャッシュデータの健全性を向上させるための処理を追加|quant_trading_system
+2025-09-16 20:18:41 +0900|b752b50|[FIX,FEAT]|+162/-77 (3files)|feat: データフレームのインデックスを正規化し、重複を排除。OHLCV列を数値化する処理を追加し、エラーハンドリングを強化|quant_trading_system
+2025-09-16 21:11:44 +0900|5d63504|[FIX,FEAT]|+130/-39 (4files)|feat: データ準備処理のエラーハンドリングを強化し、フォールバック機能を追加。シンボルの計算エラー時に全体を中断しないように修正|quant_trading_system
+2025-09-16 23:04:25 +0900|6b81ba4|[FIX,FEAT,REFACTOR]|+113/-78 (2files)|feat: メトリクスの要約処理を改善し、通知機能を強化。エグジット件数の推定を修正し、システム別の最終メトリクスを送信する機能を追加|quant_trading_system
+2025-09-16 23:04:39 +0900|fd58dd5|[FEAT,REFACTOR]|+22/-52 (5files)|feat: ログ出力の改善とデータ構造の更新。スキップしたデータの集計サマリーをログにのみ出力し、JSONファイルに新しいエントリを追加|quant_trading_system
+2025-09-16 14:06:26 +0000|940c3a7||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-16 14:17:23 +0000|224dffe|[FEAT]|+156/-29 (6files)|Add enhanced diagnostics and shortable checks, remove CSV download buttons|quant_trading_system
+2025-09-16 14:20:35 +0000|87a2bfa|[FEAT]|+97/-4 (2files)|Add date validation, Long/Short display, and skipped symbols export|quant_trading_system
+2025-09-16 14:22:28 +0000|8e02e85|[REFACTOR]|+99/-0 (1files)|Complete signal extraction improvements with documentation|quant_trading_system
+2025-09-17 08:25:13 +0900|358e20a|[FEAT,REFACTOR,TEST]|+69/-7 (3files)|feat: NYSEの営業状況を取得する機能を追加し、ポジションの現在値取得ロジックを改善。テストケースを更新|quant_trading_system
+2025-09-17 08:45:31 +0900|0523ee0|[FEAT]|+330/-17 (7files)|feat: Alpacaのショート可否を確認する機能を追加し、システム2/6の候補を事前フィルタリング。スキップ理由の詳細をCSVに保存する機能を実装|quant_trading_system
+2025-09-17 08:56:39 +0900|7f2c53f|[FIX,FEAT,REFACTOR]|+243/-88 (1files)|feat: AlpacaダッシュボードのCSSを改善し、スタイルを統一。Plotlyのインポートエラーハンドリングを強化|quant_trading_system
+2025-09-17 10:08:38 +0900|4701047|[FEAT]|+288/-40 (2files)|feat: append_to_cache関数に進捗報告機能を追加し、キャッシュ更新中のユーザー中断を処理する例外を実装|quant_trading_system
+2025-09-17 10:08:57 +0900|35a8ecd|[FEAT,REFACTOR]|+86/-37 (2files)|feat: 本日のシグナル表示を改善し、フォントを統一。ダウンロードボタンのキーにタイムスタンプを追加|quant_trading_system
+2025-09-17 11:15:06 +0900|a6b90f4|[FIX,FEAT,REFACTOR]|+31/-20 (6files)|feat: Plotlyのインポートエラーハンドリングを強化し、データフレームのカラム処理を改善。依存関係をrequirements-dev.txtに追加|quant_trading_system
+2025-09-17 11:48:00 +0900|7c9ad16|[FEAT]|+26/-27 (3files)|feat: prepare_dataおよびgenerate_candidatesメソッドの引数名を変更し、コードの可読性を向上|quant_trading_system
+2025-09-17 12:48:57 +0900|93df4a4|[FEAT,REFACTOR]|+88/-52 (2files)|feat: 本日のシグナル実行ボタンの処理を改善し、CLI引数の解析とログ設定を整理|quant_trading_system
+2025-09-17 13:55:27 +0900|6561056|[TEST]|+1716/-1599 (16files)|Increase buffer days in cache configuration and settings from 40 to 100. Update various systems to retrieve the last closing price and include it in the generated signals. Adjust recent days in cache daily data script and lookback default in run_all_systems_today script from 240 to 300. Modify test for cache manager to reflect changes in buffer days.|quant_trading_system
+2025-09-17 14:00:55 +0900|24aeed4|[FEAT]|+159/-0 (6files)|feat: データフレームの健全性チェックを追加し、NaN・型不一致・異常値を検出|quant_trading_system
+2025-09-17 15:31:20 +0900|b5fd93c|[FEAT]|+759/-524 (3files)|feat: キャッシュ管理におけるデータ読み込みの警告処理を強化し、NaN・型不一致・非正値の健全性チェックを追加|quant_trading_system
+2025-09-17 16:28:34 +0900|2bb1c02|[FEAT,REFACTOR]|+241/-231 (4files)|feat: シンボルユニバースの準備と基本データのロード処理を追加し、シグナル抽出の流れを改善|quant_trading_system
+2025-09-17 16:40:17 +0900|7546ac5|[FEAT]|+41/-1 (2files)|feat: run_all_systems_today関数を追加し、compute_today_signalsのエイリアスを設定|quant_trading_system
+2025-09-17 19:42:42 +0900|7264754|[FEAT,REFACTOR]|+893/-79 (4files)|feat: Enhance CacheManager and system6 logic with improved data handling and indicator calculations|quant_trading_system
+2025-09-17 21:59:00 +0900|540c292|[FEAT,REFACTOR]|+174/-16 (9files)|feat: 各システムのエントリ日付処理を改善し、NY証券取引所の翌営業日を取得する機能を追加|quant_trading_system
+2025-09-17 22:02:49 +0900|6d07278|[FEAT]|+85/-10 (2files)|feat: データフレームの保有日数の正規化処理を追加し、カラム名を日本語に変更|quant_trading_system
+2025-09-17 22:10:44 +0900|0248b32|[FEAT,TEST]|+47/-3 (2files)|feat: システム5のデータ準備関数を追加し、ローリングキャッシュの鮮度検証と自動更新機能を実装|quant_trading_system
+2025-09-17 22:30:14 +0900|05356e6|[REFACTOR]|+802/-784 (8files)|Refactor system4 and system5: Enhance data preparation and indicator computation|quant_trading_system
+2025-09-17 22:47:17 +0900|e5b09af|[FIX]|+280/-34 (6files)|fix: refresh rolling cache and relax NaN screening|quant_trading_system
+2025-09-17 22:49:54 +0900|6331862|[TEST]|+164/-24 (4files)|test(position_age): clean future import|quant_trading_system
+2025-09-17 23:34:07 +0900|1c2b53f|[FIX]|+82/-129 (4files)|fix(core): repair system today signal helpers|quant_trading_system
+2025-09-17 23:34:31 +0900|bf7bd03|[FIX]|+44/-13 (2files)|Fix timezone handling for today signal candidates|quant_trading_system
+2025-09-17 23:35:12 +0900|d31c310|[FEAT]|+53/-6 (2files)|feat(cache): support feather format in cache manager|quant_trading_system
+2025-09-17 23:35:22 +0900|cf25449|[REFACTOR]|+287/-158 (3files)|optimize today's run data loading and parallelism|quant_trading_system
+2025-09-17 23:36:11 +0900|2353082|[REFACTOR]|+287/-158 (3files)|optimize today's run data loading and parallelism|quant_trading_system
+2025-09-18 07:52:02 +0900|0db4536|[FIX]|+8/-8 (3files)|fix(config): extend rolling cache lookback|quant_trading_system
+2025-09-18 07:58:00 +0900|312747f|[REFACTOR]|+68/-27 (1files)|optimize shared indicator cache reuse|quant_trading_system
+2025-09-18 08:05:25 +0900|10d11de|[FEAT]|+217/-0 (1files)|feat(tools): export shared indicators csv|quant_trading_system
+2025-09-18 13:43:51 +0900|c946b30|[FEAT]|+361/-215 (2files)|Implement setup evaluation and SPY caching updates|quant_trading_system
+2025-09-18 22:40:13 +0900|82035a2|[REFACTOR]|+56/-93 (8files)|refactor(core): derive entry dates from calendar|quant_trading_system
+2025-09-18 23:24:00 +0900|9268c42|[FIX]|+511/-51 (3files)|fix(data_loader): insert base fallback for rolling profile|quant_trading_system
+2025-09-18 23:34:31 +0900|c9ce90b|[FEAT]|+865/-663 (2files)|feat(common): add today signal fallback to legacy pipeline|quant_trading_system
+2025-09-18 23:34:52 +0900|b6ccb57|[FEAT]|+865/-663 (2files)|feat(common): add today signal fallback to legacy pipeline|quant_trading_system
+2025-09-19 00:41:52 +0900|3d7aab7|[REFACTOR]|+157/-105 (1files)|Optimize allocation and reuse position data|quant_trading_system
+2025-09-19 00:46:09 +0900|0143e0f|[FEAT]|+342/-159 (3files)|feat(scripts): track basic load stats and reuse base cache|quant_trading_system
+2025-09-19 01:01:22 +0900|e0ccb25|[REFACTOR]|+625/-662 (2files)|Simplify today signal pipeline data usage|quant_trading_system
+2025-09-19 01:02:00 +0900|7bae9af|[REFACTOR]|+407/-159 (3files)|refactor(scripts): share base cache pool for basic data loading|quant_trading_system
+2025-09-19 01:08:14 +0900|20bfdac|[FIX]|+231/-72 (5files)|docs: record System5/6 exit fixes|quant_trading_system
+2025-09-18 16:09:47 +0000|6d93fa1||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-18 16:10:46 +0000|dd0116e||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-18 16:11:14 +0000|fc23189||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-19 06:28:50 +0900|52e3925|[FEAT]|+1409/-2 (11files)|feat: Add daily run task and MCP server integration|quant_trading_system
+2025-09-19 06:29:13 +0900|2fb1348|[FEAT,TEST]|+0/-0 (1files)|feat: Add coverage report file|quant_trading_system
+2025-09-19 06:35:12 +0900|2cc49c5|[FEAT]|+666/-310 (8files)|feat: Enhance System5 and System6 exit logic and implement base cache management|quant_trading_system
+2025-09-19 06:37:52 +0900|5df9d5d|[FIX]|+1/-1 (2files)|fix: Remove unused imports from run_all_systems_today.py|quant_trading_system
+2025-09-19 06:38:18 +0900|7406e40|[FEAT,TEST]|+0/-0 (1files)|feat: Add coverage report file|quant_trading_system
+2025-09-19 06:52:43 +0900|7c91a80|[FEAT]|+69/-0 (2files)|feat: Add Codacy instructions for AI behavior and update .gitignore to exclude the instructions file|quant_trading_system
+2025-09-19 07:30:07 +0900|9cf0ac1|[FIX,REFACTOR]|+19/-0 (1files)|fix: Improve date handling in rebuild_rolling_cache_from_base function|quant_trading_system
+2025-09-19 08:48:08 +0900|6d8e4ee|[FIX]|+118/-40 (1files)|fix(today): reinstate strategy preprocessing fallback|quant_trading_system
+2025-09-19 09:02:08 +0900|6333185|[FIX]|+505/-60 (2files)|fix(today_signals): guard system4 fast path on missing SPY|quant_trading_system
+2025-09-19 09:03:27 +0900|1c92a3c|[FIX]|+505/-60 (2files)|fix(today_signals): guard system4 fast path on missing SPY|quant_trading_system
+2025-09-19 00:04:11 +0000|de5cffc||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-20 02:07:43 +0900|95103d3|[FEAT]|+844/-113 (10files)|feat: Add MCP server integration and enhance cache management with freshness validation|quant_trading_system
+2025-09-20 14:48:29 +0900|44ba4b9||+1207/-1033 (4files)|Remove duplicate entry for SPY in universe_auto.txt and ensure ZYXI is properly formatted at the end of the file.|quant_trading_system
+2025-09-20 14:48:41 +0900|eaafa0e|[FEAT,TEST]|+0/-0 (1files)|feat: Add coverage report file to track test coverage|quant_trading_system
+2025-09-20 16:45:22 +0900|22100cc|[FEAT]|+74/-3 (6files)|feat: Add Codacy analysis files and enhance logging in today_signals.py and utils_spy.py|quant_trading_system
+2025-09-20 20:59:58 +0900|529a6c2|[FEAT]|+246/-139 (6files)|feat: Add Codacy analysis script and update logging metrics in today_signals.py|quant_trading_system
+2025-09-20 21:29:25 +0900|20cabd9|[FIX,REFACTOR]|+2/-2 (1files)|fix: Simplify base assignment logic in compute_today_signals function|quant_trading_system
+2025-09-20 23:04:16 +0900|82d6dfa|[FEAT]|+769/-135 (11files)|feat: Enhance zero reason diagnostics and logging|quant_trading_system
+2025-09-20 23:04:28 +0900|124e021|[FIX]|+1/-3 (2files)|fix: 修正された環境変数チェックの条件を簡素化|quant_trading_system
+2025-09-21 06:41:12 +0900|3f48208|[FIX,FEAT,REFACTOR]|+34/-38 (2files)|fix: 早期終了理由を追加し、データフレームの生成を改善|quant_trading_system
+2025-09-21 07:21:47 +0900|d11be6c|[FIX]|+110/-60 (3files)|fix: ログコールバックのフォーマットを簡素化し、データ処理の安定性を向上|quant_trading_system
+2025-09-21 07:21:56 +0900|6aae35a|[FIX,FEAT]|+1/-1 (2files)|fix: ログメッセージの行末にコメントを追加し、コードの可読性を向上|quant_trading_system
+2025-09-21 10:56:17 +0900|a51ceee|[REFACTOR]|+4122/-1674 (30files)|Refactor strategies to allow top_n parameter override in candidate generation|quant_trading_system
+2025-09-21 11:32:05 +0900|7f71ba6|[REFACTOR]|+479/-220 (10files)|Refactor indicators and cache management|quant_trading_system
+2025-09-21 12:52:05 +0900|1349836|[FIX,FEAT,REFACTOR,TEST]|+685/-56 (7files)|feat: OHLCV列名の正規化と統合機能を追加 fix: データ鮮度チェックのロギング機能を改善 test: データ鮮度フィルタリングのユニットテストを追加|quant_trading_system
+2025-09-21 13:11:25 +0900|42a9886|[FEAT]|+192/-16 (6files)|feat: drop_duplicate_columns関数を追加し、重複カラムを解消する機能を実装|quant_trading_system
+2025-09-21 14:39:15 +0900|3f4e583||+874/-163 (12files)|Enhance stage metrics tracking and data type validation|quant_trading_system
+2025-09-21 14:53:54 +0900|7d5915e|[FEAT]|+100/-10 (2files)|feat: ステージメトリクスストアに表示メトリクスの管理機能を追加|quant_trading_system
+2025-09-21 15:14:01 +0900|9fd57f3|[FIX,FEAT]|+10/-4 (1files)|fix: 修正されたインポート順序とsys.pathの設定を追加|quant_trading_system
+2025-09-21 15:42:49 +0900|64ec386|[FEAT]|+95/-3 (4files)|feat: max_symbolsの設定を追加し、処理上限銘柄数を制御する機能を実装|quant_trading_system
+2025-09-21 16:18:00 +0900|62ae2f1|[FEAT,REFACTOR]|+409/-32 (7files)|feat: シンボルマニフェストの保存と読み込み機能を追加し、データキャッシュの管理を改善|quant_trading_system
+2025-09-21 16:32:38 +0900|8341563|[FEAT]|+126/-68 (5files)|feat: 新しいスクリプトを追加し、銘柄マニフェストの処理とデータの欠損分析機能を強化|quant_trading_system
+2025-09-21 17:59:50 +0900|d88b00c|[FEAT]|+209/-118 (5files)|feat: EODHD参照銘柄数の取得機能を追加し、統計情報に関連情報を追加|quant_trading_system
+2025-09-21 18:01:26 +0900|983f531|[FEAT]|+59/-26 (3files)|feat: 新しいスクリプトを追加し、欠損データの分析とレポート生成機能を実装|quant_trading_system
+2025-09-21 20:12:25 +0900|f6b5836|[FEAT,REFACTOR]|+383/-41 (5files)|feat: 銘柄ユニバースを取得・フィルタするユーティリティを追加し、日次データキャッシュの管理を改善|quant_trading_system
+2025-09-21 21:22:53 +0900|d779b3d||+231/-5013 (6files)|Enhance symbol universe handling in scripts|quant_trading_system
+2025-09-21 21:26:46 +0900|11cd137|[REFACTOR]|+56/-88 (3files)|refactor: 不要なインポートを削除し、コードの可読性を向上|quant_trading_system
+2025-09-21 21:26:54 +0900|3c832ca|[FEAT]|+0/-0 (1files)|feat: カバレッジ情報を格納する新しいバイナリファイルを追加|quant_trading_system
+2025-09-21 21:28:27 +0900|29e439b|[FIX,FEAT,REFACTOR]|+4/-3 (2files)|fix: Noneチェックを追加し、データフレームの取得処理を改善|quant_trading_system
+2025-09-21 21:28:36 +0900|388078a|[FEAT]|+0/-0 (1files)|feat: 新しいカバレッジ情報を格納するバイナリファイルを追加|quant_trading_system
+2025-09-21 21:29:29 +0900|90281e7|[FEAT,TEST]|+1/-1 (1files)|feat: .coverageファイルを.gitignoreに追加|quant_trading_system
+2025-09-21 22:13:57 +0900|a19a836||+6/-0 (1files)|chore(config): enable cache rounding to 2 decimal places|quant_trading_system
+2025-09-21 22:15:33 +0900|0389c24|[FEAT]|+213/-10 (4files)|feat: キャッシュの丸め桁数設定を追加し、データフレームの書き出し時に適用|quant_trading_system
+2025-09-21 22:25:19 +0900|8252860|[REFACTOR]|+0/-183 (2files)|refactor: 不要なインポートと未使用の関数を削除|quant_trading_system
+2025-09-21 23:08:39 +0900|a4e4ab6|[FEAT]|+39/-0 (1files)|feat: ステージカウントの最終化処理にスナップショットからのデータ取得を追加|quant_trading_system
+2025-09-21 23:19:35 +0900|b99cc4f|[FEAT,TEST]|+145/-43 (3files)|feat: 主要指標列を定義し、キャッシュの読み込み時にNaN率をチェックするテストを追加|quant_trading_system
+2025-09-22 09:28:42 +0900|1e52c5f|[FEAT]|+1082/-672 (13files)|feat: Enhance bulk update functionality and introduce statistics tracking|quant_trading_system
+2025-09-22 12:20:46 +0900|2fd001b|[FEAT]|+89/-2 (3files)|feat: 数値列を指定桁数に丸める機能を追加し、キャッシュ処理に適用|quant_trading_system
+2025-09-22 20:22:31 +0900|008bbc1|[REFACTOR,TEST]|+1800/-1677 (119files)|Refactor test files and improve code readability|quant_trading_system
+2025-09-22 20:37:44 +0900|22ec98a|[FEAT]|+266/-173 (7files)|feat: 型チェックのためのインポートを追加し、依存関係を動的に読み込む処理を実装|quant_trading_system
+2025-09-22 21:25:49 +0900|4c13753|[FEAT]|+445/-27 (4files)|feat: 英語の曜日表示を追加し、NYSEのオープンまでのカウントダウン機能を実装。キャッシュ管理のCSV書き出し設定を追加。|quant_trading_system
+2025-09-22 21:36:57 +0900|330750c|[FEAT,REFACTOR]|+42/-2 (3files)|feat(cache): add CSV locale formatting and round_cache improvements; update README|quant_trading_system
+2025-09-22 22:26:35 +0900|0dceded|[FIX]|+287/-49 (6files)|fix: pandasの型互換性を確保するためにパスを文字列に変換; シグナルエントリ日関数の戻り値型を修正|quant_trading_system
+2025-09-22 22:31:40 +0900|4c3a544|[FIX,FEAT,REFACTOR]|+231/-24 (1files)|feat: ポジション管理機能を強化し、経過日手仕切りの即時決済を実装。データ処理の改善とエラーハンドリングを追加。|quant_trading_system
+2025-09-22 22:45:48 +0900|2a54052|[FEAT,REFACTOR]|+88/-28 (2files)|feat: DataFrameの結合時に全てNAの列を除外する関数を追加し、キャッシュ更新処理を改善|quant_trading_system
+2025-09-22 22:49:46 +0900|b9700ef|[FEAT]|+18/-18 (1files)|feat: SMA/EMAおよびATR指標の列名を小文字に変更し、一貫性を向上|quant_trading_system
+2025-09-22 22:53:30 +0900|767a794|[FEAT,REFACTOR]|+53/-121 (2files)|feat: CacheUpdateInterruptedクラスを一般的な例外に変更し、進捗情報を保持する中断処理を改善|quant_trading_system
+2025-09-22 22:56:50 +0900|95d0c30|[FIX,REFACTOR]|+2/-2 (1files)|fix: castを使用してallowed_recent_datesの型を明示的に指定し、Timestamp変換時のエラー処理を改善|quant_trading_system
+2025-09-23 11:56:58 +0900|6241dc6|[FEAT,TEST]|+7149/-147 (8files)|Add tests for appending to cache with NaN prices and progress tracking|quant_trading_system
+2025-09-23 12:13:40 +0900|d521cbc|[FEAT]|+14/-0 (2files)|feat: 本日のBulk更新を明示的に実行するオプションを追加し、引数未指定時のデフォルト動作を変更|quant_trading_system
+2025-09-23 14:52:50 +0900|dd5d9b5|[REFACTOR]|+565/-6294 (9files)|Refactor code structure for improved readability and maintainability|quant_trading_system
+2025-09-23 15:48:49 +0900|8907726|[FEAT]|+1228/-152 (12files)|Add Gemini documentation and implement run_auto_rule script with PowerShell wrapper|quant_trading_system
+2025-09-23 17:48:31 +0900|4a01533|[REFACTOR]|+837/-1528 (7files)|Refactor configuration handling and improve CSV settings|quant_trading_system
+2025-09-23 18:14:23 +0900|3bad4ca|[FEAT,TEST]|+276/-125 (4files)|feat: 新しい統計表示とキャッシュ検証機能を追加し、データ保存先を拡張|quant_trading_system
+2025-09-23 18:26:08 +0900|c78e75b|[REFACTOR]|+65/-38 (4files)|refactor: コードの冗長性を削減し、データフレームの再構築条件を簡素化|quant_trading_system
+2025-09-23 19:19:07 +0900|be1a0d9|[REFACTOR]|+59/-15 (4files)|refactor: NAN列の管理を改善し、必須およびオプションの列のチェックを明確化|quant_trading_system
+2025-09-23 20:02:50 +0900|9cdaaed|[FEAT]|+88/-42 (4files)|feat: システム設定を更新し、各戦略のパラメータをドキュメントに合わせて追加|quant_trading_system
+2025-09-23 20:39:50 +0900|df1e018|[FEAT]|+231/-84 (7files)|feat: 今日の実行モードを確認する関数を追加し、シンボルリストの出力を制御|quant_trading_system
+2025-09-23 21:02:28 +0900|5ea4498|[FEAT,REFACTOR]|+59/-0 (1files)|feat: 各列のルックバックを追加し、NaN比率の計算を改善|quant_trading_system
+2025-09-23 21:03:39 +0900|d89d641|[FEAT,REFACTOR]|+6/-1 (1files)|feat: NaNを0として扱うようにspy_filterの処理を改善|quant_trading_system
+2025-09-23 21:22:42 +0900|3834f30|[FEAT]|+280/-67 (4files)|feat: NaN率チェック機能を追加し、スキップされた列のログ出力を実装|quant_trading_system
+2025-09-23 21:54:23 +0900|009d97a|[FIX,FEAT]|+21/-2 (1files)|feat: ストリームリットAPIをメインスレッドからのみ呼び出すように修正し、バックグラウンドスレッドでの呼び出しを防止|quant_trading_system
+2025-09-23 22:49:00 +0900|3b3f2e2|[REFACTOR]|+524/-471 (32files)|Refactor code for improved readability and maintainability|quant_trading_system
+2025-09-24 22:42:25 +0900|c413719|[REFACTOR]|+822/-289 (27files)|Refactor code for improved readability and maintainability|quant_trading_system
+2025-09-25 06:15:10 +0900|7a39572|[REFACTOR]|+2494/-14 (14files)|Refactor CacheManager and DataFrame utilities|quant_trading_system
+2025-09-25 07:53:33 +0900|5c0c4b7|[FEAT]|+1298/-534 (14files)|feat: Enhance header message logging in execute_today_signals|quant_trading_system
+2025-09-25 23:46:41 +0900|0449cfa|[FEAT]|+456/-121 (12files)|feat: 指標列名を大文字に統一し、API呼び出し時に小文字変換を追加|quant_trading_system
+2025-09-26 00:04:05 +0900|83566dc|[FEAT,REFACTOR]|+11/-11 (1files)|feat: 指標列の大文字・小文字対応を改善し、標準化処理を強化|quant_trading_system
+2025-09-26 09:25:05 +0900|9e4ac93|[REFACTOR]|+3274/-391 (43files)|Refactor type checking for entry_loc in system strategies|quant_trading_system
+2025-09-26 09:28:21 +0900|5b16c8e|[REFACTOR]|+20/-17 (6files)|refactor: Import statements reordered for consistency and clarity|quant_trading_system
+2025-09-27 00:07:16 +0900|10e5514|[FEAT,TEST]|+16295/-737 (73files)|Add comprehensive tests for ui_components and utils modules|quant_trading_system
+2025-09-27 00:07:33 +0900|d152b30|[REFACTOR,TEST]|+796/-705 (8files)|Refactor test cases in system3 and system4 to improve readability and maintainability|quant_trading_system
+2025-09-27 00:39:42 +0900|da45666|[FEAT,REFACTOR,TEST]|+7969/-1649 (85files)|Add comprehensive tests for System6 direct functions and refactor UI component tests|quant_trading_system
+2025-09-27 06:43:09 +0900|af78ea8|[REFACTOR,TEST]|+1278/-6763 (47files)|Refactor and enhance tests across multiple modules|quant_trading_system
+2025-09-27 07:04:11 +0900|d6c0076|[FEAT]|+1706/-715 (7files)|feat: Implement System2 core logic for RSI spike strategy|quant_trading_system
+2025-09-27 08:28:31 +0900|4e50748|[FEAT,REFACTOR]|+2319/-812 (20files)|feat: Optimize Phase2 data loading and introduce new normalization script|quant_trading_system
+2025-09-27 09:40:05 +0900|4fc574f|[FEAT]|+2463/-59 (16files)|feat: Enhance rolling indicators processing and validation|quant_trading_system
+2025-09-27 09:57:57 +0900|370018c|[REFACTOR,TEST]|+710/-540 (11files)|Refactor I/O Optimization Benchmark and related tests|quant_trading_system
+2025-09-27 10:41:13 +0900|cd0baf1|[FEAT,REFACTOR,TEST]|+3351/-2352 (40files)|feat: Introduce system-specific configurations and refactor strategies|quant_trading_system
+2025-09-27 10:42:19 +0900|53c7898|[REFACTOR]|+92/-134 (27files)|refactor: Replace typing imports with built-in types for consistency|quant_trading_system
+2025-09-27 10:48:33 +0900|0e1d6e6|[REFACTOR]|+143/-108 (12files)|refactor: Update imports to use cache_format instead of cache_manager for round_dataframe|quant_trading_system
+2025-09-27 11:05:27 +0900|2977dd1||+847/-3084 (17files)|chore: pre-reorganization backup - save current state before directory restructure|quant_trading_system
+2025-09-27 11:38:14 +0900|ef5c84f|[FEAT,TEST]|+3161/-1497 (29files)|Add experimental tests for pipeline functionality and performance optimizations|quant_trading_system
+2025-09-27 11:46:00 +0900|027f50c|[FEAT]|+4167/-2149 (22files)|feat: Reorganize project structure (Phase 1)|quant_trading_system
+2025-09-27 11:59:44 +0900|4aa46a1|[FEAT]|+10092/-20 (24files)|feat: Reorganize applications (Phase 2)|quant_trading_system
+2025-09-27 13:59:04 +0900|f02b786|[FEAT]|+15504/-3658 (63files)|Add System6 and System7 implementations for SPY data processing and caching|quant_trading_system
+2025-09-27 13:59:20 +0900|dd5d907|[FIX,REFACTOR]|+76/-27 (2files)|refactor: Improve code readability by formatting and organizing function definitions and error messages|quant_trading_system
+2025-09-27 16:41:18 +0900|ef58db7|[FEAT,TEST]|+2642/-491 (13files)|Add comprehensive tests for indicators_precompute.py|quant_trading_system
+2025-09-27 10:03:30 +0000|9ae5abf||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-27 10:07:50 +0000|5146f95|[FIX,TEST]|+1/-2 (1files)|Initial test infrastructure assessment and syntax fix|quant_trading_system
+2025-09-27 10:11:51 +0000|32f934f|[FIX,FEAT,TEST]|+18/-112 (2files)|Fix System5 test imports and update tests for current implementation|quant_trading_system
+2025-09-27 10:21:13 +0000|fada002|[FEAT,TEST]|+525/-63 (3files)|Create comprehensive test helper framework and examples|quant_trading_system
+2025-09-27 10:23:21 +0000|17b6b19|[REFACTOR,TEST]|+141/-0 (1files)|Complete testing infrastructure improvements with comprehensive documentation|quant_trading_system
+2025-09-27 22:22:16 +0900|d982e1e|[FEAT,REFACTOR,TEST]|+15461/-8759 (221files)|Add comprehensive tests for systems and modules, refactor imports, and deprecate unused scripts|quant_trading_system
+2025-09-27 23:05:59 +0900|2441594|[FEAT,REFACTOR]|+287/-56 (5files)|feat: Add configuration files for linting and spell checking, and refactor app_today_signals.py for improved readability and functionality|quant_trading_system
+2025-09-27 23:50:37 +0900|6161f37|[REFACTOR]|+79/-75 (3files)|refactor: Clean up logging and import statements in app_today_signals.py and run_all_systems_today.py|quant_trading_system
+2025-09-27 23:50:54 +0900|ced852d|[FIX,REFACTOR]|+6/-2 (1files)|fix: Improve logging format and handle unexpected results in execute_today_signals|quant_trading_system
+2025-09-27 23:51:30 +0900|fa97c63|[REFACTOR]|+10/-9 (1files)|refactor: Reorganize import statements in run_all_systems_today.py for improved readability|quant_trading_system
+2025-09-28 07:35:54 +0900|4bc15db|[REFACTOR]|+1185/-13536 (99files)|Pre-cleanup snapshot: Major reorganization and cleanup preparation|quant_trading_system
+2025-09-28 08:26:24 +0900|2172d6d|[REFACTOR,TEST]|+1794/-6946 (21files)|Refactor and enhance tests for System5 strategy and final allocation module|quant_trading_system
+2025-09-28 10:44:50 +0900|f3ac4f8|[FEAT,REFACTOR]|+368/-710 (3files)|Add sys.path manipulation for project root and refactor allocation logic|quant_trading_system
+2025-09-28 17:12:58 +0900|eb5dd0d|[FIX,REFACTOR]|+246/-179 (5files)|Refactor imports and error handling across multiple modules|quant_trading_system
+2025-09-28 17:25:08 +0900|2b247a4|[REFACTOR]|+110/-39 (5files)|refactor: Replace direct client.get_orders calls with ba.get_open_orders for consistency|quant_trading_system
+2025-09-28 18:15:05 +0900|cfce630|[FIX,REFACTOR]|+291/-29 (10files)|refactor: Update Alpaca API key environment variables and enhance debugging tools|quant_trading_system
+2025-09-28 23:39:46 +0900|87be4aa|[FIX,REFACTOR]|+140/-1 (3files)|refactor: Improve SPY data processing and error handling in recover_spy_cache.py|quant_trading_system
+2025-09-29 00:01:11 +0900|5cb8c03|[FIX,FEAT,REFACTOR,TEST]|+174/-20 (4files)|refactor: Add SPY data analysis and caching functionality in check_spy_data.py, enhance error handling in recover_spy_cache.py, and implement tests for CacheManager in test_cache_manager.py|quant_trading_system
+2025-09-29 00:44:57 +0900|20d7f72|[REFACTOR]|+116/-0 (1files)|docs: summarize signal system improvements|quant_trading_system
+2025-09-29 00:46:15 +0900|7bdcb8d|[FIX,FEAT]|+1014/-17 (15files)|feat: Add scripts for debugging and checking rolling data indicators|quant_trading_system
+2025-09-29 00:49:29 +0900|0a151ba||+4/-1 (1files)|style: Format log message for better readability in _load_basic_data function|quant_trading_system
+2025-09-29 02:06:57 +0900|2bcba10|[FEAT,REFACTOR]|+500/-289 (5files)|feat: Improve stage tracking and logging for new listings and data validation|quant_trading_system
+2025-09-29 22:15:40 +0900|6826719|[FIX,FEAT,TEST]|+4513/-131 (25files)|feat: Add test symbol generation script and enhance SPY cache recovery with error handling|quant_trading_system
+2025-09-29 23:22:20 +0900|e7776e4|[FEAT]|+4359/-700 (22files)|feat: Implement System6 core logic for mean-reversion momentum burst strategy|quant_trading_system
+2025-09-29 23:49:39 +0900|b802bd9|[FEAT,REFACTOR]|+230/-127 (17files)|feat: Normalize indicator names and improve progress tracking across systems|quant_trading_system
+2025-09-29 23:57:06 +0900|1bf4ea7|[FEAT,REFACTOR,TEST]|+36/-21 (5files)|feat: Improve logging levels for rolling issues and enhance test coverage for System2 indicators|quant_trading_system
+2025-09-30 00:06:30 +0900|7483512|[FEAT,TEST]|+26/-13 (4files)|feat: Remove progress text display in ProgressUI and normalize indicator names in tests|quant_trading_system
+2025-09-30 07:22:54 +0900|a94fe7f|[FEAT,REFACTOR]|+6/-2 (1files)|feat: Refactor imports in app_system6.py for improved organization and clarity|quant_trading_system
+2025-09-30 07:58:01 +0900|7d879b2|[FEAT]|+289/-61 (8files)|feat: Implement historical analysis for System6 setup conditions and enhance candidate generation statistics|quant_trading_system
+2025-09-29 23:31:38 +0000|e1d4c5f||+0/-0 (0files)|Initial plan|quant_trading_system
+2025-09-29 23:38:19 +0000|9fd937a|[FIX]|+17/-3 (2files)|Fix System6 fixed_mode parameter support|quant_trading_system
+2025-09-30 22:31:24 +0900|4d1ffa4|[FEAT]|+12/-4 (2files)|feat: Update System6 candidate selection guidance and adjust default symbol limit|quant_trading_system
+2025-09-30 22:34:45 +0900|63f051c|[FEAT]|+3/-8 (2files)|feat: Update System6 candidate selection guidance and adjust default symbol limit in UI components|quant_trading_system
+2025-09-30 23:08:33 +0900|883dda8|[FEAT,REFACTOR]|+37/-14 (3files)|feat: Improve System6 candidate selection guidance and enhance logging for better user experience|quant_trading_system
+2025-09-30 23:20:50 +0900|d73625a|[FEAT,REFACTOR]|+14/-15 (1files)|feat: Adjust batch size for System6 candidate generation and improve logging for skipped entries|quant_trading_system
+2025-09-30 23:40:57 +0900|6493f40|[FIX,FEAT,REFACTOR]|+38/-23 (3files)|feat: 統計計算の改善とショート戦略の損益計算ロジックを修正|quant_trading_system
+2025-09-30 23:57:34 +0900|7a47178|[FIX]|+2/-1 (1files)|fix: ショート戦略におけるストップロスの条件を修正|quant_trading_system
+2025-10-01 00:21:51 +0900|7645c0f|[FEAT]|+41/-3 (1files)|feat: 日付インデックスの決定と正規化を追加し、データフレームの整合性を向上|quant_trading_system
+2025-10-01 10:20:04 +0900|51a8095|[FIX,FEAT]|+7/-4 (1files)|fix: 無限値をNaNに変換してから日付変換を行う処理を追加|quant_trading_system
+2025-10-01 13:22:23 +0900|924d8e8|[FEAT]|+27/-21 (2files)|feat: メトリクスコレクタを共有し、ファイルハンドルのリークを防止|quant_trading_system
+2025-10-01 13:32:37 +0900|e326432|[FEAT,TEST]|+159/-64 (2files)|test: ファイルハンドルリークをテストする新しいスクリプトを追加|quant_trading_system
+2025-10-01 14:18:41 +0900|9491021|[FIX]|+2/-2 (1files)|fix: 初期資本のデフォルト値を1000から100000に変更し、全シンボル使用のチェックボックスのデフォルト値をTrueに設定|quant_trading_system
+2025-10-01 15:48:33 +0900|11e51d7|[FIX]|+25/-15 (2files)|fix: バッチサイズのデフォルト値を設定し、インデックス対応の問題を解決するために.valuesを使用|quant_trading_system
+2025-10-01 15:57:57 +0900|fb7af39|[FEAT,REFACTOR]|+82/-86 (1files)|refactor: 日付インデックスの正規化と列名の標準化を改善し、無限値処理を追加|quant_trading_system
+2025-10-01 16:16:30 +0900|bfadd76|[FIX,FEAT,TEST]|+46/-7 (1files)|fix: compute_entryの戻り値を確認し、Noneチェックを追加。新しい指標計算テストを追加|quant_trading_system
+2025-10-01 16:55:46 +0900|1c690ef|[FEAT,TEST]|+31/-7 (4files)|feat: システム6にHV50指標を追加し、関連する計算とテストを更新|quant_trading_system
+2025-10-01 16:56:02 +0900|4663a5a|[FIX]|+4/-4 (1files)|fix: max_hold_daysとfallback_exit_after_daysのコメントを整形|quant_trading_system
+2025-10-01 18:54:38 +0900|6b5bdda|[FEAT,TEST]|+1089/-4008 (35files)|Remove outdated test files and add new tools for warning aggregation and collection|quant_trading_system
+2025-10-01 19:08:51 +0900|bfba739|[REFACTOR]|+406/-146 (11files)|Refactor CI Quality Gate Workflow and Enhance Python Code Quality|quant_trading_system
+2025-10-01 19:40:26 +0900|88e8dc0|[FIX]|+144/-168 (6files)|fix: ログ出力を個別からサマリー表示に変更し、関連メッセージを更新|quant_trading_system
+2025-10-01 20:14:18 +0900|6c798da|[FEAT]|+307/-262 (6files)|feat: return_6dを%表示に変換し、データフレームの表示を更新。ログ出力の構造化を追加。|quant_trading_system
+2025-10-01 20:29:04 +0900|de942ca|[FEAT,REFACTOR]|+53/-85 (3files)|feat: サイドバーに言語切替とシステム6の条件詳細を追加し、UIを改善|quant_trading_system
+2025-10-01 21:03:42 +0900|b2cc177||+1161/-807 (27files)|Enhance structured logging and UI components|quant_trading_system
+2025-10-01 21:08:08 +0900|cbde918|[FEAT,REFACTOR]|+96/-43 (3files)|feat: サイドバーのシステム名と表示名を再定義し、UIの言語切替機能を改善。通常モードでの再実行ボタンを追加。|quant_trading_system
+2025-10-01 21:38:19 +0900|b652f79|[FEAT,TEST]|+139/-13 (4files)|feat: ログ出力のコンパクトモードを実装し、手動再構築通知の集約を追加。テストケースを作成。|quant_trading_system
+2025-10-01 21:51:50 +0900|c19f18a|[FEAT,TEST]|+116/-8 (1files)|feat: バックテストの開始と終了時に詳細なログ出力を追加し、JSON形式でのイベント記録を実装|quant_trading_system
+2025-10-01 22:21:59 +0900|8fed17f|[FIX]|+724/-63 (7files)|Enhance filtering and debugging capabilities|quant_trading_system
+2025-10-01 22:36:47 +0900|92414cb|[FEAT]|+291/-65 (6files)|feat: 画像アップロードの成功/失敗を環境変数で管理し、失敗時に通知を追加。シグナル送信時のカラム名正規化を強化。|quant_trading_system
+2025-10-01 22:46:22 +0900|e56b91c|[FEAT,REFACTOR]|+95/-41 (3files)|feat: 環境変数による手動再構築の詳細出力制限を実装し、パフォーマンスを向上。保有マトリクスの初期化方法を改善し、FutureWarningを回避。フィルター条件の正規化を強化。|quant_trading_system
+2025-10-01 23:59:42 +0900|f515fff|[FIX,FEAT,REFACTOR]|+531/-139 (6files)|Refactor signal computation and add debug Slack notifier|quant_trading_system
+2025-10-01 23:59:55 +0900|55ab9a6|[FEAT,REFACTOR]|+22/-8 (1files)|feat: コードの可読性を向上させるために、条件式のインデントを整理|quant_trading_system
+2025-10-02 12:03:25 +0900|fda2392|[FIX]|+285/-1 (11files)|fix: 不要なインポートを削除し、コードの可読性を向上|quant_trading_system
+2025-10-03 09:09:45 +0900|34a37ec|[FEAT,REFACTOR]|+1821/-564 (36files)|Add UTF-8 support for mypy execution and refactor strategies|quant_trading_system
+2025-10-03 13:19:00 +0900|1b1cfb4|[FEAT]|+1271/-49 (28files)|feat: Add performance snapshot feature for runtime measurement|quant_trading_system
+2025-10-03 13:30:19 +0900|e16af3d|[FIX]|+11/-2 (1files)|fix: Streamlitのexpanderネスト禁止に対応し、表示方法を変更|quant_trading_system
+2025-10-03 14:04:16 +0900|39ce18c|[FIX,FEAT]|+19/-2 (3files)|fix: Python仮想環境を.gitignoreに追加し、不要なコードを削除|quant_trading_system
+2025-10-03 14:33:06 +0900|16a9e73|[FIX,FEAT,REFACTOR]|+320/-101 (4files)|feat: ローカル品質集約ツールを追加し、複数の静的解析ツールを統合 fix: API 非対応のペーパー口座リセット機能を明示化し、ユーザーへの案内を追加 fix: Streamlit の表示ロジックを改善し、エラーメッセージを強化|quant_trading_system
+2025-10-03 14:41:53 +0900|43a1a52|[FIX]|+1/-260 (2files)|fix: ペーパー資金リセット機能を削除し、API非対応の明示化|quant_trading_system
+2025-10-03 15:17:02 +0900|7ad5fdd|[REFACTOR]|+426/-203 (9files)|Refactor and enhance various modules|quant_trading_system
+2025-10-04 11:44:39 +0900|4602a0d||+5678/-4080 (87files)|Phase0-7: Diagnostics API & Setup Predicates Unification|quant_trading_system
+2025-10-04 12:13:13 +0900|f3c356f|[FEAT,REFACTOR]|+5679/-1795 (250files)|Implement code changes to enhance functionality and improve performance|quant_trading_system
+2025-10-04 12:22:52 +0900|d5d5832|[FIX,FEAT,TEST]|+36/-63 (2files)|feat: Codacy分析の設定を更新し、SARIF形式での出力を追加 fix: JSONチェックの除外パターンを追加し、pytestの依存関係を追加|quant_trading_system
+2025-10-04 20:56:04 +0900|12c37a5|[FIX]|+470/-245 (16files)|Apply black formatting to all files (auto-fixed by pre-commit hook)|quant_trading_system
+2025-10-04 21:01:35 +0900|2a15b17|[FIX]|+8/-113 (3files)|Apply black formatting (second pass after pre-commit auto-fix)|quant_trading_system
+2025-10-04 21:06:48 +0900|c3094d2|[FIX]|+62/-4 (4files)|Apply pre-commit auto-fixes (black + end-of-file-fixer)|quant_trading_system
+2025-10-04 21:08:09 +0900|5659e75|[FEAT]|+19/-1 (2files)|Add pre-push hook verification guide|quant_trading_system
+2025-10-04 21:13:00 +0900|80509be||+5/-7 (1files)|pre-push: use pinned black hook instead of local check|quant_trading_system
+2025-10-04 21:14:05 +0900|56af0f3||+2/-2 (1files)|pre-push: keep black check, move heavy hooks to manual (pipeline & quality aggregate)|quant_trading_system
+2025-10-04 21:24:04 +0900|2a57583|[FIX,FEAT]|+19/-1 (2files)|設定: mypy と Python 分析のためのエラー除外パターンを追加|quant_trading_system
+2025-10-04 21:40:19 +0900|4a48f40|[REFACTOR]|+53/-20 (4files)|コードの整形: 不要な改行を削除し、可読性を向上させるためにコードを整理|quant_trading_system
+2025-10-04 22:17:55 +0900|68ebe16|[REFACTOR]|+1/-6 (1files)|依存関係の整理: 不要なパッケージを削除し、重複を解消|quant_trading_system
+2025-10-04 22:28:56 +0900|aeb060c|[FEAT]|+1/-0 (1files)|依存関係の追加: seaborn パッケージを requirements.txt に追加|quant_trading_system
+2025-10-04 23:03:10 +0900|eb366bf||+48/-49 (8files)|データフレーム表示の幅を「stretch」に変更し、可視性を向上させる|quant_trading_system
+2025-10-05 15:14:45 +0900|ce770af||+2610/-4397 (233files)|style: settle core/system3.py formatting|quant_trading_system
+2025-10-05 15:52:04 +0900|bf49d7f|[FIX]|+8/-8 (1files)|型キャストを修正し、辞書のキーを文字列に変換するように変更|quant_trading_system
+2025-10-05 16:03:58 +0900|e22982f|[REFACTOR]|+29/-11 (1files)|コードのインポート順序を整理し、可読性を向上させるためにリファクタリングを実施|quant_trading_system
+2025-10-05 16:15:00 +0900|06c6c97|[REFACTOR]|+119/-85 (3files)|Refactor imports and improve code formatting in run_all_systems_today.py|quant_trading_system
+2025-10-05 17:34:22 +0900|421ea07|[REFACTOR]|+339/-142 (5files)|Refactor code for improved readability and maintainability|quant_trading_system
+2025-10-05 20:22:57 +0900|5d40e21|[FEAT]|+8/-0 (1files)|新しいワークスペース設定ファイルを追加|quant_trading_system
+2025-10-05 22:29:37 +0900|60696c3|[REFACTOR]|+443/-182 (5files)|Refactor code structure and improve logging in today signals application|quant_trading_system
+2025-10-05 23:07:54 +0900|1c14658|[REFACTOR]|+1017/-253 (9files)|Refactor rolling indicator computation in update_from_bulk_last_day.py|quant_trading_system
+2025-10-05 23:26:05 +0900|747aea9|[REFACTOR]|+166/-6 (3files)|Refactor code for improved readability and maintainability in cache_manager.py, cache_validation.py, and update_from_bulk_last_day.py|quant_trading_system
+2025-10-05 23:57:42 +0900|10f5e92|[FEAT,REFACTOR]|+347/-70 (4files)|Refactor update_from_bulk_last_day.py: Enhance performance and add new features|quant_trading_system
+2025-10-06 00:34:51 +0900|4db35bb|[FEAT]|+1130/-0 (3files)|Add Bulk API data quality verification and scheduled update scripts|quant_trading_system
+2025-10-06 00:39:26 +0900|2d8ca4c||+33/-5 (1files)|Update BULK_API_GUIDE.md: Enhance task scheduling instructions for CMD and PowerShell|quant_trading_system
+2025-10-06 11:58:43 +0900|21a856b|[REFACTOR]|+153/-14 (2files)|Refactor imports and improve code formatting in run_all_systems_today.py|quant_trading_system
+2025-10-07 00:15:00 +0900|ca61d49|[FEAT,REFACTOR]|+1207/-159 (19files)|Refactor system7.py for improved logging and diagnostics; add new diagnostic snapshots|quant_trading_system
+2025-10-07 00:44:32 +0900|b0d69e3|[REFACTOR]|+91/-90 (4files)|Refactor top_n setting logic in System4 and System5 strategies|quant_trading_system
+2025-10-07 00:51:30 +0900|18293de|[REFACTOR]|+24/-53 (1files)|Refactor imports and improve code formatting in run_all_systems_today.py|quant_trading_system
+2025-10-08 15:27:05 +0900|80df1f7|[FEAT]|+1525/-122 (13files)|feat: Implement daily automated update system with health checks|quant_trading_system
+2025-10-10 15:34:08 +0900|ca42551|[FEAT]|+7234/-49 (12files)|feat: Implement target date prioritization with safe fallback in candidate generation for System1 and System3|quant_trading_system
+2025-10-10 21:31:52 +0900|56e0f48||+6/-0 (1files)|chore(codacy): ensure excludes present in HEAD|quant_trading_system
+2025-10-10 22:18:17 +0900|1bbab7a|[FEAT]|+134/-2 (3files)|feat: Add Codacy analysis runner for WSL with UTF-8 enforcement and flexible modes|quant_trading_system
+2025-10-11 01:12:18 +0900|086503f|[FIX,REFACTOR,TEST]|+4331/-90 (28files)|Enhance scripts and tests for improved functionality and error handling|quant_trading_system
+2025-10-11 13:24:04 +0900|0f8b0ab|[REFACTOR]|+5415/-750 (38files)|refactor: Codacy削除とGitHub Actions品質自動化に移行|quant_trading_system
+2025-10-11 13:49:11 +0900|17fc4f7||+377/-8 (2files)|docs: Phase7完了報告と最終チェックリスト更新|quant_trading_system
+2025-10-11 13:57:31 +0900|9a5486c|[FEAT]|+807/-0 (3files)|feat(phase6): パフォーマンス測定拡充 - PerformanceMonitor実装|quant_trading_system
+2025-10-11 14:36:28 +0900|cb9d411|[FEAT]|+24636/-56 (9files)|feat(phase6): run_all_systems_todayにPerformanceMonitor統合|quant_trading_system
+2025-10-11 15:28:32 +0900|e9c9f69|[REFACTOR,TEST]|+3337/-288 (33files)|Enhance System7 Tests: Coverage and Functionality Improvements|quant_trading_system
+2025-10-11 17:12:16 +0900|5fa9dd8|[REFACTOR,TEST]|+1236/-26621 (30files)|Refactor tests and remove obsolete test_s3_topoff.py|quant_trading_system
+2025-10-11 17:14:00 +0900|bb9603d|[FEAT]|+4/-0 (1files)|.gitignoreの更新: vscode AIルールを無視するための指示を追加|quant_trading_system
+2025-10-11 19:30:48 +0900|c5bf2be|[FIX,TEST]|+1745/-22 (30files)|Fix syntax errors in test_system7_latest_only_path.py|quant_trading_system
+2025-10-11 19:32:04 +0900|e4d07d2||+10/-1 (1files)|Format pyproject.toml (auto-formatting)|quant_trading_system
+2025-10-11 22:12:37 +0900|c6979b7|[FIX,FEAT,TEST]|+1939/-336 (41files)|Add comprehensive tests for System7 functionality and error handling|quant_trading_system
+2025-10-11 22:21:46 +0900|6ee034a|[TEST]|+139/-55 (17files)|Diagnostics APIの統一キーをfinal_top_n_countからranked_top_n_countに変更し、関連するテストを更新|quant_trading_system
+2025-10-11 23:04:34 +0900|7abc6ba|[FEAT]|+139/-15 (3files)|Streamlit UIスクリーンショットツールにユーザー待機オプションとカラースキーム設定を追加|quant_trading_system
+2025-10-11 23:49:03 +0900|5347428|[FEAT]|+1438/-13 (7files)|feat: Update symbol_system_map to allow multiple system assignments for each symbol|quant_trading_system
+2025-10-12 14:21:07 +0900|ee98089|[FEAT]|+4577/-490 (40files)|feat: Add position size calculation method to trading strategies|quant_trading_system
+2025-10-12 22:21:19 +0900|e4d90f6|[FIX]|+6417/-1774 (267files)|fix: Reorder import statements for consistency and clarity|quant_trading_system
+2025-10-12 22:51:17 +0900|d162088|[FEAT,REFACTOR]|+162/-4 (4files)|feat: Update VSCode settings and add new tasks for improved development workflow|quant_trading_system
+2025-10-13 00:04:20 +0900|b7e7e0d|[FEAT,TEST]|+5477/-0 (26files)|Add End-to-End tests for Streamlit UI using Playwright|quant_trading_system
+2025-10-13 08:35:51 +0900|26284f4|[FEAT,TEST]|+5782/-10 (37files)|Add tools for UI progress tracking, snapshot comparison, regression detection, API documentation generation, system specifications generation, and scheduled tasks for cache updates and daily signals|quant_trading_system
+2025-10-13 09:08:57 +0900|6e2f6df|[FIX,FEAT,REFACTOR]|+7/-22 (1files)|feat: Improve universe loading logic to use local cache and enhance error handling|quant_trading_system
+2025-10-13 12:21:07 +0900|720642c|[FEAT]|+2403/-34 (23files)|feat: Add new tools for header image generation and icon processing|quant_trading_system
+2025-10-13 12:48:44 +0900|8ef35c6|[FEAT,REFACTOR,TEST]|+247/-0 (2files)|feat: Update Copilot instructions with VS Code tasks integration, test determinism enhancements, and recent architectural improvements|quant_trading_system
+2025-10-13 14:10:52 +0900|2ec7a28|[FIX]|+589/-84 (6files)|chore(env): point VSCode & tools to venv; unblock commit while fixing WindowsApps Python issue|quant_trading_system
+2025-10-13 18:35:54 +0900|4dcc35e|[FIX,FEAT,REFACTOR]|+855/-48 (12files)|feat: Add .gitattributes for line ending normalization and binary file handling; create CODEOWNERS for repository ownership; implement bug report and feature request templates; enhance daily signals workflow permissions; update .gitignore for new virtual environments; modify pre-commit configuration for system Python; update VSCode tasks to use default interpreter path; create cleanup script for old virtual environments; add article eyecatch image generation script; establish publish checklist for security compliance.|quant_trading_system
+2025-10-13 22:11:23 +0900|665fb46||+64/-0 (1files)|docs: tri-sync full-run report for 2025-10-13 (non-parallel & parallel) + artifacts pointers|quant_trading_system
+2025-10-13 22:24:11 +0900|ef1b825||+9/-5 (1files)|docs: update tri-sync full-run report (timings/perf notes)|quant_trading_system
+2025-10-14 00:07:10 +0900|789111f|[FEAT]|+2431/-0 (7files)|Add keyword quick reference, next article template, and 48-hour operation checklist for enhanced article writing and management|quant_trading_system
+2025-10-15 01:53:52 +0900|2c78c25||+2317/-195 (20files)|Workaround: commit despite phantom black/isort for system6|quant_trading_system
+2025-10-15 21:54:31 +0900|0cd2f88|[FEAT]|+319/-6 (5files)|chore: format workflow stabilization (A-D)\n- pre-commit: black 24.10.0 + check-only, isort check-only\n- add Makefile fmt/fmt-check/lint targets\n- doc: README format flow\n- unify pyproject (drop common/pyproject.toml)|quant_trading_system
+2025-10-15 22:51:11 +0900|70f2444||+970/-6 (4files)|chore: remove duplicate common/pyproject.toml (config unification)|quant_trading_system
+2025-10-16 20:43:28 +0900|0827ad0|[FIX]|+1731/-1132 (27files)|style: apply pre-commit auto-fixes (black/isort/ruff)|quant_trading_system
+2025-10-18 12:37:42 +0900|2b90298||+3311/-7447 (309files)|WIP: force sync bypassing pre-commit hooks|quant_trading_system
+2025-10-18 12:47:06 +0900|7f54b97||+46/-121 (7files)|chore: normalize imports and formatting (isort -> black -> ruff)|quant_trading_system
+2025-10-18 12:54:42 +0900|5d374e1|[FEAT]|+14/-4 (3files)|ci: add isort check to CI and tighten ruff import ignore; docs: formatting steps|quant_trading_system
+2025-10-18 13:01:45 +0900|abb1c47|[FEAT]|+11/-1 (2files)|ci: add isort steps to workflows; ruff: narrow import ignore to I001; docs: formatting order|quant_trading_system
+2025-10-18 13:55:25 +0900|779bcad|[FIX]|+6934/-290 (17files)|chore: apply pre-commit automatic fixes|quant_trading_system
+2025-10-18 14:33:56 +0900|a937f2e||+278/-119 (24files)|chore: accept pre-commit formatting changes to app_today_signals.py|quant_trading_system
+2025-10-18 18:45:51 +0900|2e78346||+58/-27 (1files)|chore: apply pre-commit formatting (black/ruff/isort) across repo|quant_trading_system
+2025-10-18 20:02:18 +0900|01d308a|[FEAT]|+2/-0 (1files)|chore: add *.isorted to .gitignore|quant_trading_system
+2025-10-19 21:24:21 +0900|1d1a135||+29/-0 (1files)|chore: extend .gitignore with common temp/IDE/build patterns|quant_trading_system
+2025-10-19 21:26:47 +0900|b99fdd1||+86/-137 (1files)|Enhance screenshot capture tool and article eyecatch generator|quant_trading_system
+2025-10-19 22:11:17 +0900|1f97d2d|[FIX,REFACTOR]|+393/-391 (7files)|Refactor allocation logic and improve error handling in final_allocation.py|quant_trading_system
+2025-10-19 22:13:52 +0900|1044c7e|[FEAT]|+1/-3 (1files)|記事の文言を微調整し、可読性を向上させるためにスペースを追加|quant_trading_system
+2025-10-19 23:32:16 +0900|7d3e70e|[FEAT]|+1589/-448 (28files)|Add paid asset link to week2 article and include downloads zip|quant_trading_system
+2025-10-19 23:41:26 +0900|3272b07||+0/-0 (3files)|Replace placeholder checklist and eyecatch with real assets; regenerate zip|quant_trading_system
+2025-10-19 23:46:12 +0900|1dbd1ad||+0/-0 (2files)|Generate real checklist_week2.pdf and regenerate assets zip|quant_trading_system
+2025-10-19 23:46:21 +0900|a5f9830|[FEAT]|+78/-0 (1files)|Add checklist PDF generator script|quant_trading_system
+2025-10-19 23:55:37 +0900|3604e52|[REFACTOR]|+70/-11 (3files)|Improve checklist PDF: embed Japanese-capable font and regenerate assets zip|quant_trading_system
+2025-10-19 23:58:48 +0900|ea5139a|[FEAT]|+99/-32 (10files)|Add new checklist assets and update CI configuration for Playwright|quant_trading_system
+2025-10-20 00:03:07 +0900|e08f686||+18/-8 (4files)|Polish checklist PDF layout: larger checkbox and spacing; regenerate zip|quant_trading_system
+2025-10-20 00:10:11 +0900|0d220db||+98/-45 (7files)|画像ファイルの更新とPlaywright設定ファイルのコードスタイルを統一|quant_trading_system
+2025-10-20 00:11:19 +0900|7c46492|[FEAT]|+2/-0 (1files)|Add note preview link to week2 article|quant_trading_system
+2025-10-20 00:15:03 +0900|508dc8f|[FEAT,REFACTOR]|+13/-4 (1files)|Improve CTA and add file metadata for paid assets|quant_trading_system
+2025-10-20 20:55:31 +0900|665ae8d|[REFACTOR]|+34/-193 (1files)|Copilot instructions: 更新されたエントリポイントとデータフローの概要を簡潔に整理し、必須ルールや開発コマンドを明確化|quant_trading_system
+2025-10-21 12:10:52 +0900|79c181b|[FEAT]|+1/-0 (1files)|ダウンロード資産セクションにメタ情報を追加|quant_trading_system
+2025-10-21 16:29:47 +0900|6093d6d|[FIX,FEAT]|+4159/-375 (46files)|Add various tools for debugging and building Playwright repros|quant_trading_system
+2025-10-21 17:05:15 +0900|50652d4|[FEAT]|+735/-81 (8files)|CacheManager: Implement automatic indicator recomputation on read and add bulk recompute script|quant_trading_system
+2025-10-21 17:42:44 +0900|ae1707e|[FEAT]|+171/-18 (3files)|Add CLI wrapper for filtering empty flags and enhance diagnostics in System1|quant_trading_system
+2025-10-21 19:34:43 +0900|da506e4|[FEAT]|+467/-126 (7files)|各種スクリプトにキャッシュ更新と再計算機能を追加し、Slack通知機能を実装|quant_trading_system
+2025-10-21 19:43:38 +0900|e5db438|[FIX,FEAT,REFACTOR]|+212/-101 (6files)|cheerioのインポート方法を修正し、診断ユーティリティを追加。キャッシュ更新スクリプトの引数を整理し、タスク登録機能を強化。|quant_trading_system
+2025-10-21 20:00:49 +0900|bf7c68d|[FIX,FEAT,REFACTOR]|+215/-92 (6files)|リコンプートスクリプトに出力パスオプションを追加し、通知機能を実装。キャッシュ更新タスクの引数を整理し、エラーログの出力を強化。|quant_trading_system
+2025-10-21 20:17:22 +0900|c67a1b7|[FEAT]|+278/-22 (3files)|Add diagnostic helper and record_exclude usage in system3; format files|quant_trading_system
+2025-10-21 20:50:44 +0900|8599e53|[FEAT]|+943/-37 (10files)|Add logging for today's signals execution and enhance diagnostics|quant_trading_system
+2025-10-21 21:07:49 +0900|c4cc982|[FEAT]|+1823/-17 (26files)|feat: Add tools for analyzing and exporting repro payloads|quant_trading_system
+2025-10-21 21:57:13 +0900|c1bcff7|[REFACTOR]|+1972/-1914 (76files)|Refactor code for improved readability and consistency across multiple scripts|quant_trading_system
+2025-10-21 21:58:16 +0900|d7ce6f2|[FIX]|+6/-5 (5files)|fix: Reorder imports for consistency and clarity in exit_analysis, system6, analyze_repro_snapshot, and repro_run_allocate scripts|quant_trading_system
+2025-10-22 12:31:43 +0900|c0040ff|[FEAT,TEST]|+5836/-38 (13files)|CLI スモークテスト追加、CI ジョブ追加、Windows 文字化け対策、再現用ツールを追加|quant_trading_system
+2025-10-22 22:07:25 +0900|50aa033|[FIX,FEAT]|+983/-8 (10files)|tools: add system3 forensic helpers + persist debug column support (extract/summarize/label/force-populate/run)|quant_trading_system
+2025-10-22 22:07:59 +0900|32971f0|[FIX,FEAT]|+197/-0 (4files)|tools: add additional system3 debugging helpers and utilities|quant_trading_system
+2025-10-24 23:04:53 +0900|98c5d0e|[REFACTOR]|+8279/-2529 (323files)|Refactor code for improved readability and consistency across multiple scripts|quant_trading_system
+2025-10-25 20:28:57 +0900|2bc6295|[FEAT]|+872/-17 (9files)|各種スクリプトにデバッグ機能を追加し、メトリクス表示を明確化。新しいドキュメントを作成し、履歴と最新のセットアップを比較するスクリプトを追加。|quant_trading_system
+2025-10-25 23:02:10 +0900|702d4c4|[REFACTOR]|+7808/-2280 (322files)|Refactor code for improved readability and consistency|quant_trading_system
+2025-10-25 23:09:05 +0900|7485d4a|[FEAT,TEST]|+49/-0 (1files)|tests: harden controlled systems test; add PR body and CI workflow note|quant_trading_system
+2025-10-25 23:32:59 +0900|9c09ed3|[FEAT]|+112/-49 (3files)|tools: 新しいスクリプトを追加し、Streamlit URL の準備を待ってからキャプチャを実行する機能を実装|quant_trading_system
+2025-10-26 21:46:16 +0900|a9f60e9|[FIX,TEST]|+2020/-31 (20files)|final_allocation: only require strategies when none available (respect fallback) — fixes pre-commit enhanced-tests|quant_trading_system
+2025-10-26 23:35:06 +0900|4755130|[FIX]|+13/-15 (9files)|UI修正: STUpass表示を修正し、診断情報を真実のソースとして使用 — JSONL同期の安全性を向上させ、コメントを明確化|quant_trading_system
+2025-10-27 21:11:32 +0900|90fa7fe||+38/-47 (2files)|tmp_recompute_lock: 更新日時を2025-10-27に変更|quant_trading_system
+2025-10-31 18:00:34 +0900|a22d15c|[FEAT]|+8274/-1 (4files)|Add task state for AI competition and update recompute lock timestamp|quant_trading_system
+2025-11-01 13:12:46 +0900|8cf33f3|[FEAT]|+144/-0 (2files)|tools: 新しいログ生成スクリプトを追加し、架空銘柄データの生成プロセスを記録|quant_trading_system
+2025-11-01 16:17:38 +0900|f2033e6|[TEST]|+165/-181 (1files)|test: update tools/generate_test_symbols.py with NYSE business days, deterministic seeds, and indicator overrides|quant_trading_system
+2025-11-01 16:38:09 +0900|1420773|[FIX]|+26/-11 (3files)|chore(lint): fix ruff E712/F841/E501 in tools/scripts; ensure bool masks robust|quant_trading_system
+2025-11-01 16:41:29 +0900|da1a46f|[TEST]|+96/-118 (2files)|docs: update README and testing guide|quant_trading_system
+2025-11-01 16:41:45 +0900|539873a||+10/-0 (1files)|config: update environment settings|quant_trading_system
+2025-11-01 16:42:02 +0900|b725a81|[FEAT]|+288/-72 (3files)|common: update alpaca_order/profit_protection; add symbol_map utilities|quant_trading_system
+2025-11-01 16:45:11 +0900|9553ad7||+641/-174 (3files)|core,symbol_map: align load_symbol_system_map to return lowercase primary string; relax strict strategies check|quant_trading_system
+2025-11-01 16:47:42 +0900|a0a044d|[FEAT,TEST]|+167/-16 (4files)|tests/scripts/tools: add controlled pipeline test, add symbol_map tests, tidy imports|quant_trading_system
+2025-11-01 17:00:45 +0900|a6d4321||+2198/-0 (1files)|コード変更の目的を明確にするためのコミットメッセージ|quant_trading_system
+2025-11-01 17:01:27 +0900|feead68||+0/-8273 (3files)|Remove tasks-state.json file as it is no longer needed for task management.|quant_trading_system
+2025-11-01 19:08:56 +0900|b1a6924|[FEAT,TEST]|+3007/-1088 (47files)|Add comprehensive documentation and diagnostics tests for trading systems|quant_trading_system
+2025-11-01 19:42:02 +0900|bf3107d|[FIX]|+29/-103 (3files)|fix(diagnostics): System3/System5 の STUpass/TRDlist 不整合を修正|quant_trading_system
+2025-11-02 11:53:07 +0900|a369a7b|[FIX,FEAT,TEST]|+1077/-552 (16files)|test(option-b): fix System3 parity test to toggle flags; add System6 Option-B parity test; ensure ON/OFF equivalence and robust diagnostics handling|quant_trading_system
+2025-11-02 13:12:30 +0900|c34c7e1|[FIX,TEST]|+23/-23 (1files)|tests: make controlled pipeline test robust to settings outputs; expect 1 row for current deterministic set; fix success message|quant_trading_system
+2025-11-02 13:43:27 +0900|374bf7e|[FEAT,TEST]|+4768/-856 (83files)|Add tests for zero candidates in System5 and System6 with latest_only flag|quant_trading_system
+2025-11-02 13:44:17 +0900|672ba1b|[FIX]|+16/-13 (5files)|fix: import logging and pathlib in multiple files for consistency|quant_trading_system
+2025-11-02 13:44:39 +0900|3595e89||+1/-0 (2files)|chore(ci): apply isort import ordering across repo to satisfy CI Unified lint check; no functional changes|quant_trading_system
+2025-11-02 13:44:53 +0900|66ac335|[FEAT]|+0/-1 (2files)|chore: remove accidental additions from previous commit|quant_trading_system
+2025-11-02 13:46:02 +0900|27c862f|[FIX]|+6/-10 (6files)|chore(ci): isort import order fixes (6 files) to satisfy CI Unified lint|quant_trading_system
+2025-11-03 10:13:06 +0900|b9cbdba|[FEAT,TEST]|+2049/-31 (13files)|Add Entry/Exit test results documentation and enhance order submission logging|quant_trading_system
+2025-11-03 12:34:26 +0900|eafd285|[FEAT]|+266/-285 (5files)|Update symbol system mapping and add trade history|quant_trading_system
+2025-11-03 13:27:24 +0900|6559dc9|[FIX,REFACTOR]|+6/-5 (2files)|Fix DataFrame type checks and improve error handling in position summary display|quant_trading_system
+2025-11-03 13:32:25 +0900|307eed3|[FEAT]|+7/-2 (1files)|注文データのUUIDと作成日時を文字列に変換し、Arrow互換性のために全列を文字列化する処理を追加|quant_trading_system
+2025-11-03 13:41:32 +0900|77895a8|[FIX,FEAT]|+20/-0 (1files)|Arrow 互換性の問題を解決するために、オブジェクト型の列を文字列に変換する処理を追加|quant_trading_system
+2025-11-03 13:46:37 +0900|d8b4785|[FIX,FEAT]|+39/-3 (1files)|Arrow 互換性の問題を解決するために、データフレーム内のオブジェクト型を文字列に変換する処理を追加|quant_trading_system
+2025-11-03 13:50:01 +0900|4536150|[FEAT]|+2/-2 (1files)|オープンオーダーのIDを文字列に変換し、Arrow互換性のためにデータフレームをサニタイズする処理を追加|quant_trading_system
+2025-11-03 13:55:28 +0900|159390c|[FEAT]|+20/-2 (1files)|CSSの調整とデータフレーム表示の高さを設定し、ユーザーの動作設定に配慮したアニメーションを追加|quant_trading_system
+2025-11-03 14:01:20 +0900|77f0ee2||+5/-5 (1files)|CSSの調整とトグルボタンの導入により、ユーザーインターフェースの視認性を向上|quant_trading_system
+2025-11-03 14:37:54 +0900|e6ec87e|[FEAT,TEST]|+514/-150 (3files)|feat: Add logging for today's signals execution and enhance test symbol generation|quant_trading_system
+2025-11-08 12:12:42 +0900|426873d|[FEAT]|+350/-4 (5files)|feat: スケジューラーに当日シグナル生成タスクを追加し、実行時刻を変更|quant_trading_system
+2025-11-11 22:27:59 +0900|cf249bb|[FEAT,REFACTOR]|+268/-24 (10files)|feat: システムマッピングの改善とデータフレームの整形処理を追加|quant_trading_system
+2025-11-12 22:24:41 +0900|b546a97|[FIX]|+2/-1 (2files)|fix: 更新された再計算ロックのタイムスタンプを修正|quant_trading_system
+2025-11-22 17:08:15 +0900|a7027b2|[FIX]|+1/-1 (1files)|fix: 再計算ロックのタイムスタンプを更新|quant_trading_system
+2025-11-24 10:58:36 +0900|bbb79e1|[FIX]|+1/-1 (1files)|fix: 再計算ロックのタイムスタンプを更新|quant_trading_system
+2025-11-30 20:08:32 +0900|5444a71|[FIX]|+1/-1 (1files)|fix: 再計算ロックのタイムスタンプを更新|quant_trading_system
+2025-12-02 21:36:59 +0900|8b57c8d|[FEAT]|+1229/-1 (3files)|Update tmp_recompute_lock timestamp to reflect new scheduling date|quant_trading_system
+2025-12-03 20:26:47 +0900|6b512c0|[FIX]|+1/-1 (1files)|fix: 再計算ロックのタイムスタンプを2025-12-03に更新|quant_trading_system

@@ -1,0 +1,76 @@
+2025-11-30|feat: 譖ｴ譁ｰ縺輔ｌ縺溽屮隕悶ョ繝ｼ繧ｿCSV繝輔ぃ繧､繝ｫ縺ｫ蛻晄悄蛟､繧定ｿｽ蜉縺励√せ繝医Μ繝ｼ繧ｯ繝・・繧ｿ繧呈眠隕丈ｽ懈・
+2025-11-24|fghj
+2025-11-24|feat: Add monitoring dashboard with X API integration and CSV processing tools, and update PowerShell profile setup.
+2025-11-24|feat: 繧｢繝ｳ繝医す繧｢繝九Φ縺輔ｓ縺ｮ蝗ｳ隗｣繝昴せ繝亥・譫舌ヤ繝ｼ繝ｫ繧定ｿｽ蜉縺励∝渕譛ｬ邨ｱ險医ｄ繧ｨ繝ｳ繧ｲ繝ｼ繧ｸ繝｡繝ｳ繝亥・譫先ｩ溯・繧貞ｮ溯｣・2025-11-22|Add new posts and reports for AI Narrative Studio analysis
+2025-11-22|Add rewritten CSV files for Weeks 2 and 3 with relationship advice content
+2025-11-22|feat: SNS謚慕ｨｿ繝ｪ繝ｩ繧､繝域欠遉ｺ繝励Ο繝ｳ繝励ヨ繧定ｿｽ蜉縺励√Μ繝ｩ繧､繝医Ν繝ｼ繝ｫ縺ｨ莠倶ｾ九ｒ譏守｢ｺ蛹・2025-11-22|feat: 謚慕ｨｿ繝ｪ繝ｩ繧､繝医ヤ繝ｼ繝ｫ縺ｨ繧ｹ繧ｯ繝ｪ繝励ヨ繧定ｿｽ蜉縺励√後Ξ繧ｹ蜊貞・霈ｩ縲阪・繝ｫ繧ｽ繝翫↓蝓ｺ縺･縺上Μ繝ｩ繧､繝域ｩ溯・繧貞ｮ溯｣・2025-11-22|Refactor CSV files for Weeks 8 to 9: Removed unnecessary "Day" and timestamp fields, ensuring consistency and clarity in data representation.
+2025-11-22|Refactor CSV output files for weeks 8 and 9: Update date tags and remove week references for consistency in daily entries.
+2025-11-22|feat: Add new CSV files for Week 8 and Week 9 with daily posts on various personal and relationship topics
+2025-11-22|feat: Add CSV files for Week 7-8 posts and implement buffer splitting script
+2025-11-22|Remove test_day1_sample.csv as it is no longer needed for outputs.
+2025-11-22|Add sample CSV file for test day 1 with initial data entries
+2025-11-22|Add image generation prompts and utilities for SNS post updates
+2025-11-22|Add article rewrite plan and export script for weeks 7-8
+2025-11-21|feat: Add action selection menu for user interaction in SNS integrated analyzer
+2025-11-21|Threads逕ｻ蜒冗函謌舌・繝ｭ繝ｳ繝励ヨ縺ｮ蜀・ｮｹ繧呈峩譁ｰ縺励ヾNS繝・・繧ｿ霑ｽ霍｡逕ｨ縺ｮJSON繝輔ぃ繧､繝ｫ繧呈眠隕丈ｽ懈・縲よ兜遞ｿ繧ｹ繧ｱ繧ｸ繝･繝ｼ繝ｫCSV繝輔ぃ繧､繝ｫ縺ｮ繝輔か繝ｼ繝槭ャ繝医ｒ菫ｮ豁｣縺励・未菫よｧ謚慕ｨｿ繧呈ｴ礼ｷｴ縺輔○繧九◆繧√・繧ｹ繧ｯ繝ｪ繝励ヨ繧定ｿｽ蜉縲・2025-11-21|隍・焚縺ｮ繝・・繝ｫ縺ｮ繧ｨ繧､繝ｪ繧｢繧ｹ繧定ｿｽ蜉縺励ヾNS邨ｱ蜷亥・譫舌ヤ繝ｼ繝ｫ縺ｮ騾夂衍讖溯・繧貞ｮ溯｣・ゅち繧ｹ繧ｯ繧ｹ繧ｱ繧ｸ繝･繝ｼ繝ｩ縺ｮ險ｭ螳壹せ繧ｯ繝ｪ繝励ヨ繧定ｿｽ蜉縺励´INE Notify險ｭ螳壹ぎ繧､繝峨ｒ菴懈・縲・2025-11-21|驕狗畑繝槭ル繝･繧｢繝ｫ縺ｮ譖ｴ譁ｰ縲ゝhreads逕ｻ蜒冗函謌舌・繝ｭ繝ｳ繝励ヨ縺ｮ霑ｽ蜉縲ヾNS繝・・繧ｿ繝医Λ繝・く繝ｳ繧ｰ縺ｮ蛻晄悄險ｭ螳壹∫判蜒冗函謌舌ヤ繝ｼ繝ｫ縺ｮ謾ｹ蝟・ヾNS邨ｱ蜷亥・譫舌ヤ繝ｼ繝ｫ縺ｮ菫ｮ豁｣縲√Μ繝ｬ繝ｼ繧ｷ繝ｧ繝ｳ繧ｷ繝・・閾ｪ蜍墓兜遞ｿ繝・・繝ｫ縺ｮ霑ｽ蜉
+2025-11-21|Threads驕狗畑繝槭ル繝･繧｢繝ｫ繧定ｿｽ蜉縺励∽ｼ夊ｩｱ縺ｮ繝偵Φ繝磯・菫｡蝗樊焚繧貞｢怜刈縲ら判蜒冗函謌舌せ繧ｯ繝ｪ繝励ヨ繧呈隼蝟・＠縲∝・蜉帙ヵ繧ｩ繝ｫ繝縺ｮ蟄伜惠遒ｺ隱肴ｩ溯・繧定ｿｽ蜉縲・2025-11-21|螟ｫ蟀ｦ髢｢菫ょ・讒狗ｯ峨い繧ｫ繧ｦ繝ｳ繝磯°逕ｨ繝槭ル繝･繧｢繝ｫ繧定ｿｽ蜉縺励ヾNS邨ｱ蜷亥・譫舌ヤ繝ｼ繝ｫ繧貞ｮ溯｣・５hreads逕ｻ蜒冗函謌舌せ繧ｯ繝ｪ繝励ヨ繧呈隼蝟・＠縲∝・蜉帙ヵ繧｡繧､繝ｫ縺ｮ繧ｪ繝励す繝ｧ繝ｳ繧定ｿｽ蜉縲・2025-11-21|Add Threads image generation tool and processing scripts
+2025-11-19|Add initial research ideas and post generation scripts for relationship topics
+2025-11-19|Add renkin.ps1 script for article rewriting tool and create R036-R050 hooks markdown file
+2025-11-18|Add note template for alchemical themes and emotional dependencies; expand relationship research ideas with new insights and post patterns
+2025-11-17|Refactor code structure for improved readability and maintainability; removed redundant code blocks and optimized function calls.
+2025-11-16|Add comprehensive strategy document for improving couple relationships on Threads platform
+2025-11-16|Add analysis and improvement prompt, implement post generator for Threads strategy, and enhance X API analyzer with environment variable support
+2025-11-16|feat: 縺偵☆縺・〓蛹冶ｨ倅ｺ区隼蝟・ヤ繝ｼ繝ｫ繧定ｿｽ蜉縺励￣owerShell繝励Ο繝輔ぃ繧､繝ｫ縺ｫ繧ｨ繧､繝ｪ繧｢繧ｹ繧定ｨｭ螳・2025-11-16|feat: 繧ｿ繝ｼ繧ｲ繝・ヨ螻､縺ｨ險倅ｺ九・逶ｮ逧・ｒ譏守｢ｺ蛹悶＠縲√・繧ｬ繧ｸ繝ｳ蜷阪ｒ螟画峩
+2025-11-16|feat: 譁ｰ縺励＞縺偵☆縺・〓莠ｺ譬ｼ GPT繝壹Ν繧ｽ繝翫・繝ｭ繝ｳ繝励ヨ v2繧定ｿｽ蜉
+2025-11-16|feat: Add SNS monetization planner tool with interactive Q&A and OpenAI integration
+2025-11-16|feat: Update QUICKSTART.md for Education and BlushUp tools; add blushup.ps1 and prompt automation scripts
+2025-11-16|Add automation scripts for Notion prompt snapshots and LINE digests
+2025-11-16|fix: Refactor jsonBody in n8n workflow to improve replyToken and messages handling
+2025-11-16|fix: Update jsonBody in n8n workflow to handle multiple replyToken and messages sources
+2025-11-16|feat: Add debug script for state determination logic
+2025-11-16|fix: Update API URL in n8n workflow to use local IP address for state retrieval
+2025-11-16|fix: Update API URL to use host.docker.internal for state retrieval
+2025-11-16|feat: Add automated prompt management system using LINE and Notion
+2025-11-16|Add n8n workflow import guide and education prompt manager script
+2025-11-15|Add image generation tool and state management enhancements
+2025-11-15|fix: 繝ｦ繝ｼ繧ｶ繝ｼ迥ｶ諷句叙蠕励・繧ｨ繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ繧定ｿｽ蜉縺励∝・譛溽憾諷九↓繝輔か繝ｼ繝ｫ繝舌ャ繧ｯ縺吶ｋ繝ｭ繧ｸ繝・け繧貞ｮ溯｣・2025-11-15|fix: 繧ｳ繝槭Φ繝芽ｧ｣譫舌ヮ繝ｼ繝峨・jsCode繧呈隼蝟・＠縲∵焚蟄励す繝ｧ繝ｼ繝医き繝・ヨ縺ｮ蜃ｦ逅・ｒ霑ｽ蜉
+2025-11-15|fix: 繧ｳ繝槭Φ繝芽ｧ｣譫舌ヮ繝ｼ繝峨・jsCode繧呈隼蝟・＠縲√ユ繧ｭ繧ｹ繝医・豁｣隕丞喧縺ｨ繝倥Ν繝励Γ繝・そ繝ｼ繧ｸ縺ｫ繧ｯ繧､繝・け繝ｪ繝励Λ繧､繧定ｿｽ蜉
+2025-11-15|fix: jsCode縺ｮ繝ｪ繝輔ぃ繧ｯ繧ｿ繝ｪ繝ｳ繧ｰ繧定｡後＞縲∝・蜉帙ョ繝ｼ繧ｿ縺ｮ謇ｱ縺・ｒ謾ｹ蝟・2025-11-15|fix: 霑比ｿ｡繝医・繧ｯ繝ｳ縺ｮ蜿門ｾ玲婿豕輔ｒ謾ｹ蝟・＠縲√お繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ繧定ｿｽ蜉
+2025-11-15|fix: LINE霑比ｿ｡繝弱・繝峨・jsCode繧定ｿｽ蜉縺励√Γ繝・そ繝ｼ繧ｸ逕滓・縺ｮ繝ｭ繧ｸ繝・け繧呈隼蝟・2025-11-15|fix: 霑比ｿ｡繝｡繝・そ繝ｼ繧ｸ謨ｴ蠖｢繝弱・繝峨・jsCode繧呈隼蝟・＠縲√ョ繝ｼ繧ｿ蜿門ｾ励・蝣・欧諤ｧ繧貞髄荳・2025-11-15|fix: 繝倥Ν繝励Γ繝・そ繝ｼ繧ｸ菴懈・繝弱・繝峨・jsCode繧剃ｿｮ豁｣縺励∬ｿ比ｿ｡繝｡繝・そ繝ｼ繧ｸ謨ｴ蠖｢繝弱・繝峨・繝・・繧ｿ蜿門ｾ玲婿豕輔ｒ謾ｹ蝟・2025-11-15|fix: localtunnel襍ｷ蜍墓凾縺ｮPATH蝠城｡後ｒ隗｣豎ｺ縺励√お繝ｩ繝ｼ繝｡繝・そ繝ｼ繧ｸ繧呈隼蝟・2025-11-15|feat: LINE霑比ｿ｡繝弱・繝峨・jsCode繧剃ｿｮ豁｣縺励∬ｿ比ｿ｡繝医・繧ｯ繝ｳ縺ｮ隗｣豎ｺ譁ｹ豕輔ｒ謾ｹ蝟・2025-11-15|fix: LINE霑比ｿ｡繝弱・繝峨・jsonBody繝輔か繝ｼ繝槭ャ繝医ｒ菫ｮ豁｣縺励∬ｿ比ｿ｡繝｡繝・そ繝ｼ繧ｸ謨ｴ蠖｢繝弱・繝峨ｒ霑ｽ蜉
+2025-11-14|fix: LINE霑比ｿ｡繝弱・繝峨・jsonBody繝輔か繝ｼ繝槭ャ繝医ｒ菫ｮ豁｣縺励√Γ繝・そ繝ｼ繧ｸ驟榊・縺ｮ蜃ｦ逅・ｒ謾ｹ蝟・2025-11-14|feat: LINE霑比ｿ｡繝弱・繝峨ｒ繝ｦ繝ｼ繧ｶ繝ｼ迥ｶ諷区峩譁ｰ繝輔Ο繝ｼ縺ｫ霑ｽ蜉
+2025-11-14|fix: LINE Bot縺ｮjsonBody繝輔か繝ｼ繝槭ャ繝医ｒ菫ｮ豁｣
+2025-11-14|fix: JSON繝懊ョ繧｣縺ｮ繝輔か繝ｼ繝槭ャ繝医ｒ謨ｴ蠖｢
+2025-11-14|feat: Flask繧｢繝励Μ縺ｮ繝・ヰ繝・げ繝｢繝ｼ繝峨ｒ辟｡蜉ｹ蛹悶＠縲√・繝ｫ繧ｹ繝√ぉ繝・け逕ｨ縺ｮ譁ｰ縺励＞繧ｨ繝ｳ繝峨・繧､繝ｳ繝医ｒ霑ｽ蜉
+2025-11-12|feat: 譁ｰ縺励＞LINE Bot繝｡繝九Η繝ｼ迚医・n8n繝ｯ繝ｼ繧ｯ繝輔Ο繝ｼ繧定ｿｽ蜉
+2025-11-12|feat: Add help and loading message generation for LINE Bot
+2025-11-12|feat: Refactor LINE Bot response body parameters to use JSON format
+2025-11-12|feat: Update LINE Bot webhook configuration and enhance command parsing logic
+2025-11-12|feat: Implement LINE Bot State Manager API and update n8n workflow for user state management
+2025-11-12|feat: Update LINE Bot webhook handling and add test webhook data
+2025-11-11|chore: Add input folder to gitignore
+2025-11-10|feat: Add LINE Bot handover documentation and implement SQLite state management
+2025-11-10|feat: Add LINE Bot handover documentation and implement SQLite state management
+2025-11-09|feat: Implement progress notification and scheduled learning for LINE Bot
+2025-11-09|feat: Implement progress notification and scheduled learning for LINE Bot
+2025-11-09|Add workflows for X API integration and posting automation
+2025-11-09|Add workflows for X API integration and posting automation
+2025-11-08|feat: Update article drafts with YAML front matter and add new meta and x-posts files
+2025-11-03|Add three new articles on saving money, gambling strategies, and dieting tips
+2025-11-03|fix: 菫ｮ豁｣縺輔ｌ縺溽┌譁咎Κ蛻・・隱ｬ譏取枚繧呈峩譁ｰ縺励√ｈ繧頑・遒ｺ縺ｫ縺励◆ fix: Notion繝壹・繧ｸ菴懈・縺ｮ髢｢謨ｰ繧ｳ繝ｼ繝峨ｒ菫ｮ豁｣縺励∝・蜉帛ｽ｢蠑上ｒ譖ｴ譁ｰ
+2025-11-03|Update magazine promotion and content structure across multiple drafts; replace old Twitter handle with new one, enhance magazine description, and standardize article format. Remove deprecated categorization scripts and streamline Notion page creation process.
+2025-11-03|Add GETHNOTE to X auto-poster workflow and related scripts
+2025-11-03|feat: Add automated workflow for note article rewriting and saving
+2025-11-03|譁ｰ隕上せ繧ｯ繝ｪ繝励ヨ繧定ｿｽ蜉縺励，hatGPT縺ｮ蜃ｺ蜉帙°繧穎ote謚慕ｨｿ逕ｨMarkdown繝輔ぃ繧､繝ｫ繧堤函謌舌☆繧区ｩ溯・繧貞ｮ溯｣・ょ・蜉帙ユ繧ｭ繧ｹ繝医・蜿門ｾ励√ち繧､繝医Ν縺ｮ閾ｪ蜍墓歓蜃ｺ縲｀arkdown蠖｢蠑上∈縺ｮ謨ｴ蠖｢縲√ヵ繧｡繧､繝ｫ菫晏ｭ倥ｒ陦後≧縲・2025-11-03|Prompt Runner縺ｮ菴ｿ縺・婿繧ｬ繧､繝峨ｒ譁ｰ隕丈ｽ懈・縺励√・繝ｭ繝ｳ繝励ヨ縺ｮ螳溯｡梧婿豕輔ｒ隧ｳ邏ｰ縺ｫ隱ｬ譏弱ゅお繧､繝ｪ繧｢繧ｹ讖溯・繧定ｿｽ蜉縺励√さ繝槭Φ繝峨・邁｡逡･蛹悶ｒ螳溽樟縲ゅΜ繝ｩ繧､繝域ｩ溯・繧貞ｼｷ蛹悶＠縲∬ｨ倅ｺ区悽譁・・蜈･蜉帶婿豕輔ｒ譏守｢ｺ蛹悶・ocker Compose險ｭ螳壹ｒ譖ｴ譁ｰ縺励√ヮ繝ｼ繝医ヵ繧ｩ繝ｫ繝縺ｮ繝槭え繝ｳ繝域婿豕輔ｒ謾ｹ蝟・・2025-11-03|繝弱・繝峨・typeVersion繧貞ｮ牙ｮ壹＠縺溘ヰ繝ｼ繧ｸ繝ｧ繝ｳ縺ｫ謌ｻ縺励？TTP繝ｪ繧ｯ繧ｨ繧ｹ繝医・繧ｪ繝励す繝ｧ繝ｳ繧呈紛逅・＠縺ｦ蜀鈴聞諤ｧ繧貞炎貂帙・2025-11-03|Filter Unprocessed Files繝弱・繝峨・jsCode繧剃ｿｮ豁｣縺励√さ繝槭Φ繝画枚蟄怜・縺ｫ蝓ｺ縺･縺・※蜈･蜉帙ｒ菫｡鬆ｼ諤ｧ鬮倥￥隴伜挨縺吶ｋ繧医≧縺ｫ謾ｹ蝟・ょ・逅・ｸ医∩繝輔ぃ繧､繝ｫ縺ｮ邂｡逅・ｒ蠑ｷ蛹悶・2025-11-03|Remove outdated workflows for Notes to Notion auto organizer, including both schedule-triggered and fixed versions, to streamline the codebase and eliminate redundancy.
+2025-11-03|繝弱・繝医ｒNotion縺ｫ閾ｪ蜍墓紛逅・☆繧九Ρ繝ｼ繧ｯ繝輔Ο繝ｼ繧剃ｿｮ豁｣縺励√ヵ繧｡繧､繝ｫ讀懃ｴ｢繧ｳ繝槭Φ繝峨・繝代せ繧剃ｿｮ豁｣縲ょ・逅・ｸ医∩繝輔ぃ繧､繝ｫ縺ｮ邂｡逅・ｒ謾ｹ蝟・・2025-11-03|繝弱・繝医ｒNotion縺ｫ閾ｪ蜍墓紛逅・☆繧九Ρ繝ｼ繧ｯ繝輔Ο繝ｼ繧定ｿｽ蜉縺励√せ繧ｱ繧ｸ繝･繝ｼ繝ｫ繝医Μ繧ｬ繝ｼ縺ｮ險ｭ螳壹ｒ菫ｮ豁｣縲ょ・逅・ｸ医∩繝輔ぃ繧､繝ｫ縺ｮ邂｡逅・ｒ謾ｹ蝟・・2025-11-03|Set Note Metadata繝弱・繝峨・jsCode繧剃ｿｮ豁｣縺励√ヰ繧､繝翫Μ繝輔ぃ繧､繝ｫ縺九ｉ縺ｮUTF-8繝・く繧ｹ繝域歓蜃ｺ蜃ｦ逅・ｒ謾ｹ蝟・０penAI API繧剃ｽｿ逕ｨ縺励※繝弱・繝亥・螳ｹ縺ｫ蝓ｺ縺･縺上き繝・ざ繝ｪ縺ｨ繧ｿ繧ｰ縺ｮ謠先｡医ｒ霑ｽ蜉縲・2025-11-03|Set Note Metadata繝弱・繝峨ｒ菫ｮ豁｣縺励∥ssignments繧男sCode縺ｫ鄂ｮ縺肴鋤縺医√ヵ繧｡繧､繝ｫ蜷阪∝・螳ｹ縲√ヱ繧ｹ縲∽ｽ懈・譌･繧呈歓蜃ｺ縺吶ｋ蜃ｦ逅・ｒ螳溯｣・・2025-11-03|Merge繝弱・繝峨ｒ蜑企勁縺励¨otion API繝壹う繝ｭ繝ｼ繝峨・貅門ｙ蜃ｦ逅・ｒ謾ｹ蝟・ゅヵ繧｡繧､繝ｫ繝代せ繧剃ｿ晄戟縺吶ｋ繧医≧縺ｫ螟画峩縲・2025-11-03|繝輔ぃ繧､繝ｫ蜷阪・蜿門ｾ怜・逅・ｒ菫ｮ豁｣縺励√ヱ繧ｹ蛹ｺ蛻・ｊ譁・ｭ励ｒWindows蠖｢蠑上°繧蔚nix蠖｢蠑上↓螟画峩縺励∪縺励◆縲・2025-11-03|繝弱・繝医ヵ繧｡繧､繝ｫ縺ｮ讀懃ｴ｢繧ｳ繝槭Φ繝峨ｒ菫ｮ豁｣縺励∵ｭ｣縺励＞繝・ぅ繝ｬ繧ｯ繝医Μ繝代せ繧呈欠螳壹＠縺ｾ縺励◆縲・2025-11-03|譁ｰ縺励＞繝・せ繝医ヮ繝ｼ繝医ｒ菴懈・縺励∝・螳ｹ繧定ｿｽ蜉縺励∪縺励◆縲・2025-11-03|Notion API繝壹う繝ｭ繝ｼ繝峨・繧ｳ繝ｳ繝・Φ繝・・繝ｭ繝代ユ繧｣繧定ｿｽ蜉縺励√Μ繝・メ繝・く繧ｹ繝亥ｽ｢蠑上↓螟画峩縲ょ・菴薙・繝壹う繝ｭ繝ｼ繝画ｧ狗ｯ牙・逅・ｒ謾ｹ蝟・・2025-11-03|Notion API繝壹う繝ｭ繝ｼ繝峨・繧ｫ繝・ざ繝ｪ繝励Ο繝代ユ繧｣繧剃ｿｮ豁｣縺励・∈謚櫁い縺九ｉ繝ｪ繝・メ繝・く繧ｹ繝亥ｽ｢蠑上↓螟画峩縲ょ・菴薙・繝壹う繝ｭ繝ｼ繝画ｧ狗ｯ牙・逅・ｒ謾ｹ蝟・・2025-11-03|Notion API繝壹う繝ｭ繝ｼ繝峨ｒ螳悟・縺ｫ讒狗ｯ峨☆繧九ｈ縺・↓螟画峩縺励？TTP繝ｪ繧ｯ繧ｨ繧ｹ繝医ヮ繝ｼ繝峨・險ｭ螳壹ｒ譖ｴ譁ｰ縲ゅヵ繧｡繧､繝ｫ繝代せ縺ｮ謚ｽ蜃ｺ蜃ｦ逅・ｒ謾ｹ蝟・・2025-11-03|Notion繝壹・繧ｸ菴懈・縺ｮ縺溘ａ縺ｮ繝・・繧ｿ貅門ｙ繧呈隼蝟・＠縲？TTP繝ｪ繧ｯ繧ｨ繧ｹ繝医ヮ繝ｼ繝峨ｒ霑ｽ蜉縲ゅヵ繧｡繧､繝ｫ繝代せ縺ｮ謚ｽ蜃ｺ蜃ｦ逅・ｒ譁ｰ縺溘↓螳溯｣・・2025-11-03|Notion繝壹・繧ｸ菴懈・繧但PI邨檎罰縺ｧ陦後≧繧医≧縺ｫ螟画峩縺励√ヮ繝ｼ繝峨ち繧､繝励ｒ譖ｴ譁ｰ縲ゅ・繝ｭ繝代ユ繧｣縺ｮ險ｭ螳壹ｒ菫ｮ豁｣縺励√お繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ繧定ｿｽ蜉縲・2025-11-03|Notion逕ｨ繝・・繧ｿ縺ｮ繝輔か繝ｼ繝槭ャ繝亥・逅・ｒ菫ｮ豁｣縺励√ち繧ｰ繧帝←蛻・↑譁・ｭ怜・縺ｮ驟榊・縺ｫ螟画鋤縲ょ・逅・ｸ医∩繝輔Λ繧ｰ繧定ｿｽ蜉縺励√ヮ繝ｼ繝峨ち繧､繝励ｒ螟画峩縲・2025-11-03|OpenAI縺ｮ繧ｫ繝・ざ繝ｪ繧ｿ繧ｰ莉倥￠縺九ｉ縺ｮ繝・・繧ｿ繧偵◎縺ｮ縺ｾ縺ｾ貂｡縺吶ｈ縺・↓螟画峩縺励∝ｿ・ｦ√↑繝輔ぅ繝ｼ繝ｫ繝峨′縺吶∋縺ｦ蟄伜惠縺吶ｋ縺薙→繧堤｢ｺ隱・2025-11-03|OpenAI繧ｫ繝・ざ繝ｪ繧ｿ繧ｰ莉倥￠縺ｮ蜈･蜉帙ョ繝ｼ繧ｿ繧剃ｿｮ豁｣縺励∬ｿ泌唆縺輔ｌ繧九ョ繝ｼ繧ｿ縺ｫ蜈・・蜈･蜉帙ｒ蜷ｫ繧√ｋ繧医≧縺ｫ螟画峩
+2025-11-03|繝励Ο繝代ユ繧｣蛟､縺ｮ險ｭ螳壹ｒ菫ｮ豁｣縺励√き繝・ざ繝ｪ縺ｮ繝・く繧ｹ繝医さ繝ｳ繝・Φ繝・ｒ驕ｸ謚槫､縺ｫ螟画峩
+2025-11-03|繝輔ぃ繧､繝ｫ蜷阪・蜿門ｾ励Ο繧ｸ繝・け繧呈隼蝟・＠縲∵悴螳夂ｾｩ縺ｮ蛟､縺ｫ蟇ｾ縺吶ｋ繝・ヵ繧ｩ繝ｫ繝亥､繧定ｨｭ螳壹よ僑蠑ｵ蟄舌・髯､蜴ｻ蜃ｦ逅・ｒ豁｣隕剰｡ｨ迴ｾ縺ｧ蠑ｷ蛹悶・2025-11-03|繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ繝ｭ繧ｸ繝・け繧呈隼蝟・＠縲∵悴蜃ｦ逅・ヵ繧｡繧､繝ｫ縺ｮ蜿門ｾ玲婿豕輔ｒ蠑ｷ蛹悶ょ・蜉帙・邨仙粋蜃ｦ逅・ｒ菫ｮ豁｣縺励√ヮ繝ｼ繝峨・謗･邯壹ｒ謨ｴ逅・・2025-11-03|譛ｪ蜃ｦ逅・ヵ繧｡繧､繝ｫ縺ｮ繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ繝ｭ繧ｸ繝・け繧呈隼蝟・＠縲∝・蜉帙・邨仙粋蜃ｦ逅・ｒ霑ｽ蜉縲ゅさ繝ｼ繝峨・蜿ｯ隱ｭ諤ｧ繧貞髄荳翫＆縺帙ｋ縺溘ａ縺ｫ縲∝・逅・・豬√ｌ繧呈紛逅・・2025-11-03|譛ｪ蜃ｦ逅・ヵ繧｡繧､繝ｫ繧帝勁螟悶☆繧区擅莉ｶ繧定ｿｽ蜉縺励√ヵ繧｡繧､繝ｫ繝ｪ繧ｹ繝亥叙蠕励Ο繧ｸ繝・け繧呈隼蝟・2025-11-03|繝輔ぃ繧､繝ｫ繝ｪ繧ｹ繝亥叙蠕励Ο繧ｸ繝・け繧呈隼蝟・＠縲∵悴蜃ｦ逅・ヵ繧｡繧､繝ｫ縺ｮ繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ蜃ｦ逅・ｒ蠑ｷ蛹悶ょ・蜉帙・讀懆ｨｼ繧定ｿｽ蜉縺励∝・蜉帛ｽ｢蠑上ｒ謨ｴ蛯吶・2025-11-03|繝輔ぃ繧､繝ｫ繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ繝ｭ繧ｸ繝・け繧呈隼蝟・＠縲∝・蜉帙・讀懆ｨｼ繧定ｿｽ蜉縲よ悴蜃ｦ逅・ヵ繧｡繧､繝ｫ縺ｮ繝ｪ繧ｹ繝医ｒ譏守｢ｺ縺ｫ蜃ｺ蜉帙☆繧九ｈ縺・↓菫ｮ豁｣縲・2025-11-03|繝輔ぃ繧､繝ｫ繝ｪ繧ｹ繝医・蜿門ｾ励ｒ謾ｹ蝟・＠縲∝・逅・ｸ医∩繝輔ぃ繧､繝ｫ縺ｮ邂｡逅・ｩ溯・繧定ｿｽ蜉縲よ悴蜃ｦ逅・ヵ繧｡繧､繝ｫ縺ｮ繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ繧貞ｼｷ蛹悶・2025-11-03|繝輔ぃ繧､繝ｫ繝代せ縺ｮ隗｣譫舌Ο繧ｸ繝・け繧呈隼蝟・＠縲∫ｩｺ縺ｮ蜃ｺ蜉帶凾縺ｫ螳溯｡後ｒ繧ｹ繧ｭ繝・・縺吶ｋ蜃ｦ逅・ｒ譏守｢ｺ蛹・2025-11-03|蜿､縺・ヵ繧｡繧､繝ｫ繧貞炎髯､縺吶ｋ讖溯・繧定ｿｽ蜉縺励√ヵ繧｡繧､繝ｫ繝代せ縺ｮ隗｣譫舌Ο繧ｸ繝・け繧呈隼蝟・ゆｸ崎ｦ√↑繝弱・繝峨ｒ蜑企勁縺励∝・逅・・邁｡邏蛹悶ｒ蝗ｳ繧九・2025-11-03|繝輔ぃ繧､繝ｫ繝代せ縺ｮ隗｣譫舌Ο繧ｸ繝・け繧呈隼蝟・＠縲∫ｩｺ縺ｮ繧｢繧､繝・Β繧偵せ繧ｭ繝・・縺吶ｋ蜃ｦ逅・ｒ譏守｢ｺ蛹・2025-11-03|縲轡aily Reminder Cron縲阪→縲隈et All Notes from Notion縲阪ヮ繝ｼ繝峨ｒ霑ｽ蜉縺励√Μ繝槭う繝ｳ繝繝ｼ讖溯・繧貞ｼｷ蛹悶ょ・蜉帛ｽ｢蠑上ｒ謾ｹ蝟・・2025-11-02|繧ｳ繝槭Φ繝峨°繧我ｸ崎ｦ√↑printf繧ｪ繝励す繝ｧ繝ｳ繧貞炎髯､縺励√ヵ繧｡繧､繝ｫ繝ｪ繧ｹ繝医・蜿門ｾ励ｒ邁｡邏蛹・2025-11-02|譁ｰ縺励＞繝ｯ繝ｼ繧ｯ繝輔Ο繝ｼ縲君otes to Notion Auto Organizer縲阪ｒ霑ｽ蜉縺励√せ繧ｱ繧ｸ繝･繝ｼ繝ｫ繝医Μ繧ｬ繝ｼ縺ｫ繧医ｋ螳壽悄逧・↑繝輔ぃ繧､繝ｫ蜃ｦ逅・ｒ螳溯｣・ら腸蠅・ｨｭ螳壹→繝医Λ繝悶Ν繧ｷ繝･繝ｼ繝・ぅ繝ｳ繧ｰ諠・ｱ繧坦EADME縺ｫ霑ｽ險倥・2025-11-02|Add comprehensive setup and troubleshooting documentation for n8n Notes to Notion Organizer
+2025-11-02|襍ｷ蜍輔・蛛懈ｭ｢繧ｹ繧ｯ繝ｪ繝励ヨ縺ｮ繝｡繝・そ繝ｼ繧ｸ繧定恭隱槭↓鄙ｻ險ｳ縺励√お繝ｩ繝ｼ繝｡繝・そ繝ｼ繧ｸ繧呈隼蝟・ゅΘ繝ｼ繧ｶ繝ｼ縺ｸ縺ｮ譯亥・繧呈・遒ｺ蛹悶・2025-11-02|n8n迺ｰ蠅・・豌ｸ邯壼喧險ｭ螳壹ｒ霑ｽ蜉縺励∬ｵｷ蜍輔・蛛懈ｭ｢繧ｹ繧ｯ繝ｪ繝励ヨ繧剃ｽ懈・縲ゆｽｿ逕ｨ譁ｹ豕輔ｒREADME縺ｫ霑ｽ險倥・2025-11-02|繝弱・繝医ヵ繧ｩ繝ｫ繝縺ｮ逶｣隕冶ｨｭ螳壹ｒ譖ｴ譁ｰ縺励√う繝吶Φ繝医・蠖｢蠑上ｒ螟画峩縲ゅヵ繧｡繧､繝ｫ繝代せ繧剃ｿｮ豁｣縺励√ヮ繝ｼ繝峨・菴咲ｽｮ繧定ｪｿ謨ｴ縲ゅΡ繝ｼ繧ｯ繝輔Ο繝ｼ縺ｮ繧｢繧ｯ繝・ぅ繝也憾諷九ｒ譛牙柑縺ｫ險ｭ螳壹・2025-11-02|繝弱・繝医ヵ繧ｩ繝ｫ繝縺ｮ逶｣隕冶ｨｭ螳壹ｒ菫ｮ豁｣縺励√ヵ繧｡繧､繝ｫ繝代せ縺ｨ繧､繝吶Φ繝医ｒ霑ｽ蜉
+2025-11-02|繝弱・繝医ヵ繧ｩ繝ｫ繝縺ｮ逶｣隕冶ｨｭ螳壹ｒ譖ｴ譁ｰ縺励∫音螳壹・繝代せ縺ｨ繧､繝吶Φ繝医ｒ霑ｽ蜉
+2025-11-02|繝弱・繝医ｒNotion縺ｫ閾ｪ蜍墓紛逅・☆繧九Ρ繝ｼ繧ｯ繝輔Ο繝ｼ繧呈眠隕丈ｽ懈・縺励＾penAI縺ｫ繧医ｋ繧ｫ繝・ざ繝ｪ縺ｨ繧ｿ繧ｰ莉倥￠讖溯・繧定ｿｽ蜉
+2025-11-02|繝弱・繝医ヵ繧ｩ繝ｫ繝縺ｮ逶｣隕冶ｨｭ螳壹ｒ譖ｴ譁ｰ縺励√ヵ繧｡繧､繝ｫ繝代せ繧・ヮ繝ｼ繝峨・菴咲ｽｮ繧剃ｿｮ豁｣縲０penAI縺ｫ繧医ｋ繧ｫ繝・ざ繝ｪ繧ｿ繧ｰ莉倥￠讖溯・縺ｮ繧ｨ繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ繧貞ｼｷ蛹悶・2025-11-02|OpenAI API縺ｮ蜻ｼ縺ｳ蜃ｺ縺玲婿豕輔ｒ菫ｮ豁｣縺励√お繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ繧定ｿｽ蜉
+2025-11-02|OpenAI API繧剃ｽｿ逕ｨ縺励◆繝弱・繝医・繧ｫ繝・ざ繝ｪ縺ｨ繧ｿ繧ｰ莉倥￠讖溯・繧偵さ繝ｼ繝峨ヮ繝ｼ繝峨↓遘ｻ陦・2025-11-02|Add Notes to Notion Auto Organizer workflow and documentation
+2025-11-02|README.md 縺ｨ繝・Φ繝励Ξ繝ｼ繝医ヵ繧｡繧､繝ｫ縺ｮ繝輔か繝ｼ繝槭ャ繝医ｒ邨ｱ荳縺励∵枚荳ｭ縺ｮ繧ｹ繝壹・繧ｹ繧定ｿｽ蜉
+2025-11-02|Add n8n workflow: Notes to Notion Auto Organizer with OpenAI integration
+2025-11-01|init: import note-articles structure with first article
+2025-11-01|Initial commit
+2025-11-01|Initial commit: note險倅ｺ狗ｮ｡逅・Μ繝昴ず繝医Μ縺ｮ繧ｻ繝・ヨ繧｢繝・・
